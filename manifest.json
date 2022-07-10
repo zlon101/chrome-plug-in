@@ -1,0 +1,20 @@
+{
+  "name": "chrome-plugin-demo",
+  "version": "1.0",
+  "description": "chrome plugin demo",
+  "manifest_version": 2,
+  "browser_action": {
+    "default_popup": "popup.html",
+    "default_icon": "images/popup.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://music.youtube.com/*"],
+      "js": ["js/music.youtube.js"]
+    },
+    {
+      "matches": ["https://cloud.tencent.com/*"],
+      "js": ["js/contentJs.js"]
+    }
+  ]
+}
