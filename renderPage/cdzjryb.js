@@ -56,7 +56,7 @@ const PageCfg = {
       return this.el.textContent.replace(/\D/g, '');
     },
   },
-  tableVal() {
+  getTableVal() {
     const handlerRow = (_tr, selector) => {
       const cols = Array.from(_tr.querySelectorAll(selector));
       return cols.map(item => item.textContent.trim());
@@ -65,11 +65,10 @@ const PageCfg = {
 
     const table = document.querySelector('table#ID_ucSCXXShowNew2_gridView');
     const trs = Array.from(table.querySelectorAll('tr'));
-    let result = trs.map((row, rIdx) => handlerRow(row, rIdx ? 'td' : 'th'));
-    const header = result[0];
-    const rows = result.slice(1).filter(row => filterCb(row));
-    result = [header, ...rows];
-    return result;
+    let rows = trs.map((row, rIdx) => handlerRow(row, rIdx ? 'td' : 'th'));
+    const header = rows[0];
+    const dataRow = rows.slice(1).filter(row => filterCb(row));
+    return { header, dataRow };
   },
   // 修改搜索参数后刷新页面
   submitSearch: () => document.getElementById('ID_ucSCXXShowNew2_btnSccx').click(),
@@ -78,88 +77,66 @@ const PageCfg = {
 };
 
 // setup
-// const TargetSearch = {
+// const wishSearchVal = {
 //   area: '双流区',
 //   startDate: '2022-05-16',
 //   endDate: '2022-08-16',
 // };
 
-(async () => {
+// wishSearchVal: 期望的搜索参数
+const parsePage = async (wishSearchVal) => {
   const { Log, Storage, saveFile, getNow } = await import('./util.js');
-  Log('inner js');
 
   // 更新筛选参数
-  const TargetSearch = Storage.get('TargetSearch', 'local');
+  // const TargetSearch = Storage.get('TargetSearch', 'local');
   const pageInfo = {};
+  pageInfo.title = document.title;
+  pageInfo.parseTime = getNow();
   Object.keys(PageCfg).forEach(k => {
     if (typeof PageCfg[k].get === 'function') {
       pageInfo[k] = PageCfg[k].get();
     }
   });
-  const isTargetSearchVa = Object.keys(TargetSearch).every(k => TargetSearch[k] === pageInfo[k]);
+  const isTargetSearchVa = Object.keys(wishSearchVal).every(k => wishSearchVal[k] === pageInfo[k]);
   if (!isTargetSearchVa) {
-    Object.keys(TargetSearch).forEach(k => {
-      PageCfg[k].set(TargetSearch[k]);
+    Object.keys(wishSearchVal).forEach(k => {
+      PageCfg[k].set(wishSearchVal[k]);
     });
     // 刷新页面
     PageCfg.submitSearch();
     return;
   }
-  Log(pageInfo);
+  // Log('pageInfo\n', pageInfo);
 
-  // 解析页面数据
-  const tableVal = PageCfg.tableVal(); // [[col], [col]]
-  Log(`数据行: ${tableVal.length - 1}`);
-  const thead = tableVal[0].map(row => `<th>${row}</th>`).join('');
-  const tbody = tableVal
-    .slice(1)
-    .map(row => `<tr>${row.map((col, cIdx) => `<td class="col-${cIdx}">${col}</td>`).join('')}</tr>`)
-    .join('');
-  const tableHtml = `<!DOCTYPE html>
-  <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>${document.title}</title>
-    <style>
-      h1 {
-        text-align: center;
+  // 解析表格
+  const tableInfo = PageCfg.getTableVal(); // { header, dataRow: [[col], [col]] }
+  Log(`数据行: ${tableInfo.dataRow.length - 1}`);
+  return { pageInfo, tableInfo };
+};
+
+// init
+(async () => {
+  const { Log } = await import('./util.js');
+
+  chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
+    Log('收到消息\n', request, '\n sender\n', sender);
+    // 来自popup
+    if (sender.id === 'dmpmcohcnfkhemdccjefninlcelpbpnl') {
+      if (request.type === 'GetPageInfo') {
+        const result = await parsePage(request.data);
+        sendMeg(result);
+        // sendResponse(data)
       }
-      table {
-        border-spacing: 0;
-      }
-      th {
-        position: sticky;
-        top: 0;
-      }
-      table, th, td {
-        border: 1px solid;
-      }
-      th, td {
-        padding: 4px;
-        border-top-width: 0;
-        border-left-width: 0;
-      }
-      .col-6, .col-7 {
-        white-space: nowrap;
-      }
-    </style>
-  </head>
-  <body>
-    <h1>${document.title} - ${getNow()}</h1>
-    <pre>PageInfo:\n${JSON.stringify(pageInfo, null, 2)}</pre>
-    <p>总数据 ${tableVal.length - 1} 条</p>
-    <table>
-      <thead>
-        <tr>${thead}</tr>
-      </thead>
-      <tbody>${tbody}</tbody>
-    </table>
-  </body>
-  </html>`;
-  // saveFile(`${document.title}-${getNow()}.html`, tableHtml);
+      return;
+    }
+  });
 })();
+
+const sendMeg = (json) => {
+  chrome.runtime.sendMessage(json, res => {
+    Log('sendMeg() cb res:', res);
+  });
+}
 
 // chrome.extension.onRequest.addListener(function (request, sender, sendResponse) {
 //   console.log(sender.tab ? 'from a content script:' + sender.tab.url : 'from the extension');
