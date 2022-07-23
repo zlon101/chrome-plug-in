@@ -1,9 +1,9 @@
 const Log = (...args) => console.log('\n🔥', ...args);
 
-const optPage = document.querySelector('.option-page');
-optPage.onclick = () => {
-  window.open('chrome-extension://dmpmcohcnfkhemdccjefninlcelpbpnl/options/options.html', '_blank', 'popup');
-};
+// const optPage = document.querySelector('.option-page');
+// optPage.onclick = () => {
+//   window.open('chrome-extension://dmpmcohcnfkhemdccjefninlcelpbpnl/options/options.html', '_blank', 'popup');
+// };
 
 const inputEles = Array.from(document.querySelectorAll('input[type="text"]'));
 const btnSubmit = document.querySelector('#submit');
@@ -16,7 +16,6 @@ btnSubmit.onclick = e => {
   }, {});
 
   chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
-    // Log('popup js, tabs\n', tabs);
     const msg = {
       type: 'GetPageInfo',
       data: form,

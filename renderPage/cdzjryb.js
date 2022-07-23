@@ -56,25 +56,13 @@ const PageCfg = {
       return this.el.textContent.replace(/\D/g, '');
     },
   },
-  getTableVal() {
-    const handlerRow = (_tr, selector) => {
-      const cols = Array.from(_tr.querySelectorAll(selector));
-      return cols.map(item => item.textContent.trim());
-    };
-    const filterCb = row => row[4].includes('住宅');
-
-    const table = document.querySelector('table#ID_ucSCXXShowNew2_gridView');
-    const trs = Array.from(table.querySelectorAll('tr'));
-    let rows = trs.map((row, rIdx) => handlerRow(row, rIdx ? 'td' : 'th'));
-    const header = rows[0];
-    const dataRow = rows.slice(1).filter(row => filterCb(row));
-    return { header, dataRow };
-  },
+  getTableVal: () => parseTable('table#ID_ucSCXXShowNew2_gridView'),
   // 修改搜索参数后刷新页面
   submitSearch: () => document.getElementById('ID_ucSCXXShowNew2_btnSccx').click(),
   prePage: () => document.getElementById('ID_ucSCXXShowNew2_UcPager1_btnNewLast').click(),
   nextPage: () => document.getElementById('ID_ucSCXXShowNew2_UcPager1_btnNewNext').click(),
 };
+
 
 // setup
 // const wishSearchVal = {
@@ -83,8 +71,12 @@ const PageCfg = {
 //   endDate: '2022-08-16',
 // };
 
-// wishSearchVal: 期望的搜索参数
-const parsePage = async (wishSearchVal) => {
+//
+/**
+ * 搜索结果列表
+ * wishSearchVal: 期望的搜索参数
+ */
+const parsePage = async (wishSearchVal = {}) => {
   const { Log, Storage, saveFile, getNow } = await import('./util.js');
 
   // 更新筛选参数
@@ -97,7 +89,7 @@ const parsePage = async (wishSearchVal) => {
       pageInfo[k] = PageCfg[k].get();
     }
   });
-  const isTargetSearchVa = Object.keys(wishSearchVal).every(k => wishSearchVal[k] === pageInfo[k]);
+  const isTargetSearchVa = Object.keys(wishSearchVal).every(k => !wishSearchVal[k] || wishSearchVal[k] === pageInfo[k]);
   if (!isTargetSearchVa) {
     Object.keys(wishSearchVal).forEach(k => {
       PageCfg[k].set(wishSearchVal[k]);
@@ -110,7 +102,9 @@ const parsePage = async (wishSearchVal) => {
 
   // 解析表格
   const tableInfo = PageCfg.getTableVal(); // { header, dataRow: [[col], [col]] }
-  Log(`数据行: ${tableInfo.dataRow.length - 1}`);
+  const filterCb = row => row[4].includes('住宅');
+  tableInfo.dataRow = tableInfo.dataRow.filter(row => filterCb(row));
+  Log(`数据行: ${tableInfo.dataRow.length}`);
   return { pageInfo, tableInfo };
 };
 
@@ -118,12 +112,16 @@ const parsePage = async (wishSearchVal) => {
 (async () => {
   const { Log } = await import('./util.js');
 
+  const result = await parsePage();
+  sendMeg(result); // 发送给选项页
+
   chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
-    Log('收到消息\n', request, '\n sender\n', sender);
-    // 来自popup
+    Log('收到消息\n', request, '\n$ sender\n', sender);
+    // 来自popup的消息
     if (sender.id === 'dmpmcohcnfkhemdccjefninlcelpbpnl') {
       if (request.type === 'GetPageInfo') {
         const result = await parsePage(request.data);
+        // 发送给选项页
         sendMeg(result);
         // sendResponse(data)
       }
@@ -132,14 +130,31 @@ const parsePage = async (wishSearchVal) => {
   });
 })();
 
-const sendMeg = (json) => {
+// =================================================================
+const sendMeg = json => {
   chrome.runtime.sendMessage(json, res => {
     Log('sendMeg() cb res:', res);
   });
-}
+};
 
 // chrome.extension.onRequest.addListener(function (request, sender, sendResponse) {
 //   console.log(sender.tab ? 'from a content script:' + sender.tab.url : 'from the extension');
 //   if (request.greeting == 'hello') sendResponse({ farewell: 'goodbye' });
 //   else sendResponse({}); // snub them.
 // });
+
+// 详情列表页
+// document.querySelector('.tbl-room table')
+function parseDetailPage() {}
+
+// 解析table
+function parseTable(tableSeletor) {
+  const handlerRow = (_tr, selector) => {
+    const cols = Array.from(_tr.querySelectorAll(selector));
+    return cols.map(item => item.textContent.trim());
+  };
+  const table = document.querySelector(tableSeletor);
+  const trs = Array.from(table.querySelectorAll('tr'));
+  const rows = trs.map((row, rIdx) => handlerRow(row, rIdx ? 'td' : 'th'));
+  return { header: rows[0], dataRow: rows.slice(1) };
+}
