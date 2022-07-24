@@ -17,7 +17,7 @@ btnSubmit.onclick = e => {
 
   chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
     const msg = {
-      type: 'GetPageInfo',
+      type: 'UpdateSearch',
       data: form,
     };
     chrome.tabs.sendMessage(tabs[0].id, msg);
