@@ -21,7 +21,7 @@ export const ChromeStorage = {
   get(k) {
     return new Promise((resolve, reject) => {
       chrome.storage.local.get(k, data => {
-        resolve(data);
+        resolve(k ? data[k] : data);
       });
     });
   },

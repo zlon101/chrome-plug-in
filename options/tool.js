@@ -16,9 +16,7 @@ const _Storage = {
 };
 
 const sendMeg = (data, callback) => {
-  const cb = (tabs) => {
-    chrome.tabs.sendMessage(tabs[0].id, data, callback);
-  };
+  const cb = (tabs) => chrome.tabs.sendMessage(tabs[0].id, data, callback);
   chrome.tabs.query({
     url: 'https://zw.cdzjryb.com/SCXX/Default.aspx*',
   }, cb);
@@ -40,17 +38,30 @@ function renderTable(data) {
   const { dataRow } = tableInfo;
   const thead = tableInfo.header.map(row => `<th>${row}</th>`).join('');
   
+  
   const tbody = dataRow.map(row => {
     const lastCol = row[row.length - 1];
+    const hasDetailTable = typeof lastCol !== 'string';
+    // return [proRow, detailRow].join('');
+    let detailUrl = '';
+    if (hasDetailTable) {
+      detailUrl = lastCol.url;
+    } else {
+      detailUrl = lastCol;
+    }
 
     const proRow = `<tr>${row.map((col, cIdx) => {
       if (cIdx !== row.length - 1) {
         return `<td class="col-${cIdx}">${col}</td>`;
       }
-      return `<td class="col-${cIdx}"><a href="${lastCol.url}" target="_blank">详情</a></td>`;
+      return `<td class="col-${cIdx}"><a href="${detailUrl}" target="_blank">详情</a></td>`;
     }).join('')}</tr>`;
 
-    // Log(col);
+    if (!hasDetailTable) {
+      return proRow;
+    }
+
+    
     const unitList = lastCol.info;
     const detailTbody = unitList.map(unitItem => `<tr>
       <td>${unitItem.building}栋${unitItem.unit}单元</td>
@@ -70,6 +81,7 @@ function renderTable(data) {
     return [proRow, detailRow].join('');
   });
   
+
   const html = `<h2>${pageInfo.title} - ${pageInfo.parseTime}</h2>
     <p>页面信息</p>
     <pre>${JSON.stringify(pageInfo, null, 2)}</pre>

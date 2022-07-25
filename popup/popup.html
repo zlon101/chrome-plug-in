@@ -10,23 +10,30 @@
         padding: 0;
         outline: none;
       }
+      body {
+        padding: 8px;
+      }
       input {
         margin: 8px 0;
         width: 250px;
         height: 40px;
       }
-      input[type="text"] {
+      input[type='text'] {
         height: 30px;
       }
-      input[type="checkbox"] {
+      input[type='checkbox'] {
         width: 16px;
         height: 16px;
       }
       button {
         cursor: pointer;
       }
-      .form {
-        padding: 0 8px 8px;
+      .flex {
+        display: flex;
+        align-items: center;
+      }
+      .flex > :first-child {
+        margin-right: 4px;
       }
     </style>
   </head>
@@ -37,7 +44,10 @@
       <input type="text" id="area" placeholder="地区" />
       <input type="text" id="startDate" placeholder="开始日期: 2022-10-10" />
       <input type="text" id="endDate" placeholder="结束日期: 2022-10-10" />
-      <p><input type="checkbox" id="isParseDetail" /></p>
+      <p class="flex">
+        <span>解析详情页</span>
+        <input type="checkbox" id="isParseDetail" />
+      </p>
       <!-- checked -->
       <button id="submit">确定</button>
     </div>

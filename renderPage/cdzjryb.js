@@ -156,6 +156,11 @@ const parseIndexPage = async (popupForm) => {
   });
   
   // 打开详情页
+  const completeCb = () => {
+    const data = { pageInfo, tableInfo };
+    Storage.set('pageStorage', data);
+    sendMeg(data); // 发送给选项页
+  };
   if (extCfg.isParseDetail) {
     setTimeout(() => {
       tableInfo.dataRow.forEach(row => {
@@ -164,6 +169,8 @@ const parseIndexPage = async (popupForm) => {
         // setTimeout(() => targetW.postMessage('列表页发送给详情页', Origin), 2000);
       });
     });
+  } else {
+    completeCb();
   }
   
   // 添加详情信息
@@ -178,9 +185,7 @@ const parseIndexPage = async (popupForm) => {
       const curRow = tableInfo.dataRow[rIdx];
       curRow[curRow.length - 1] = detail;
       if (count === tableInfo.dataRow.length) {
-        const data = { pageInfo, tableInfo };
-        Storage.set('pageStorage', data);
-        sendMeg(data); // 发送给选项页
+        completeCb();
       }
     },
   };
@@ -236,6 +241,8 @@ const parseIndexPage = async (popupForm) => {
 
   // 项目详情页
   if (PathName === '/roompricezjw/index.html') {
+    const isParseDetail = await ChromeStorage.get('isParseDetail');
+    if (!isParseDetail) return;
     setTimeout(async () => {
       const info = await parseDetailPage();
       window.opener.postMessage({
