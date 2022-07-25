@@ -36,13 +36,17 @@ function renderTable(data) {
 
   const { pageInfo, tableInfo } = data;
   const { dataRow } = tableInfo;
-  const thead = tableInfo.header.map(row => `<th>${row}</th>`).join('');
+  const BList = [6, 8, 9, 10];
+  const ExCol = ['可售数量', '价格', '面积'];
+  let _header = tableInfo.header;
+  _header = [..._header.slice(0, -1), ...ExCol, _header[_header.length -1]];
+  let theadArr = _header.map((col, cInd0) => `<th>${col}_${cInd0}</th>`);
+  theadArr = theadArr.filter((_, colIdx0) => !BList.includes(colIdx0));
   
-  
+  let hasDetailTable = false;
   const tbody = dataRow.map((row, rInd) => {
     const lastCol = row[row.length - 1];
-    const hasDetailTable = typeof lastCol !== 'string';
-    // return [proRow, detailRow].join('');
+    hasDetailTable = typeof lastCol !== 'string';
     let detailUrl = '';
     if (hasDetailTable) {
       detailUrl = lastCol.url;
@@ -50,22 +54,23 @@ function renderTable(data) {
       detailUrl = lastCol;
     }
 
-    const proRow = `<tr>${row.map((col, cIdx) => {
+    let colArr = row.map((col, cIdx) => {
       if (cIdx !== row.length - 1) {
         return `<td class="col-${cIdx}">${col}</td>`;
       }
       return `<td class="col-${cIdx}">
         <div><a href="${detailUrl}" target="_blank">详情</a></div>
-        <div class="expand-btn" rInd="${rInd}">展开</div> 
+        <div class="expand-btn" rInd="${rInd}">${hasDetailTable ? '展开' : ''}</div>
       </td>`;
-    }).join('')}</tr>`;
+    });
+    colArr = colArr.filter((_, colIndx2) => !BList.includes(colIndx2));
+    let proRow = `<tr>${colArr.join('')}`;
 
     if (!hasDetailTable) {
       return proRow;
     }
-
     
-    const unitList = lastCol.info;
+    const unitList = lastCol.info; // 单元列表
     const detailTbody = unitList.map(unitItem => `<tr>
       <td>${unitItem.building}栋${unitItem.unit}单元</td>
       <td>${unitItem.salesNum}</td>
@@ -81,9 +86,21 @@ function renderTable(data) {
       </table>
     `;
     const detailRow = `<tr><td colspan="20">${detailTable}</td></tr>`;
+    // 添加扩展列
+    const totalNum = unitList.reduce((acc, cur) => acc + Number(cur.salesNum), 0);
+    Log('totalNum:', totalNum);
+    const priceArr = unitList.reduce((acc, item) => [...acc, ...item.price], []);
+    const priceRange = `${Math.min(...priceArr)} - ${Math.max(...priceArr)}`;
+    const szArr = unitList.reduce((acc, item) => [...acc, ...item.areaSize], []);
+    const szRange = `${Math.min(...szArr)} - ${Math.max(...szArr)}`;
+    const exCol = [totalNum, priceRange, szRange].map(item => `<td class="nowrap">${item}</td>`);
+    colArr = [...colArr.slice(0, -1), ...exCol, colArr[colArr.length - 1]];
+    proRow = `<tr>${colArr.join('')}`;
     return [proRow, detailRow].join('');
   });
-  
+  if (!hasDetailTable) {
+    theadArr.splice(-1 - ExCol.length, ExCol.length);
+  }
 
   const html = `<h2>${pageInfo.title} - ${pageInfo.parseTime}</h2>
     <p>页面信息</p>
@@ -91,7 +108,7 @@ function renderTable(data) {
     <p>总数据 ${dataRow.length} 条</p>
     <table>
       <thead>
-        <tr>${thead}</tr>
+        <tr>${theadArr.join('')}</tr>
       </thead>
       <tbody>${tbody.join('')}</tbody>
   </table>`;
