@@ -39,7 +39,7 @@ function renderTable(data) {
   const thead = tableInfo.header.map(row => `<th>${row}</th>`).join('');
   
   
-  const tbody = dataRow.map(row => {
+  const tbody = dataRow.map((row, rInd) => {
     const lastCol = row[row.length - 1];
     const hasDetailTable = typeof lastCol !== 'string';
     // return [proRow, detailRow].join('');
@@ -54,7 +54,10 @@ function renderTable(data) {
       if (cIdx !== row.length - 1) {
         return `<td class="col-${cIdx}">${col}</td>`;
       }
-      return `<td class="col-${cIdx}"><a href="${detailUrl}" target="_blank">详情</a></td>`;
+      return `<td class="col-${cIdx}">
+        <div><a href="${detailUrl}" target="_blank">详情</a></div>
+        <div class="expand-btn" rInd="${rInd}">展开</div> 
+      </td>`;
     }).join('')}</tr>`;
 
     if (!hasDetailTable) {
@@ -70,7 +73,7 @@ function renderTable(data) {
       <td>${unitItem.areaSize[0]} - ${unitItem.areaSize[1]}</td>
     </tr>`);
     const detailTable = `
-      <table class="detail-table">
+      <table class="detail-table rind-${rInd}">
         <thead>
           <tr><td>栋/单元</td><td>可售数量</td><td>价格</td><td>面积</td></tr>
         </thead>
@@ -94,6 +97,19 @@ function renderTable(data) {
   </table>`;
   const wrap = document.getElementById('content');
   wrap.innerHTML = html;
+  // 注册监听器
+  setTimeout(() => {
+    const expandBtns = Array.from(document.querySelectorAll('.expand-btn'));
+    Log('expandBtns', expandBtns);
+    expandBtns.forEach(btn => {
+      btn.onclick = () => {
+        const rInd2 = btn.getAttribute('rInd');
+        btn.textContent = btn.textContent === '展开' ? '收起' : '展开';
+        const detailWrap = document.querySelector(`.detail-table.rind-${rInd2}`);
+        detailWrap.classList.toggle('show');
+      };
+    });
+  }, 1000);
 };
 
 function renderTableV2(data) {
@@ -140,3 +156,4 @@ function renderTableV2(data) {
 };
 
 const Log = (...args) => console.log('\n🔥', ...args);
+
