@@ -17,9 +17,26 @@ export const Storage = {
   },
 };
 
+export const ChromeStorage = {
+  get(k) {
+    return new Promise((resolve, reject) => {
+      chrome.storage.local.get(k, data => {
+        resolve(data);
+      });
+    });
+  },
+  set(obj) {
+    return new Promise((resolve, reject) => {
+      chrome.storage.local.set(obj, data => {
+        resolve(data);
+      });
+    });
+  },
+};
+
 export const getNow = () => {
   const date = new Date();
-  const m = `00${date.getMonth()+1}`.slice(-2);
+  const m = `00${date.getMonth() + 1}`.slice(-2);
   const day = `00${date.getDate()}`.slice(-2);
   const h = `00${date.getHours()}`.slice(-2);
   const min = `00${date.getMinutes()}`.slice(-2);

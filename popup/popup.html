@@ -5,24 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>popup</title>
     <style>
-      #content {
-        color: red;
+      * {
+        margin: 0;
+        padding: 0;
+        outline: none;
       }
       input {
         margin: 8px 0;
         width: 250px;
         height: 40px;
       }
+      input[type="text"] {
+        height: 30px;
+      }
+      input[type="checkbox"] {
+        width: 16px;
+        height: 16px;
+      }
+      button {
+        cursor: pointer;
+      }
+      .form {
+        padding: 0 8px 8px;
+      }
     </style>
   </head>
   <body>
-    <h1>custom extends</h1>
     <a href="https://zw.cdzjryb.com/SCXX/Default.aspx?action=ucSCXXShowNew2" target="_blank">住建蓉e办</a>
     <a href="chrome-extension://dmpmcohcnfkhemdccjefninlcelpbpnl/options/options.html" target="_blank">选项页</a>
-    <input type="text" id="area" placeholder="地区" />
-    <input type="text" id="startDate" placeholder="开始日期: 2022-10-10" />
-    <input type="text" id="endDate" placeholder="结束日期: 2022-10-10" />
-    <button id="submit">确定</button>
+    <div class="form">
+      <input type="text" id="area" placeholder="地区" />
+      <input type="text" id="startDate" placeholder="开始日期: 2022-10-10" />
+      <input type="text" id="endDate" placeholder="结束日期: 2022-10-10" />
+      <p><input type="checkbox" id="isParseDetail" /></p>
+      <!-- checked -->
+      <button id="submit">确定</button>
+    </div>
   </body>
   <script src="./index.js"></script>
 </html>

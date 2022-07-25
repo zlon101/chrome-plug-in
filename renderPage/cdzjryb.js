@@ -69,16 +69,22 @@ const PageCfg = {
   nextPage: () => document.getElementById('ID_ucSCXXShowNew2_UcPager1_btnNewNext').click(),
 };
 
-// const wishSearchVal = {
-//   area: '双流区',
-//   startDate: '2022-05-16',
-//   endDate: '2022-08-16',
-// };
-const parseIndexPage = async (wishSearchVal = {}) => {
-  const { Log, Storage, saveFile, getNow } = await import('./util.js');
+/**
+ * 插件配置
+extCfg: {
+  area: '双流区',
+  startDate: '2022-05-16',
+  endDate: '2022-08-16',
+  isParseDetail: true,
+};
+*/
+const parseIndexPage = async (extCfg) => {
+  const { Log, Storage, getNow, ChromeStorage } = await import('./util.js');
+  if (!extCfg) {
+    extCfg = await ChromeStorage.get(null);
+  }
 
   // 更新筛选参数
-  // const TargetSearch = Storage.get('TargetSearch', 'local');
   const pageInfo = {};
   pageInfo.title = document.title;
   pageInfo.parseTime = getNow();
@@ -87,15 +93,23 @@ const parseIndexPage = async (wishSearchVal = {}) => {
       pageInfo[k] = PageCfg[k].get();
     }
   });
-  const isTargetSearchVa = Object.keys(wishSearchVal).every(k => !wishSearchVal[k] || wishSearchVal[k] === pageInfo[k]);
+  const searchParam = {};
+  let isTargetSearchVa = true;
+  Object.keys(extCfg).forEach(k => {
+    if (k === 'isParseDetail') return;
+    searchParam[k] = extCfg[k];
+    isTargetSearchVa = isTargetSearchVa && (!extCfg[k] || extCfg[k] === pageInfo[k]);
+  });
   if (!isTargetSearchVa) {
-    Object.keys(wishSearchVal).forEach(k => {
-      PageCfg[k].set(wishSearchVal[k]);
+    Object.keys(searchParam).forEach(k => {
+      PageCfg[k].set(searchParam[k]);
     });
     // 刷新页面
     PageCfg.submitSearch();
     return;
   }
+  ['area', 'startDate', 'endDate'].forEach(k => extCfg[k] = pageInfo[k]);
+  ChromeStorage.set(extCfg);
 
   Log('pageInfo\n', pageInfo);
   // 解析表格
@@ -109,35 +123,42 @@ const parseIndexPage = async (wishSearchVal = {}) => {
     const detailHref = row[row.length - 1];
     detailUrlIdx[detailHref] = rIdx;
   });
+  
   // 打开详情页
-  setTimeout(() => {
-    tableInfo.dataRow.forEach(row => {
-      const detailUrl = row[row.length - 1];
-      const targetW = window.open(detailUrl, '_blank');
-      // setTimeout(() => targetW.postMessage('列表页发送给详情页', Origin), 2000);
+  if (extCfg.isParseDetail) {
+    setTimeout(() => {
+      tableInfo.dataRow.forEach(row => {
+        const detailUrl = row[row.length - 1];
+        const targetW = window.open(detailUrl, '_blank');
+        // setTimeout(() => targetW.postMessage('列表页发送给详情页', Origin), 2000);
+      });
     });
-  });
-
+  }
+  
   // 添加详情信息
   let count = 0;
-  return (detail) => {
-    ++count;
-    Log('添加详情信息\n', detail);
-    const rIdx = detailUrlIdx[detail.url];
-    const curRow = tableInfo.dataRow[rIdx];
-    curRow[curRow.length - 1] = detail;
-    if (count === tableInfo.dataRow.length) {
-      const data = { pageInfo, tableInfo };
-      Storage.set('pageStorage', data);
-      sendMeg(data); // 发送给选项页
-    }
+  return {
+    pageInfo,
+    tableInfo,
+    updateDetailCol: (detail) => {
+      ++count;
+      Log('添加详情信息\n', detail);
+      const rIdx = detailUrlIdx[detail.url];
+      const curRow = tableInfo.dataRow[rIdx];
+      curRow[curRow.length - 1] = detail;
+      if (count === tableInfo.dataRow.length) {
+        const data = { pageInfo, tableInfo };
+        Storage.set('pageStorage', data);
+        sendMeg(data); // 发送给选项页
+      }
+    },
   };
   // return { pageInfo, tableInfo };
 };
 
 // init
 (async () => {
-  const { Log, Storage } = await import('./util.js');
+  const { Log, Storage, ChromeStorage } = await import('./util.js');
 
   let addDetailInfo = () => {};
   // 接收来自详情页的消息
@@ -151,21 +172,31 @@ const parseIndexPage = async (wishSearchVal = {}) => {
 
   // 列表页
   if (PathName === '/SCXX/Default.aspx') {
-    addDetailInfo = await parseIndexPage();
+    const indexPageRes = await parseIndexPage();
+    addDetailInfo = indexPageRes.updateDetailCol;
 
-    chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
-      Log('收到消息\n', request, '\n sender\n', sender);
+    chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+      // Log('收到消息\n', request, '\n sender\n', sender);
       const ExtendId = 'dmpmcohcnfkhemdccjefninlcelpbpnl';
-      if (sender.id === ExtendId) {
+      if (sender.id !== ExtendId) return;
+      
+      const reqType = request.type;
+      if (reqType === 'UpdateSearch') {
         // 来自popup的消息, 更新筛选参数
-        if (request.type === 'UpdateSearch') {
-          addDetailInfo = await parseIndexPage(request.data);
-        } else if (request.type === 'OptionRende') {
-          const indexPage = Storage.get('pageStorage');
-          sendMeg(indexPage); // 发送给选项页
-        }
-        // sendResponse(data)
+        parseIndexPage(request.data).then(indexPageRes2 => {
+          addDetailInfo = indexPageRes2.updateDetailCol;
+        })
+      } else if (reqType === 'PopupRended') {
+        // popup打开，同步筛选参数给popup
+        ChromeStorage.get(null).then(extCfg1 => {
+          sendResponse(extCfg1);
+        })
+      } else if (reqType === 'OptionRende') {
+        // 选项页打开，发送数据给选项页
+        const indexPage = Storage.get('pageStorage');
+        sendResponse(indexPage);
       }
+      return true;
     });
     return;
   }
@@ -248,6 +279,9 @@ function parseTable(tableSeletor) {
     });
   };
   const table = document.querySelector(tableSeletor);
+  if (!table) {
+    return { header: [], dataRow: [] };
+  }
   const trs = Array.from(table.querySelectorAll('tr'));
   const rows = trs.map((row, rIdx) => handlerRow(row, rIdx ? 'td' : 'th'));
   return { header: rows[0], dataRow: rows.slice(1) };
@@ -256,10 +290,8 @@ function parseTable(tableSeletor) {
 /**
  * 发送消息
 */
-const sendMeg = json => {
-  chrome.runtime.sendMessage(json, res => {
-    Log('sendMeg() cb res:', res);
-  });
+const sendMeg = (json, cb) => {
+  chrome.runtime.sendMessage(json, cb);
 };
 
 // chrome.extension.onRequest.addListener(function (request, sender, sendResponse) {

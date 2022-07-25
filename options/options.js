@@ -1,13 +1,17 @@
 // import { Log, sendMeg, saveFile, renderTable } from './tool';
 
-sendMeg({ type: 'OptionRende' });
-
-chrome.runtime.onMessage.addListener((req, sender, sendResponse) => {
-  Log('收到消息\nsender\n', sender, 'request\n', req);
-  _Storage.set('pageData', req);
-  renderTable(req);
-  // sendResponse();
+sendMeg({ type: 'OptionRende' }, res => {
+  Log('OptionRende 响应:', res);
+  _Storage.set('pageData', res);
+  renderTable(res);
 });
+
+// chrome.runtime.onMessage.addListener((req, sender, sendResponse) => {
+//   Log('收到消息\nsender\n', sender, 'request\n', req);
+//   _Storage.set('pageData', req);
+//   renderTable(req);
+//   return true;
+// });
 
 renderTable(_Storage.get('pageData'));
 

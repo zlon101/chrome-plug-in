@@ -15,10 +15,9 @@ const _Storage = {
   },
 };
 
-const sendMeg = json => {
+const sendMeg = (data, callback) => {
   const cb = (tabs) => {
-    // Log('tabs\n', tabs);
-    chrome.tabs.sendMessage(tabs[0].id, json);
+    chrome.tabs.sendMessage(tabs[0].id, data, callback);
   };
   chrome.tabs.query({
     url: 'https://zw.cdzjryb.com/SCXX/Default.aspx*',
