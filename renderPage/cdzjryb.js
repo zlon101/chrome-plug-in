@@ -8,12 +8,12 @@
  * 当前页码
  * 总页数
  * 确定
-*/
+ */
 
 /**
  * 搜索结果列表: https://zw.cdzjryb.com/SCXX/Default.aspx?action=ucSCXXShowNew2
  * wishSearchVal: 期望的搜索参数
-*/
+ */
 const PathName = window.location.pathname;
 const Origin = window.location.origin;
 
@@ -87,6 +87,35 @@ const PageCfg = {
   nextPage: () => document.getElementById('ID_ucSCXXShowNew2_UcPager1_btnNewNext').click(),
 };
 
+// init
+(async () => {
+  const { Log, Storage, ChromeStorage } = await import('./util.js');
+
+  if (PathName === '/SCXX/Default.aspx') {
+    return handleIndexPage();
+  }
+
+  // 项目详情页
+  if (PathName === '/roompricezjw/index.html') {
+    const isParseDetail = await ChromeStorage.get('isParseDetail');
+    if (!isParseDetail) return;
+    setTimeout(async () => {
+      const info = await parseDetailPage();
+      window.opener.postMessage(
+        {
+          type: 'DetailInfo',
+          info,
+          url: window.location.href,
+        },
+        Origin,
+      );
+      Log('项目详情页', info);
+      setTimeout(() => window.close());
+    }, 200);
+  }
+})();
+
+// =========== 工具方法 ======================================================
 /**
  * 插件配置
 extCfg: {
@@ -98,10 +127,58 @@ extCfg: {
   isParseDetail: true,
 };
 */
-const SearchField = ['area', 'startDate', 'endDate', 'proName', 'proId'];
-const ExtFields = [...SearchField, 'isParseDetail']; // popup 配置字段
-const parseIndexPage = async (popupForm) => {
+
+/**
+ * 列表页
+ */
+async function handleIndexPage() {
+  const { Log, Storage, ChromeStorage } = await import('./util.js');
+
+  let addDetailInfo = () => {};
+  // 接收来自详情页的消息
+  window.addEventListener('message', e => {
+    if (e.origin !== Origin) return;
+    const eData = e.data;
+    if (eData.type === 'DetailInfo') {
+      addDetailInfo(eData);
+    }
+  });
+
+  const indexPageRes = await parseIndexPage();
+  if (!indexPageRes) return;
+  addDetailInfo = indexPageRes.updateDetailCol;
+
+  chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    // Log('收到消息\n', request, '\n sender\n', sender);
+    const ExtendId = 'dmpmcohcnfkhemdccjefninlcelpbpnl';
+    if (sender.id !== ExtendId) return;
+
+    const reqType = request.type;
+    if (reqType === 'UpdateSearch') {
+      // 来自popup的消息, 更新筛选参数
+      parseIndexPage(request.data).then(indexPageRes2 => {
+        if (indexPageRes2) {
+          addDetailInfo = indexPageRes2.updateDetailCol;
+        }
+      });
+    } else if (reqType === 'PopupRended') {
+      // popup打开，同步筛选参数给popup
+      ChromeStorage.get(null).then(extCfg1 => {
+        sendResponse(extCfg1);
+      });
+    } else if (reqType === 'OptionRende') {
+      // 选项页打开，发送数据给选项页
+      const indexPage = Storage.get('pageStorage');
+      sendResponse(indexPage);
+    }
+    return true;
+  });
+}
+
+async function parseIndexPage(popupForm) {
   const { Log, Storage, getNow, ChromeStorage } = await import('./util.js');
+  const SearchField = ['area', 'startDate', 'endDate', 'proName', 'proId'];
+  const ExtFields = [...SearchField, 'isParseDetail']; // popup 配置字段
   // 获取页面参数
   const pageInfo = {};
   pageInfo.title = document.title;
@@ -117,7 +194,7 @@ const parseIndexPage = async (popupForm) => {
   console.log('\npopupForm:%o\npreExtCfg:%o', popupForm, preExtCfg);
   const isRended = Storage.get('isRended');
   if (!popupForm && isRended) {
-    SearchField.forEach(k => extCfg[k] = pageInfo[k]);
+    SearchField.forEach(k => (extCfg[k] = pageInfo[k]));
   }
   ChromeStorage.set(extCfg);
   Storage.set('isRended', true);
@@ -154,7 +231,7 @@ const parseIndexPage = async (popupForm) => {
     const detailHref = row[row.length - 1];
     detailUrlIdx[detailHref] = rIdx;
   });
-  
+
   // 打开详情页
   const completeCb = () => {
     const data = { pageInfo, tableInfo };
@@ -172,13 +249,13 @@ const parseIndexPage = async (popupForm) => {
   } else {
     completeCb();
   }
-  
+
   // 添加详情信息
   let count = 0;
   return {
     pageInfo,
     tableInfo,
-    updateDetailCol: (detail) => {
+    updateDetailCol: detail => {
       ++count;
       Log('添加详情信息\n', detail);
       const rIdx = detailUrlIdx[detail.url];
@@ -189,80 +266,13 @@ const parseIndexPage = async (popupForm) => {
       }
     },
   };
-};
-
-// init
-(async () => {
-  const { Log, Storage, ChromeStorage } = await import('./util.js');
-
-  let addDetailInfo = () => {};
-  // 接收来自详情页的消息
-  window.addEventListener('message', e => {
-    if (e.origin !== Origin) return;
-    const eData = e.data;
-    if (eData.type === 'DetailInfo') {
-      addDetailInfo(eData);
-    }
-  });
-
-  // 列表页
-  if (PathName === '/SCXX/Default.aspx') {
-    const indexPageRes = await parseIndexPage();
-    if (!indexPageRes) return;
-    addDetailInfo = indexPageRes.updateDetailCol;
-
-    chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-      // Log('收到消息\n', request, '\n sender\n', sender);
-      const ExtendId = 'dmpmcohcnfkhemdccjefninlcelpbpnl';
-      if (sender.id !== ExtendId) return;
-      
-      const reqType = request.type;
-      if (reqType === 'UpdateSearch') {
-        // 来自popup的消息, 更新筛选参数
-        parseIndexPage(request.data).then(indexPageRes2 => {
-          if (indexPageRes2) {
-            addDetailInfo = indexPageRes2.updateDetailCol;
-          }
-        })
-      } else if (reqType === 'PopupRended') {
-        // popup打开，同步筛选参数给popup
-        ChromeStorage.get(null).then(extCfg1 => {
-          sendResponse(extCfg1);
-        })
-      } else if (reqType === 'OptionRende') {
-        // 选项页打开，发送数据给选项页
-        const indexPage = Storage.get('pageStorage');
-        sendResponse(indexPage);
-      }
-      return true;
-    });
-    return;
-  }
-
-  // 项目详情页
-  if (PathName === '/roompricezjw/index.html') {
-    const isParseDetail = await ChromeStorage.get('isParseDetail');
-    if (!isParseDetail) return;
-    setTimeout(async () => {
-      const info = await parseDetailPage();
-      window.opener.postMessage({
-        type: 'DetailInfo',
-        info,
-        url: window.location.href,
-      }, Origin);
-      Log('项目详情页', info);
-      setTimeout(() => window.close());
-    }, 200);
-  }
-})();
-
-// =========== 工具方法 ======================================================
+}
 
 /**
  * 详情列表页
  * https://zw.cdzjryb.com/roompricezjw/index.html?param=xx
  * @return Array<可售数量 均价 面积>栋 单元
-*/
+ */
 async function parseDetailPage() {
   const { Log } = await import('./util.js');
   const navList = Array.from(document.querySelectorAll('.room-price-nav .rp-subnav-item'));
@@ -276,9 +286,9 @@ async function parseDetailPage() {
           resolve(resutl);
           return;
         }
-        const areaSizes = rowList.map(row  => row[2]);
+        const areaSizes = rowList.map(row => row[2]);
         const [minSz, maxSz] = [Math.min(...areaSizes), Math.max(...areaSizes)];
-        const prices = rowList.map(row  => row[4]);
+        const prices = rowList.map(row => row[4]);
         let [minPrice, maxPrice] = [Math.min(...prices), Math.max(...prices)];
         minPrice = (minPrice / 10000).toFixed(2);
         maxPrice = (maxPrice / 10000).toFixed(2);
@@ -308,7 +318,7 @@ async function parseDetailPage() {
 /**
  * 解析table
  * @return Object<header, dataRow>
-*/
+ */
 function parseTable(tableSeletor) {
   const handlerRow = (_tr, selector) => {
     const cols = Array.from(_tr.querySelectorAll(selector));
@@ -329,7 +339,7 @@ function parseTable(tableSeletor) {
 
 /**
  * 发送消息
-*/
+ */
 const sendMeg = (json, cb) => {
   chrome.runtime.sendMessage(json, cb);
 };
