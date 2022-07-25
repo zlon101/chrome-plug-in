@@ -32,6 +32,9 @@ export const ChromeStorage = {
       });
     });
   },
+  remove(k) {
+    chrome.storage.local.remove(k);
+  },
 };
 
 export const getNow = () => {

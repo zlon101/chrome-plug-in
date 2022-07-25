@@ -47,6 +47,24 @@ const PageCfg = {
       this.el.value = val;
     },
   },
+  proName: {
+    el: document.getElementById('ID_ucSCXXShowNew2_txtpName'),
+    get() {
+      return this.el.value;
+    },
+    set(val) {
+      this.el.value = val;
+    },
+  },
+  proId: {
+    el: document.getElementById('ID_ucSCXXShowNew2_txtpId'),
+    get() {
+      return this.el.value;
+    },
+    set(val) {
+      this.el.value = val;
+    },
+  },
   curPageNum: {
     el: document.querySelector('#ID_ucSCXXShowNew2_UcPager1_page1 .current'),
     get() {
@@ -72,19 +90,19 @@ const PageCfg = {
 /**
  * 插件配置
 extCfg: {
+  proId
+  proName
   area: '双流区',
   startDate: '2022-05-16',
   endDate: '2022-08-16',
   isParseDetail: true,
 };
 */
-const parseIndexPage = async (extCfg) => {
+const SearchField = ['area', 'startDate', 'endDate', 'proName', 'proId'];
+const ExtFields = [...SearchField, 'isParseDetail']; // popup 配置字段
+const parseIndexPage = async (popupForm) => {
   const { Log, Storage, getNow, ChromeStorage } = await import('./util.js');
-  if (!extCfg) {
-    extCfg = await ChromeStorage.get(null);
-  }
-
-  // 更新筛选参数
+  // 获取页面参数
   const pageInfo = {};
   pageInfo.title = document.title;
   pageInfo.parseTime = getNow();
@@ -93,13 +111,28 @@ const parseIndexPage = async (extCfg) => {
       pageInfo[k] = PageCfg[k].get();
     }
   });
+  // 确定预期的参数
+  const preExtCfg = await ChromeStorage.get(null);
+  let extCfg = { ...preExtCfg, ...popupForm };
+  console.log('\npopupForm:%o\npreExtCfg:%o', popupForm, preExtCfg);
+  const isRended = Storage.get('isRended');
+  if (!popupForm && isRended) {
+    SearchField.forEach(k => extCfg[k] = pageInfo[k]);
+  }
+  ChromeStorage.set(extCfg);
+  Storage.set('isRended', true);
+
+  // 是否需要修改页面参数
   const searchParam = {};
   let isTargetSearchVa = true;
   Object.keys(extCfg).forEach(k => {
     if (k === 'isParseDetail') return;
-    searchParam[k] = extCfg[k];
-    isTargetSearchVa = isTargetSearchVa && (!extCfg[k] || extCfg[k] === pageInfo[k]);
+    if (SearchField.includes(k)) {
+      searchParam[k] = extCfg[k];
+    }
+    isTargetSearchVa = isTargetSearchVa && (!extCfg.hasOwnProperty(k) || extCfg[k] === pageInfo[k]);
   });
+
   if (!isTargetSearchVa) {
     Object.keys(searchParam).forEach(k => {
       PageCfg[k].set(searchParam[k]);
@@ -108,10 +141,8 @@ const parseIndexPage = async (extCfg) => {
     PageCfg.submitSearch();
     return;
   }
-  ['area', 'startDate', 'endDate'].forEach(k => extCfg[k] = pageInfo[k]);
-  ChromeStorage.set(extCfg);
 
-  Log('pageInfo\n', pageInfo);
+  Log('pageInfo:', pageInfo);
   // 解析表格
   const tableInfo = PageCfg.getTableVal(); // { header, dataRow: [[col], [col]] }
   const filterCb = row => row[4].includes('住宅');
@@ -153,7 +184,6 @@ const parseIndexPage = async (extCfg) => {
       }
     },
   };
-  // return { pageInfo, tableInfo };
 };
 
 // init
@@ -173,6 +203,7 @@ const parseIndexPage = async (extCfg) => {
   // 列表页
   if (PathName === '/SCXX/Default.aspx') {
     const indexPageRes = await parseIndexPage();
+    if (!indexPageRes) return;
     addDetailInfo = indexPageRes.updateDetailCol;
 
     chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
@@ -184,7 +215,9 @@ const parseIndexPage = async (extCfg) => {
       if (reqType === 'UpdateSearch') {
         // 来自popup的消息, 更新筛选参数
         parseIndexPage(request.data).then(indexPageRes2 => {
-          addDetailInfo = indexPageRes2.updateDetailCol;
+          if (indexPageRes2) {
+            addDetailInfo = indexPageRes2.updateDetailCol;
+          }
         })
       } else if (reqType === 'PopupRended') {
         // popup打开，同步筛选参数给popup
