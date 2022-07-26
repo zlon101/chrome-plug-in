@@ -6,12 +6,12 @@ sendMeg({ type: 'OptionRende' }, res => {
   renderTable(res);
 });
 
-// chrome.runtime.onMessage.addListener((req, sender, sendResponse) => {
-//   Log('收到消息\nsender\n', sender, 'request\n', req);
-//   _Storage.set('pageData', req);
-//   renderTable(req);
-//   return true;
-// });
+chrome.runtime.onMessage.addListener((req, sender, sendResponse) => {
+  // Log('收到消息\nsender\n', sender, 'request\n', req);
+  _Storage.set('pageData', req);
+  renderTable(req);
+  return true;
+});
 
 renderTable(_Storage.get('pageData'));
 

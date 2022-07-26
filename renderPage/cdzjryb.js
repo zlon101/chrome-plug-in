@@ -257,7 +257,7 @@ async function parseIndexPage(popupForm) {
     tableInfo,
     updateDetailCol: detail => {
       ++count;
-      Log('添加详情信息\n', detail);
+      // Log('添加详情信息\n', detail);
       const rIdx = detailUrlIdx[detail.url];
       const curRow = tableInfo.dataRow[rIdx];
       curRow[curRow.length - 1] = detail;
@@ -310,7 +310,7 @@ async function parseDetailPage() {
     const unit = nav.getAttribute('data-val'); // 单元
     nav.click();
     const result = await getTable();
-    buildings.push({ ...result, building, unit, url });
+    result.salesNum && buildings.push({ ...result, building, unit, url });
   }
   return buildings;
 }

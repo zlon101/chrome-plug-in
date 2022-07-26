@@ -40,7 +40,15 @@ function renderTable(data) {
   const ExCol = ['可售数量', '价格', '面积'];
   let _header = tableInfo.header;
   _header = [..._header.slice(0, -1), ...ExCol, _header[_header.length -1]];
-  let theadArr = _header.map((col, cInd0) => `<th>${col}_${cInd0}</th>`);
+  let theadArr = _header.map((col, cInd0) => {
+    if (cInd0 === _header.length - 1) {
+      return `<th>
+        <p>${col}_${cInd0}</p>
+        <div style="display:none" class="expand-all-btn btn">展开</div>
+      </th>`;
+    }
+    return `<th>${col}_${cInd0}</th>`;
+  });
   theadArr = theadArr.filter((_, colIdx0) => !BList.includes(colIdx0));
   
   let hasDetailTable = false;
@@ -60,7 +68,7 @@ function renderTable(data) {
       }
       return `<td class="col-${cIdx}">
         <div><a href="${detailUrl}" target="_blank">详情</a></div>
-        <div class="expand-btn" rInd="${rInd}">${hasDetailTable ? '展开' : ''}</div>
+        <div class="expand-btn btn" rInd="${rInd}">${hasDetailTable ? '展开' : ''}</div>
       </td>`;
     });
     colArr = colArr.filter((_, colIndx2) => !BList.includes(colIndx2));
@@ -88,7 +96,6 @@ function renderTable(data) {
     const detailRow = `<tr><td colspan="20">${detailTable}</td></tr>`;
     // 添加扩展列
     const totalNum = unitList.reduce((acc, cur) => acc + Number(cur.salesNum), 0);
-    Log('totalNum:', totalNum);
     const priceArr = unitList.reduce((acc, item) => [...acc, ...item.price], []);
     const priceRange = `${Math.min(...priceArr)} - ${Math.max(...priceArr)}`;
     const szArr = unitList.reduce((acc, item) => [...acc, ...item.areaSize], []);
@@ -100,6 +107,9 @@ function renderTable(data) {
   });
   if (!hasDetailTable) {
     theadArr.splice(-1 - ExCol.length, ExCol.length);
+  } else {
+    const lastCol2 = theadArr[theadArr.length - 1];
+    theadArr[theadArr.length - 1] = lastCol2.replace(/style="display:none"/, '');
   }
 
   const html = `<h2>${pageInfo.title} - ${pageInfo.parseTime}</h2>
@@ -112,12 +122,11 @@ function renderTable(data) {
       </thead>
       <tbody>${tbody.join('')}</tbody>
   </table>`;
-  const wrap = document.getElementById('content');
-  wrap.innerHTML = html;
+  document.getElementById('content').innerHTML = html;
+
   // 注册监听器
   setTimeout(() => {
     const expandBtns = Array.from(document.querySelectorAll('.expand-btn'));
-    Log('expandBtns', expandBtns);
     expandBtns.forEach(btn => {
       btn.onclick = () => {
         const rInd2 = btn.getAttribute('rInd');
@@ -126,6 +135,19 @@ function renderTable(data) {
         detailWrap.classList.toggle('show');
       };
     });
+
+    const expandAllBtn = document.querySelector('.expand-all-btn');
+    if (expandAllBtn) {
+      expandAllBtn.onclick = () => {
+        expandAllBtn.textContent = expandAllBtn.textContent === '展开' ? '收起' : '展开';
+        const expandBtns2 = Array.from(document.querySelectorAll('.expand-btn'));
+        expandBtns2.forEach(btn => {
+          btn.textContent = btn.textContent === '展开' ? '收起' : '展开';
+        });
+        const detailWraps = Array.from(document.querySelectorAll(`.detail-table`));
+        detailWraps.forEach(item => item.classList.toggle('show'));
+      };
+    }
   }, 1000);
 };
 

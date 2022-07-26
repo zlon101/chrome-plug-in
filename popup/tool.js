@@ -10,7 +10,7 @@ const ChromeStorage = {
   get(k) {
     return new Promise((resolve, reject) => {
       chrome.storage.local.get(k, data => {
-        resolve(data);
+        resolve(k ? data[k] : data);
       });
     });
   },
@@ -20,6 +20,9 @@ const ChromeStorage = {
         resolve(data);
       });
     });
+  },
+  remove(k) {
+    chrome.storage.local.remove(k);
   },
 };
 

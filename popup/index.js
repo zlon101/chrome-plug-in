@@ -20,6 +20,9 @@ btnSubmit.onclick = async () => {
     acc[type] = val;
     return acc;
   }, {});
+
+  const preExtCfg = await ChromeStorage.get(null);
+  ChromeStorage.set({ ...preExtCfg, ...form });
   
   sendMsgToPage({ type: 'UpdateSearch', data: form });
 };
