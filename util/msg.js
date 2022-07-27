@@ -2,7 +2,7 @@
 export const sendToCtxJs = (data, callback) => {
   const queryCb = tabs => {
     if (!tabs.length) {
-      Log('sendToCtxJs()未找到tab');
+      console.log('\n$ sendToCtxJs()未找到tab');
       return;
     }
     chrome.tabs.sendMessage(tabs[0].id, data, callback);

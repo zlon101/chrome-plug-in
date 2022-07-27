@@ -1,5 +1,5 @@
 import { renderTable } from './tool.js';
-import { Log, sendToCtxJs, saveFile, Storager, regMsgListener } from '../util/index.js';
+import { Log, sendToCtxJs, saveFile, Storager, regMsgListener, ChromeStorage } from '../util/index.js';
 
 regMsgListener((req, sender, sendResponse) => {
   // Log('收到消息\nsender\n', sender, 'request\n', req);

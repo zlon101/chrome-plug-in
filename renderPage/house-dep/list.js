@@ -194,6 +194,7 @@ async function parseIndexPage(popupForm) {
   const completeCb = () => {
     const data = { pageInfo, tableInfo };
     Storager.set('pageStorage', data);
+    // TODO
     sendMeg(data); // 发送给选项页
   };
   // 打开详情页

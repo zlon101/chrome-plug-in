@@ -21,8 +21,6 @@ btnSubmit.onclick = async () => {
     return acc;
   }, {});
 
-  // const preExtCfg = await ChromeStorage.get(null);
-  // ChromeStorage.set({ ...preExtCfg, ...form });
   ChromeStorage.set(form);
   
   sendToCtxJs({ type: 'UpdateSearch', data: form });
