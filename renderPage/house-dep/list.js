@@ -1,5 +1,5 @@
 import { parseTable } from '../tool.js';
-const { Log, Storager, ChromeStorage, getNow, regMsgListener, sendMeg } = await import('../../util/index.js');
+import { Log, Storager, ChromeStorage, getNow, regMsgListener, sendMeg } from '../../util/index.js';
 
 const PageCfg = {
   // 地区
@@ -69,6 +69,10 @@ const PageCfg = {
   submitSearch: () => document.getElementById('ID_ucSCXXShowNew2_btnSccx').click(),
   prePage: () => document.getElementById('ID_ucSCXXShowNew2_UcPager1_btnNewLast').click(),
   nextPage: () => document.getElementById('ID_ucSCXXShowNew2_UcPager1_btnNewNext').click(),
+  toFirstPage: () => {
+    document.getElementById('ID_ucSCXXShowNew2_UcPager1_txtPage').value = 1;
+    document.getElementById('ID_ucSCXXShowNew2_UcPager1_btnPageSubmit').click();
+  },
 };
 
 const SearchField = ['area', 'startDate', 'endDate', 'proName', 'proId'];
@@ -136,11 +140,17 @@ async function parseIndexPage(popupForm) {
       pageInfo[k] = PageCfg[k].get();
     }
   });
+  Log('pageInfo:', pageInfo);
+  // 定位到第一页
+  const isRended = Storager.get('isRended');
+  if (!isRended && (+pageInfo.curPageNum) !== 1) {
+    PageCfg.toFirstPage();
+    return;
+  }
   // 确定预期的参数
   const preExtCfg = await ChromeStorage.get(null);
   let extCfg = { ...preExtCfg, ...popupForm };
   console.log('\npopupForm:%o\npreExtCfg:%o', popupForm, preExtCfg);
-  const isRended = Storager.get('isRended');
   if (!popupForm && isRended) {
     SearchField.forEach(k => (extCfg[k] = pageInfo[k]));
   }
@@ -167,7 +177,6 @@ async function parseIndexPage(popupForm) {
     return;
   }
 
-  Log('pageInfo:', pageInfo);
   // 解析表格
   const tableInfo = PageCfg.getTableVal(); // { header, dataRow: [[col], [col]] }
   const filterCb = row => row[4].includes('住宅');
@@ -180,12 +189,14 @@ async function parseIndexPage(popupForm) {
     detailUrlIdx[detailHref] = rIdx;
   });
 
-  // 打开详情页
+  
+  // 当前table处理完成, 继续下一页
   const completeCb = () => {
     const data = { pageInfo, tableInfo };
     Storager.set('pageStorage', data);
     sendMeg(data); // 发送给选项页
   };
+  // 打开详情页
   if (extCfg.isParseDetail) {
     setTimeout(() => {
       tableInfo.dataRow.forEach(row => {
