@@ -15,6 +15,19 @@ export const Storager = {
     }
     return JSON.parse(localStorage.getItem(k));
   },
+  append(k, v, type = 'session') {
+    const defaultV = Array.isArray(v) ? [] : {};
+    const preVal = this.get(k, type) || defaultV;
+    const nVal = Array.isArray(v) ? [...preVal, ...v] : {...preVal, ...v};
+    this.set(k, nVal, type);
+  },
+  remove(k, type = 'session') {
+    if (type === 'session') {
+      sessionStorage.removeItem(k);
+    } else {
+      localStorage.removeItem(k);
+    }
+  },
 };
 
 export const ChromeStorage = {

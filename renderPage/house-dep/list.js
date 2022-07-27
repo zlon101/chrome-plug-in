@@ -52,7 +52,7 @@ const PageCfg = {
   curPageNum: {
     el: document.querySelector('#ID_ucSCXXShowNew2_UcPager1_page1 .current'),
     get() {
-      return this.el.textContent.trim();
+      return +this.el.textContent.trim();
     },
     set(val) {
       this.el.value = val;
@@ -61,7 +61,7 @@ const PageCfg = {
   totalPageNum: {
     el: document.getElementById('ID_ucSCXXShowNew2_UcPager1_lbPageCount'),
     get() {
-      return this.el.textContent.replace(/\D/g, '');
+      return +this.el.textContent.replace(/\D/g, '');
     },
   },
   getTableVal: () => parseTable('table#ID_ucSCXXShowNew2_gridView'),
@@ -192,10 +192,17 @@ async function parseIndexPage(popupForm) {
   
   // 当前table处理完成, 继续下一页
   const completeCb = () => {
-    const data = { pageInfo, tableInfo };
-    Storager.set('pageStorage', data);
-    // TODO
-    sendMeg(data); // 发送给选项页
+    Storager.append('tableRow', tableInfo.dataRow);
+    if (pageInfo.curPageNum === pageInfo.totalPageNum) {
+      const data = { pageInfo, tableInfo };
+      tableInfo.dataRow = Storager.get('tableRow');
+      Storager.set('pageStorage', data);
+      sendMeg(data); // 发送给选项页
+      Storager.remove('tableRow');
+    } else {
+      // 下一页
+      PageCfg.nextPage();
+    }
   };
   // 打开详情页
   if (extCfg.isParseDetail) {
