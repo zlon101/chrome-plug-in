@@ -1,6 +1,6 @@
-Log('init');
+import { Log, ChromeStorage, sendToCtxJs } from '../util/index.js';
 
-sendMsgToPage({ type: 'PopupRended' }, res => {
+sendToCtxJs({ type: 'PopupRended' }, res => {
   // Log('PopupRended响应: ', res);
   const keys = Object.keys(res);
   keys.forEach(k => {
@@ -24,5 +24,5 @@ btnSubmit.onclick = async () => {
   const preExtCfg = await ChromeStorage.get(null);
   ChromeStorage.set({ ...preExtCfg, ...form });
   
-  sendMsgToPage({ type: 'UpdateSearch', data: form });
+  sendToCtxJs({ type: 'UpdateSearch', data: form });
 };

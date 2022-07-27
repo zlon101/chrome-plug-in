@@ -1,6 +1,6 @@
-export const Log = (...args) => console.log('\n🔥', ...args);
+export * from './msg.js';
 
-export const Storage = {
+export const Storager = {
   set(k, v, type = 'session') {
     const str = typeof v === 'object' ? JSON.stringify(v) : v;
     if (type === 'session') {
@@ -37,6 +37,15 @@ export const ChromeStorage = {
   },
 };
 
+export const saveFile = (fileName, str) => {
+  const url = window.URL || window.webkitURL || window;
+  const blob = new Blob([str]);
+  const saveLink = document.createElementNS('http://www.w3.org/1999/xhtml', 'a');
+  saveLink.href = url.createObjectURL(blob);
+  saveLink.download = fileName;
+  saveLink.click();
+};
+
 export const getNow = () => {
   const date = new Date();
   const m = `00${date.getMonth() + 1}`.slice(-2);
@@ -46,11 +55,4 @@ export const getNow = () => {
   return `${m}月${day}-${h}时${min}分`;
 };
 
-export const saveFile = (fileName, str) => {
-  const url = window.URL || window.webkitURL || window;
-  const blob = new Blob([str]);
-  const saveLink = document.createElementNS('http://www.w3.org/1999/xhtml', 'a');
-  saveLink.href = url.createObjectURL(blob);
-  saveLink.download = fileName;
-  saveLink.click();
-};
+export const Log = (...args) => console.log('\n🔥', ...args);

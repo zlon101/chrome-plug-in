@@ -1,19 +1,19 @@
-// import { Log, sendMeg, saveFile, renderTable } from './tool';
+import { renderTable } from './tool.js';
+import { Log, sendToCtxJs, saveFile, Storager, regMsgListener } from '../util/index.js';
 
-sendMeg({ type: 'OptionRende' }, res => {
+regMsgListener((req, sender, sendResponse) => {
+  // Log('收到消息\nsender\n', sender, 'request\n', req);
+  Storager.set('pageData', req);
+  renderTable(req);
+});
+
+sendToCtxJs({ type: 'OptionRende' }, res => {
   Log('OptionRende 响应:', res);
-  _Storage.set('pageData', res);
+  Storager.set('pageData', res);
   renderTable(res);
 });
 
-chrome.runtime.onMessage.addListener((req, sender, sendResponse) => {
-  // Log('收到消息\nsender\n', sender, 'request\n', req);
-  _Storage.set('pageData', req);
-  renderTable(req);
-  return true;
-});
-
-renderTable(_Storage.get('pageData'));
+renderTable(Storager.get('pageData'));
 
 document.getElementById('download').onclick = () => {
   const pageInfo = JSON.parse(document.querySelector('pre').textContent);
