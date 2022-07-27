@@ -17,6 +17,6 @@ renderTable(Storager.get('pageData'));
 
 document.getElementById('download').onclick = () => {
   const pageInfo = JSON.parse(document.querySelector('pre').textContent);
-  pageHtml = document.querySelector('html').outerHTML;
+  const pageHtml = document.querySelector('html').outerHTML;
   saveFile(`${pageInfo.title}${pageInfo.parseTime}.html`, pageHtml);
 }

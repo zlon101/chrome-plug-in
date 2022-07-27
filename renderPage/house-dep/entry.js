@@ -21,11 +21,14 @@ const init = async () => {
   const { Log, ChromeStorage } = await import('../../util/index.js');
   const { handleIndexPage } = await import('./list.js');
   const { parseDetailPage } = await import('./detail.js');
+
   if (PathName === '/SCXX/Default.aspx') {
     return handleIndexPage();
   }
 
   // 项目详情页
+  const isForbidExtension = await ChromeStorage.get('isForbid');
+  if (isForbidExtension) return;
   if (PathName === '/roompricezjw/index.html') {
     const isParseDetail = await ChromeStorage.get('isParseDetail');
     if (!isParseDetail) return;

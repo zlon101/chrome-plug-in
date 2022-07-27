@@ -75,9 +75,6 @@ const PageCfg = {
   },
 };
 
-const SearchField = ['area', 'startDate', 'endDate', 'proName', 'proId'];
-const ExtFields = [...SearchField, 'isParseDetail']; // popup 配置字段
-
 // 列表页
 export async function handleIndexPage() {
   let addDetailInfo = () => {};
@@ -102,14 +99,10 @@ export async function handleIndexPage() {
     if (reqType === 'UpdateSearch') {
       // 来自popup的消息, 更新筛选参数
       parseIndexPage(request.data).then(indexPageRes2 => {
+        Log('来自popup的消息, 更新筛选参数');
         if (indexPageRes2) {
           addDetailInfo = indexPageRes2.updateDetailCol;
         }
-      });
-    } else if (reqType === 'PopupRended') {
-      // popup打开，同步筛选参数给popup
-      ChromeStorage.get(null).then(extCfg1 => {
-        sendResponse(extCfg1);
       });
     } else if (reqType === 'OptionRende') {
       // 选项页打开，发送数据给选项页
@@ -130,7 +123,10 @@ extCfg: {
   isParseDetail: true,
 };
 */
+const SearchField = ['area', 'startDate', 'endDate', 'proName', 'proId'];
 async function parseIndexPage(popupForm) {
+  const isForbidExtension = await ChromeStorage.get('isForbid');
+  if (isForbidExtension) return;
   // 获取页面参数
   const pageInfo = {};
   pageInfo.title = document.title;
@@ -160,18 +156,14 @@ async function parseIndexPage(popupForm) {
   // 是否需要修改页面参数
   const searchParam = {};
   let isTargetSearchVa = true;
-  Object.keys(extCfg).forEach(k => {
-    if (k === 'isParseDetail') return;
-    if (SearchField.includes(k)) {
-      searchParam[k] = extCfg[k];
-    }
-    isTargetSearchVa = isTargetSearchVa && (!extCfg.hasOwnProperty(k) || extCfg[k] === pageInfo[k]);
-  });
-
-  if (!isTargetSearchVa) {
-    Object.keys(searchParam).forEach(k => {
+  SearchField.forEach(k => {
+    searchParam[k] = extCfg[k];
+    if (extCfg.hasOwnProperty(k) && extCfg[k] !== pageInfo[k]) {
       PageCfg[k].set(searchParam[k]);
-    });
+      isTargetSearchVa = false;
+    }
+  });
+  if (!isTargetSearchVa) {
     // 刷新页面
     PageCfg.submitSearch();
     return;

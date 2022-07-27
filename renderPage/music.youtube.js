@@ -8,4 +8,6 @@ setInterval(() => {
     Log('advertise.click()');
     advertise.click();
   }
+  const ad2 = document.querySelector('.style-scope.yt-button-renderer');
+  ad2 && ad2.click();
 }, 1000);

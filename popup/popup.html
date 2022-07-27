@@ -15,25 +15,26 @@
       }
       input {
         margin: 8px 0;
-        width: 250px;
-        height: 40px;
       }
       input[type='text'] {
         height: 30px;
+        width: 200px;
       }
       input[type='checkbox'] {
         width: 16px;
         height: 16px;
+        cursor: pointer;
       }
       button {
         cursor: pointer;
       }
-      .flex {
+      .field {
         display: flex;
         align-items: center;
       }
-      .flex > :first-child {
+      .field > :first-child {
         margin-right: 4px;
+        width: 70px;
       }
     </style>
   </head>
@@ -41,13 +42,30 @@
     <a href="https://zw.cdzjryb.com/SCXX/Default.aspx?action=ucSCXXShowNew2" target="_blank">住建蓉e办</a>
     <a href="chrome-extension://dmpmcohcnfkhemdccjefninlcelpbpnl/options/options.html" target="_blank">选项页</a>
     <div class="form">
-      <input type="text" id="area" placeholder="地区" />
-      <input type="text" id="startDate" placeholder="开始日期: 2022-10-10" />
-      <input type="text" id="endDate" placeholder="结束日期: 2022-10-10" />
-      <p class="flex">
-        <span>解析详情页</span>
+      <div class="field">
+        <span>地区:</span>
+        <input type="text" id="area" placeholder="地区" />
+      </div>
+      <div class="field">
+        <span>开始日期:</span>
+        <input type="text" id="startDate" placeholder="开始日期: 2022-10-10" />
+      </div>
+      <div class="field">
+        <span>结束日期:</span>
+        <input type="text" id="endDate" placeholder="结束日期: 2022-10-10" />
+      </div>
+      <div class="field">
+        <span>项目名称:</span>
+        <input type="text" id="proName" />
+      </div>
+      <div class="field">
+        <span>解析详情页:</span>
         <input type="checkbox" id="isParseDetail" />
-      </p>
+      </div>
+      <div class="field">
+        <span>禁用插件</span>
+        <input type="checkbox" id="isForbid"/>
+      </div>
       <!-- checked -->
       <button id="submit">确定</button>
     </div>
