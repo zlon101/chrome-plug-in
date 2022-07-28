@@ -10,6 +10,12 @@
         margin: 0;
         padding: 0;
       }
+      body {
+        padding: 0 20px;
+        max-width: 90%;
+        min-width: 1200px;
+        margin: 0 auto;
+      }
       h1 {
         text-align: center;
         margin-bottom: 24px;
@@ -20,6 +26,8 @@
       th {
         position: sticky;
         top: 0;
+        white-space: nowrap;
+        background-color: #fff;
       }
       table,
       th,
@@ -61,12 +69,62 @@
         display: none;
       }
     </style>
+    <script src="../util/vue.dist.js" type="text/javascript"></script>
   </head>
   <body>
     <h1>选项页</h1>
     <button id="download">下载</button>
-    <section id="content"></section>
-    <!-- insert -->
+    <section id="vue-app">
+      <pre>{{ JSON.stringify(pageInfo, null, 2) }}</pre>
+      <table>
+        <thead>
+          <tr>
+            <th v-for="(item, idx) in tHeader" :key="idx">
+              <span>{{`${item}_${idx}`}}</span>
+              <div v-if="idx===tHeader.length-1 && hasDetail"
+                class="expand-all-btn btn"
+                @click="onToggleAll"
+              >展开</div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <template v-for="(row,rIdx) in tRows" :key="rIdx">
+            <tr>
+              <td v-for="(col,cIdx) in row" :class="`col-${cIdx}`" :key="cIdx">
+                <span v-if="cIdx !== row.length-1">{{col}}</span>
+                <a v-else :href="typeof col !== 'string' ? col.url : col" target="_blank">详情</a>
+                <div v-if="hasDetail && cIdx===row.length-1" @click="onToggle" :rind="rIdx" class="expand-btn btn">展开</div>
+              </td>
+            </tr>
+            <!-- 详情 -->
+            <tr v-if="hasDetail">
+              <td colspan="20">
+                <table :class="`detail-table rind-${rIdx}`">
+                  <thead>
+                    <tr>
+                      <td>栋/单元</td>
+                      <td>可售数量</td>
+                      <td>价格</td>
+                      <td>面积</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="(unit, rIdx2) in row[row.length-1].info" :key="rIdx2">
+                      <td class="nowrap">{{ `${unit.building}栋${unit.unit}单元` }}</td>
+                      <td class="nowrap">{{ unit.salesNum }}</td>
+                      <td class="nowrap">{{ `${unit.price[0]} - ${unit.price[1]}` }}</td>
+                      <td class="nowrap">{{ `${unit.areaSize[0]} - ${unit.areaSize[1]}` }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </template>
+        </tbody>
+      </table>
+    </section>
+    <!-- <section id="content"></section> -->
   </body>
   <script src="./options.js" type="module"></script>
 </html>

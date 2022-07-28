@@ -3,8 +3,8 @@ export function renderTable(data) {
 
   const { pageInfo, tableInfo } = data;
   const { dataRow } = tableInfo;
-  const BList = [6, 8, 9, 10];
-  const ExCol = ['可售数量', '价格', '面积'];
+  const BList = [6, 8, 9, 10]; // 不显示的列
+  const ExCol = ['可售数量', '价格', '面积']; // 增加的列
   let _header = tableInfo.header;
   _header = [..._header.slice(0, -1), ...ExCol, _header[_header.length -1]];
   let theadArr = _header.map((col, cInd0) => {
