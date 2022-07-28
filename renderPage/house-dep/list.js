@@ -1,4 +1,4 @@
-import { parseTable } from '../tool.js';
+import { parseTable, dialog } from '../tool.js';
 import { Log, Storager, ChromeStorage, getNow, regMsgListener, sendMeg } from '../../util/index.js';
 
 const PageCfg = {
@@ -191,6 +191,7 @@ async function parseIndexPage(popupForm) {
       Storager.set('pageStorage', data);
       sendMeg(data); // 发送给选项页
       Storager.remove('tableRow');
+      dialog(`<h2>总数据: ${tableInfo.dataRow.length}</h2>`);
     } else {
       // 下一页
       PageCfg.nextPage();

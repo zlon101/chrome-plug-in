@@ -2,7 +2,7 @@
  * 解析table
  * @return Object<header, dataRow>
  */
- export const parseTable = tableSeletor => {
+export const parseTable = tableSeletor => {
   const handlerRow = (_tr, selector) => {
     const cols = Array.from(_tr.querySelectorAll(selector));
     return cols.map(item => {
@@ -20,7 +20,6 @@
   return { header: rows[0], dataRow: rows.slice(1) };
 };
 
-
 export function insetScript(src) {
   const tag = document.createElement('script');
   tag.type = 'module';
@@ -28,3 +27,25 @@ export function insetScript(src) {
   document.body.appendChild(tag);
 }
 // insetScript('chrome-extension://dmpmcohcnfkhemdccjefninlcelpbpnl/renderPage/house-dep/entry.js');
+
+export const dialog = contentHtml => {
+  const sty = {
+    position: 'absolute',
+    top: '20%',
+    left: '50%',
+    transform: 'translateX(-50%)',
+    padding: '20px',
+    border: '4px solid blue',
+    'border-radius': '8px',
+    background: '#fff',
+  };
+  const styStr = Object.keys(sty).reduce((acc, k) => {
+    acc += `${k}:${sty[k]};`;
+    return acc;
+  }, '');
+
+  const wrapHtml= `<div style="${styStr}">
+    ${contentHtml}
+  </div>`;
+  document.body.insertAdjacentHTML('beforeend', wrapHtml);
+};

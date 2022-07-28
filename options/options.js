@@ -1,5 +1,5 @@
 import { Log, sendToCtxJs, saveFile, Storager, regMsgListener } from '../util/index.js';
-import { renderTable } from './tool.js';
+// import { renderTable } from './tool.js';
 import VueCfg from './vue-cfg.js';
 
 const app = new Vue(VueCfg);

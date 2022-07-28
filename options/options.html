@@ -13,7 +13,7 @@
       body {
         padding: 0 20px;
         max-width: 90%;
-        min-width: 1200px;
+        min-width: 900px;
         margin: 0 auto;
       }
       h1 {
@@ -76,6 +76,7 @@
     <button id="download">下载</button>
     <section id="vue-app">
       <pre>{{ JSON.stringify(pageInfo, null, 2) }}</pre>
+      <h2>总数据: {{tRows.length}}</h2>
       <table>
         <thead>
           <tr>
