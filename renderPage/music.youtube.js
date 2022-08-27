@@ -9,5 +9,11 @@ setInterval(() => {
     advertise.click();
   }
   const ad2 = document.querySelector('.style-scope.yt-button-renderer');
-  ad2 && ad2.click();
-}, 1000);
+  if (ad2 && ad2.textContent.includes('广告')) {
+    Log('$ad2');
+    ad2.click();
+  }
+
+  const ad3 = document.querySelector('.style-scope.ytmusic-popup-container #button');
+  ad3 && ad3.click();
+}, 500);
