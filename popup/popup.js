@@ -3,8 +3,8 @@ import { Log, ChromeStorage, sendToCtxJs } from '../util/index.js';
 ChromeStorage.get(null).then(cfg => setDomAttr(cfg));
 
 const inputEles = Array.from(document.querySelectorAll('input'));
-const btnSubmit = document.querySelector('#submit');
-btnSubmit.onclick = async () => {
+const btnSubmit = document.querySelector('#startup');
+btnSubmit.onclick = () => {
   const form = inputEles.reduce((acc, ele) => {
     const k = ele.id;
     const val = ele.type === 'checkbox' ? ele.checked : ele.value.trim();
@@ -12,8 +12,9 @@ btnSubmit.onclick = async () => {
     return acc;
   }, {});
 
+  form.isActive = true;
   ChromeStorage.set(form);
-  sendToCtxJs({ type: 'UpdateSearch', data: form });
+  sendToCtxJs({ type: 'StartParse', data: form });
 };
 
 inputEles.forEach(el => {

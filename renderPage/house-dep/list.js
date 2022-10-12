@@ -87,19 +87,15 @@ export async function handleIndexPage() {
     }
   });
 
-  const indexPageRes = await parseIndexPage();
-  if (!indexPageRes) return;
-  addDetailInfo = indexPageRes.updateDetailCol;
-
   regMsgListener((request, sender, sendResponse) => {
     const ExtendId = 'dmpmcohcnfkhemdccjefninlcelpbpnl';
     if (sender.id !== ExtendId) return;
 
     const reqType = request.type;
-    if (reqType === 'UpdateSearch') {
-      // 来自popup的消息, 更新筛选参数
+    if (reqType === 'StartParse') {
+      // 来自popup的消息
+      Log('来自popup的消息, 开始解析');
       parseIndexPage(request.data).then(indexPageRes2 => {
-        Log('来自popup的消息, 更新筛选参数');
         if (indexPageRes2) {
           addDetailInfo = indexPageRes2.updateDetailCol;
         }
@@ -110,6 +106,10 @@ export async function handleIndexPage() {
       sendResponse(indexPage);
     }
   });
+
+  const indexPageRes = await parseIndexPage();
+  if (!indexPageRes) return;
+  addDetailInfo = indexPageRes.updateDetailCol;
 }
 
 /**
@@ -125,8 +125,8 @@ extCfg: {
 */
 const SearchField = ['area', 'startDate', 'endDate', 'proName', 'proId'];
 async function parseIndexPage(popupForm) {
-  const isForbidExtension = await ChromeStorage.get('isForbid');
-  if (isForbidExtension) return;
+  const isActiveExtension = await ChromeStorage.get('isActive');
+  if (!isActiveExtension) return;
   // 获取页面参数
   const pageInfo = {};
   pageInfo.title = document.title;
@@ -181,11 +181,13 @@ async function parseIndexPage(popupForm) {
     detailUrlIdx[detailHref] = rIdx;
   });
 
-  
+
   // 当前table处理完成, 继续下一页
   const completeCb = () => {
     Storager.append('tableRow', tableInfo.dataRow);
     if (pageInfo.curPageNum === pageInfo.totalPageNum) {
+      // 重置 isActive
+      ChromeStorage.set({ isActive: false });
       const data = { pageInfo, tableInfo };
       tableInfo.dataRow = Storager.get('tableRow');
       Storager.set('pageStorage', data);
