@@ -1,3 +1,4 @@
+import Vue from '../util/vue.esm.brower.js';
 import { Log, sendToCtxJs, saveFile, Storager, regMsgListener } from '../util/index.js';
 // import { renderTable } from './tool.js';
 import VueCfg from './vue-cfg.js';
@@ -11,11 +12,15 @@ regMsgListener((req, sender, sendResponse) => {
   // renderTable(req);
 });
 
-sendToCtxJs({ type: 'OptionRende' }, res => {
-  Log('OptionRende 响应:', res);
-  Storager.set('pageData', res);
-  app.updateTable(res);
-  // renderTable(res);
+sendToCtxJs({
+  data: { type: 'OptionRende' },
+  url: 'https://zw.cdzjryb.com/SCXX/Default.aspx*',
+  cb: res => {
+    Log('OptionRende 响应:', res);
+    Storager.set('pageData', res);
+    app.updateTable(res);
+    // renderTable(res);
+  },
 });
 
 app.updateTable(Storager.get('pageData'));

@@ -78,6 +78,8 @@ const PageCfg = {
 // 列表页
 export async function handleIndexPage() {
   let addDetailInfo = () => {};
+  ChromeStorage.set({ NowPageUrl: 'https://zw.cdzjryb.com/SCXX/Default.aspx*'});
+
   // 接收来自详情页的消息
   window.addEventListener('message', e => {
     if (e.origin !== Origin) return;

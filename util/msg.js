@@ -1,15 +1,13 @@
 // 发给消息给content script
-export const sendToCtxJs = (data, callback) => {
+export const sendToCtxJs = ({data, url, cb}) => {
   const queryCb = tabs => {
     if (!tabs.length) {
       console.log('\n$ sendToCtxJs()未找到tab');
       return;
     }
-    chrome.tabs.sendMessage(tabs[0].id, data, callback);
+    chrome.tabs.sendMessage(tabs[0].id, data, cb);
   };
-  chrome.tabs.query({
-    url: 'https://zw.cdzjryb.com/SCXX/Default.aspx*',
-  }, queryCb);
+  chrome.tabs.query({ url }, queryCb);
 };
 
 // onMessage 监听器

@@ -1,6 +1,10 @@
 import { Log, ChromeStorage, sendToCtxJs } from '../util/index.js';
 
-ChromeStorage.get(null).then(cfg => setDomAttr(cfg));
+let renderPageUrl = ''; // 当前页面
+ChromeStorage.get(null).then(cfg => {
+  renderPageUrl = cfg.NowPageUrl;
+  setDomAttr(cfg);
+});
 
 const inputEles = Array.from(document.querySelectorAll('input'));
 const btnSubmit = document.querySelector('#startup');
@@ -14,7 +18,11 @@ btnSubmit.onclick = () => {
 
   form.isActive = true;
   ChromeStorage.set(form);
-  sendToCtxJs({ type: 'StartParse', data: form });
+  // 发送给 content-js
+  sendToCtxJs({
+    url: renderPageUrl,
+    data: { type: 'StartParse', data: form },
+   });
 };
 
 inputEles.forEach(el => {
