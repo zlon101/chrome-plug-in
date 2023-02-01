@@ -5,7 +5,7 @@
 */
 
 import { Log } from '../../util/index.js';
-import { parseTable } from '../tool.js';
+import { parseTable } from './tool.js';
 
 export async function parseDetailPage() {
   const navList = Array.from(document.querySelectorAll('.room-price-nav .rp-subnav-item'));

@@ -12,6 +12,7 @@
       }
       body {
         padding: 8px;
+        border-radius: 8px;
       }
       input {
         margin: 8px 0;
@@ -36,6 +37,9 @@
         margin-right: 4px;
         width: 70px;
       }
+      .filter_more {
+        display: none;
+      }
     </style>
   </head>
   <body>
@@ -43,35 +47,31 @@
     <a href="chrome-extension://dmpmcohcnfkhemdccjefninlcelpbpnl/options/options.html" target="_blank">选项页</a>
     <div class="form">
       <div class="field">
-        <span>筛选:</span>
-        <input type="text" id="searchVal" placeholder="筛选" />
+        <span>搜索:</span>
+        <input type="text" id="searchVal" placeholder="搜索" />
       </div>
-      <div class="field">
-        <span>地区:</span>
-        <input type="text" id="area" placeholder="地区" />
+      <div class="filter_more">
+        <div class="field">
+          <span>地区:</span>
+          <input type="text" id="area" placeholder="地区" />
+        </div>
+        <div class="field">
+          <span>开始日期:</span>
+          <input type="text" id="startDate" placeholder="开始日期: 2022-10-10" />
+        </div>
+        <div class="field">
+          <span>结束日期:</span>
+          <input type="text" id="endDate" placeholder="结束日期: 2022-10-10" />
+        </div>
+        <div class="field">
+          <span>项目名称:</span>
+          <input type="text" id="proName" />
+        </div>
+        <div class="field">
+          <span>解析详情页:</span>
+          <input type="checkbox" id="isParseDetail" />
+        </div>
       </div>
-      <div class="field">
-        <span>开始日期:</span>
-        <input type="text" id="startDate" placeholder="开始日期: 2022-10-10" />
-      </div>
-      <div class="field">
-        <span>结束日期:</span>
-        <input type="text" id="endDate" placeholder="结束日期: 2022-10-10" />
-      </div>
-      <div class="field">
-        <span>项目名称:</span>
-        <input type="text" id="proName" />
-      </div>
-      <div class="field">
-        <span>解析详情页:</span>
-        <input type="checkbox" id="isParseDetail" />
-      </div>
-      <!--
-      <div class="field">
-        <span>激活</span>
-        <input type="checkbox" id="isActive"/>
-      </div> -->
-      <!-- checked -->
       <button id="startup">执行</button>
     </div>
   </body>

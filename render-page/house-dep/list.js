@@ -1,6 +1,17 @@
-import { parseTable, dialog } from '../tool.js';
-import { Log, Storager, ChromeStorage, getNow, regMsgListener, sendMeg } from '../../util/index.js';
+import { parseTable, dialog } from './tool.js';
+import {
+  Log,
+  ExtendId,
+  Storager,
+  ChromeStorage,
+  getNow,
+  regMsgListener,
+  sendMsgToExtension,
+  sendToCtxJs
+} from '../../util/index.js';
+import { MsgType } from './communicate.js';
 
+// 页面筛选参数
 const PageCfg = {
   // 地区
   area: {
@@ -76,10 +87,8 @@ const PageCfg = {
 };
 
 // 列表页
+let addDetailInfo = () => {};
 export async function handleIndexPage() {
-  let addDetailInfo = () => {};
-  ChromeStorage.set({ NowPageUrl: 'https://zw.cdzjryb.com/SCXX/Default.aspx*'});
-
   // 接收来自详情页的消息
   window.addEventListener('message', e => {
     if (e.origin !== Origin) return;
@@ -89,29 +98,35 @@ export async function handleIndexPage() {
     }
   });
 
-  regMsgListener((request, sender, sendResponse) => {
-    const ExtendId = 'dmpmcohcnfkhemdccjefninlcelpbpnl';
-    if (sender.id !== ExtendId) return;
+  regMsgListener(handleMsg);
+}
 
-    const reqType = request.type;
-    if (reqType === 'StartParse') {
-      // 来自popup的消息
-      Log('来自popup的消息, 开始解析');
-      parseIndexPage(request.data).then(indexPageRes2 => {
-        if (indexPageRes2) {
-          addDetailInfo = indexPageRes2.updateDetailCol;
-        }
-      });
-    } else if (reqType === 'OptionRende') {
-      // 选项页打开，发送数据给选项页
-      const indexPage = Storager.get('pageStorage');
-      sendResponse(indexPage);
-    }
-  });
+function handleMsg(request, sender, sendResponse) {
+  if (sender.id !== ExtendId) return;
 
-  const indexPageRes = await parseIndexPage();
-  if (!indexPageRes) return;
-  addDetailInfo = indexPageRes.updateDetailCol;
+  const reqType = request.type;
+  if (reqType === MsgType.syncParam) {
+    // 来自popup的消息，将列表页面的搜索参数同步到 popup
+    const searchVal = {};
+    Object.keys(PageCfg).forEach(k => {
+      if (typeof PageCfg[k].get === 'function') {
+        searchVal[k] = PageCfg[k].get();
+      }
+    });
+    sendResponse(searchVal);
+  } else if (reqType === 'StartParse') {
+    // 来自popup的消息，执行搜索
+    Log('来自popup的消息, 开始解析');
+    parseIndexPage(request.data).then(indexPageRes2 => {
+      if (indexPageRes2) {
+        addDetailInfo = indexPageRes2.updateDetailCol;
+      }
+    });
+  } else if (reqType === MsgType.getFilterResult) {
+    // 选项页打开，发送数据给选项页
+    const indexPage = Storager.get('pageStorage');
+    sendResponse(indexPage);
+  }
 }
 
 /**
@@ -127,7 +142,7 @@ extCfg: {
 */
 const SearchField = ['area', 'startDate', 'endDate', 'proName', 'proId'];
 async function parseIndexPage(popupForm) {
-  const isActiveExtension = await ChromeStorage.get('isActive');
+  const isActiveExtension = await ChromeStorage.get('isRun');
   if (!isActiveExtension) return;
   // 获取页面参数
   const pageInfo = {};
@@ -148,7 +163,7 @@ async function parseIndexPage(popupForm) {
   // 确定预期的参数
   const preExtCfg = await ChromeStorage.get(null);
   let extCfg = { ...preExtCfg, ...popupForm };
-  console.log('\npopupForm:%o\npreExtCfg:%o', popupForm, preExtCfg);
+  // console.log('\npopupForm:%o\npreExtCfg:%o', popupForm, preExtCfg);
   if (!popupForm && isRended) {
     SearchField.forEach(k => (extCfg[k] = pageInfo[k]));
   }
@@ -188,12 +203,12 @@ async function parseIndexPage(popupForm) {
   const completeCb = () => {
     Storager.append('tableRow', tableInfo.dataRow);
     if (pageInfo.curPageNum === pageInfo.totalPageNum) {
-      // 重置 isActive
-      ChromeStorage.set({ isActive: false });
+      // 重置 isRun
+      ChromeStorage.set({ isRun: false });
       const data = { pageInfo, tableInfo };
       tableInfo.dataRow = Storager.get('tableRow');
       Storager.set('pageStorage', data);
-      sendMeg(data); // 发送给选项页
+      sendMsgToExtension(data); // 发送给选项页
       Storager.remove('tableRow');
       dialog(`<h2>总数据: ${tableInfo.dataRow.length}</h2>`);
     } else {

@@ -1,35 +1,24 @@
-// 住建-租售公告
-
 console.clear();
-const href = window.location.href;
-new RegExp('高新', 'i');
+(async function () {
+  const {listenExtend, TalentListPage} = await import('./send-msg.js');
+  const { Storager } = await import('../../util/index.js');
 
-setup();
-
-
-async function setup () {
-  const targetUrl = 'http://cdzj.chengdu.gov.cn/cdzj/rcajzsgg/RCAJ_list';
-  if (!href.includes(targetUrl)) {
+  try {
+    const { default : Vue } = await import('../../util/vue.esm.brower.js');
+    rendDialog(Vue, []);
     return;
+  } catch (e) {
+    console.error('rendDialog 失败，', e);
   }
-  const { Storager, ChromeStorage, regMsgListener } = await import('../util/index.js');
 
-  // 注册监听
-  regMsgListener((request, sender) => {
-    const ExtendId = 'dmpmcohcnfkhemdccjefninlcelpbpnl';
-    if (sender.id !== ExtendId) return;
 
-    const reqType = request.type;
-    if (reqType === 'StartParse') {
-      Storager.set('notRedirect', false);
-      Storager.set('couldRun', true);
-      exe();
-    }
-  });
-  ChromeStorage.set({ NowPageUrl: `${targetUrl}*`});
+  if (TalentListPage === document.title) {
+    listenExtend(callSearch);
+    Storager.get('couldRun') && callSearch();
+  }
 
-  Storager.get('couldRun') && exe();
-  async function exe() {
+
+  async function callSearch(searchVal) {
     const pageTextContent = document.querySelector('.pagination-last').textContent;
     const totalPage = parseInt(pageTextContent.match(/共\s*(\d+)\s*页/)[1]);
     const nowPage = parseInt(pageTextContent.match(/当前第\s*(\d+)/)[1]);
@@ -42,9 +31,6 @@ async function setup () {
       }
     }
 
-    const preVal = Storager.get('bpw5t5') || [];
-    console.log({ totalPage, nowPage });
-
     // 定位到首页
     if (nowPage !== 1 && !Storager.get('notRedirect')) {
       Storager.set('notRedirect', true)
@@ -52,25 +38,37 @@ async function setup () {
       $pagination.firstElementChild.click();
       return;
     }
-
-    const searchVal = await ChromeStorage.get('searchVal') || '.*';
-    console.debug({ searchVal });
+    if (searchVal) {
+      Storager.set('xdsa', searchVal);
+    } else {
+      searchVal = Storager.get('xdsa');
+    }
+    if (!searchVal) {
+      console.error('searchVal 为空');
+      return;
+    }
+    Storager.set('couldRun', true);
     const targetReg = new RegExp(searchVal);
-    const res = parsePage(targetReg);
-    // console.debug(res);
-
+    const preVal = Storager.get('bpw5t5') || [];
+    const totalVal = preVal.concat(parsePage(targetReg));
     if (nowPage !== totalPage) {
-      Storager.set('bpw5t5', preVal.concat(res));
+      Storager.set('bpw5t5', totalVal);
       $nextPage.click();
     } else {
       // 完成所有页面遍历
       Storager.set('notRedirect', false);
       Storager.set('couldRun', false);
       Storager.set('bpw5t5', []);
-      rendDialog(preVal.concat(res));
+      console.debug(`
+        搜索【${searchVal}】完成
+        共 ${totalPage} 页，当前 ${nowPage} 页
+        找到 ${totalVal.length} 条数据
+      `);
+
+      rendDialog(totalVal);
     }
-  };
-}
+  }
+})();
 
 function parsePage (reg) {
   const $table = document.getElementById('ID_ucShowRCAJList_UcNewsListPager1_listArt');
@@ -90,8 +88,12 @@ function parsePage (reg) {
 }
 
 async function rendDialog(list) {
-  const { default: Vue } = await import('../util/vue.esm.brower.js');
+  const { default: Vue } = await import('../../util/vue.esm.brower.js');
+  const root = document.createElement('div');
+  root.id = 'yukfnje';
+  document.body.appendChild(root);
   const app = new Vue({
+    el: '#yukfnje',
     template: `<div class="dialog" :style="wrapSty">
       <button :style="closeSty" @click="onClose">关闭</button>
       <ol :style="ulSty"><li v-for="item in list" :key="item.url" :style="liSty"><a :href="item.url">{{item.txt}}</a></li></ol>
@@ -139,5 +141,5 @@ async function rendDialog(list) {
       };
     },
   });
-  document.body.appendChild(app.$mount().$el);
+  // document.body.appendChild(app.$mount().$el);
 }

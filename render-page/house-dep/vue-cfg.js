@@ -1,9 +1,9 @@
-import { Log } from '../util/index.js';
+import { Log } from '../../util/index.js';
 const BList = [6, 8, 9, 10]; // 不显示的列
 const ExCol = ['可售数量', '价格', '面积']; // 增加的列
 
 const cfg = {
-  el: '#vue-app',
+  el: '#vue-app-house-dep',
   data() {
     return {
       pageInfo: {},
@@ -32,7 +32,7 @@ const cfg = {
           const lastCol = nRow[nRow.length - 1];
           const unitList = lastCol.info;
           Log('lastCol', lastCol);
-          
+
           const totalNum = unitList.reduce((acc, cur) => acc + Number(cur.salesNum), 0);
           const priceArr = unitList.reduce((acc, item) => [...acc, ...item.price], []);
           const priceRange = `${Math.min(...priceArr)} - ${Math.max(...priceArr)}`;

@@ -27,7 +27,7 @@ const init = async () => {
   }
 
   // 项目详情页
-  const isActiveExtension = await ChromeStorage.get('isActive');
+  const isActiveExtension = await ChromeStorage.get('isRun');
   if (!isActiveExtension) return;
   if (PathName === '/roompricezjw/index.html') {
     const isParseDetail = await ChromeStorage.get('isParseDetail');

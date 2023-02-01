@@ -10,10 +10,17 @@ export const Storager = {
     }
   },
   get(k, type = 'session') {
-    if (type === 'session') {
-      return JSON.parse(sessionStorage.getItem(k));
+    try {
+      if (type === 'session') {
+        return JSON.parse(sessionStorage.getItem(k));
+      }
+      return JSON.parse(localStorage.getItem(k));
+    } catch (e) {
+      if (type === 'session') {
+        return sessionStorage.getItem(k);
+      }
+      return localStorage.getItem(k);
     }
-    return JSON.parse(localStorage.getItem(k));
   },
   append(k, v, type = 'session') {
     const defaultV = Array.isArray(v) ? [] : {};
@@ -69,3 +76,5 @@ export const getNow = () => {
 };
 
 export const Log = (...args) => console.log('\n🔥', ...args);
+
+export const ExtendId = 'dmpmcohcnfkhemdccjefninlcelpbpnl';

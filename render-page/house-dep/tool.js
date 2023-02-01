@@ -26,7 +26,7 @@ export function insetScript(src) {
   tag.src = src;
   document.body.appendChild(tag);
 }
-// insetScript('chrome-extension://dmpmcohcnfkhemdccjefninlcelpbpnl/renderPage/house-dep/entry.js');
+// insetScript('chrome-extension://dmpmcohcnfkhemdccjefninlcelpbpnl/render-page/house-dep/entry.js');
 
 export const dialog = contentHtml => {
   const sty = {

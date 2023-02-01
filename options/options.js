@@ -1,30 +1,14 @@
-import Vue from '../util/vue.esm.brower.js';
-import { Log, sendToCtxJs, saveFile, Storager, regMsgListener } from '../util/index.js';
-// import { renderTable } from './tool.js';
-import VueCfg from './vue-cfg.js';
+import { Log, saveFile, Storager, regMsgListener } from '../util/index.js';
+import { initOptionPage } from '../render-page/house-dep/list.js';
 
-const app = new Vue(VueCfg);
+Log('rended');
 
-regMsgListener((req, sender, sendResponse) => {
-  // Log('收到消息\nsender\n', sender, 'request\n', req);
-  Storager.set('pageData', req);
-  app.updateTable(req);
-  // renderTable(req);
-});
+// regMsgListener((req, sender, sendResponse) => {
+//   Storager.set('pageData', req);
+//   app.updateTable(req);
+// });
 
-sendToCtxJs({
-  data: { type: 'OptionRende' },
-  url: 'https://zw.cdzjryb.com/SCXX/Default.aspx*',
-  cb: res => {
-    Log('OptionRende 响应:', res);
-    Storager.set('pageData', res);
-    app.updateTable(res);
-    // renderTable(res);
-  },
-});
-
-app.updateTable(Storager.get('pageData'));
-// renderTable(Storager.get('pageData'));
+initOptionPage();
 
 document.getElementById('download').onclick = () => {
   const pageInfo = JSON.parse(document.querySelector('pre').textContent);
