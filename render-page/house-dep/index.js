@@ -18,9 +18,10 @@ const Origin = window.location.origin;
   const { Log, ChromeStorage } = await import('../../util/index.js');
   const { handleIndexPage } = await import('./list.js');
   const { parseDetailPage } = await import('./detail.js');
+  const { Runing, MsgType } = await import('./communicate.js');
 
-  const { default: injectJs } = await import('../inject-script.js');
-  injectJs('render-page/house-dep/page-script.js');
+  // const { default: injectJs } = await import('../inject-script.js');
+  // injectJs('render-page/house-dep/page-script.js');
 
 
   if (PathName === '/SCXX/Default.aspx') {
@@ -28,17 +29,18 @@ const Origin = window.location.origin;
   }
 
   // 项目详情页
-  const isActiveExtension = await ChromeStorage.get('isRun');
+  const isActiveExtension = await ChromeStorage.get(Runing);
   if (!isActiveExtension) return;
 
   if (PathName === '/roompricezjw/index.html') {
     const isParseDetail = await ChromeStorage.get('isParseDetail');
     if (!isParseDetail) return;
+
     setTimeout(async () => {
       const info = await parseDetailPage();
       window.opener.postMessage(
         {
-          type: 'DetailInfo',
+          type: MsgType.sendDetailInfo,
           info,
           url: window.location.href,
         },

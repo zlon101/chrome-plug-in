@@ -26,7 +26,7 @@ export const sendToCtxJs = async ({data, title, url, cb}) => {
   } catch (e) {
     console.error('发送消息给content-script失败: \n', e);
     try {
-      await chrome.tabs.reload(tab.id);
+      // await chrome.tabs.reload(tab.id);
       return await fn();
     } catch (e) {
       console.error('重试失败, ', e);

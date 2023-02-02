@@ -8,7 +8,12 @@ export const PageTitle = '住建蓉e办';
 export const MsgType = {
   syncParam: '同步列表页面筛选参数',
   getFilterResult: '发送筛选结果到选项页',
+  startParse: '开始搜索',
+  sendDetailInfo: '发送详情页数据',
 };
+
+const Prefix = 'house-dep-';
+export const Runing = Prefix+'执行中';
 
 // 获取页面筛选参数
 export const getParam = async () => {
@@ -22,7 +27,7 @@ export const getParam = async () => {
 export const searchHouse = (searchVal) => {
   sendToCtxJs({
     title: PageTitle,
-    data: { type: 'StartParse', data: searchVal },
+    data: { type: MsgType.startParse, data: searchVal },
   });
 };
 
@@ -33,6 +38,5 @@ export const initOptionPage = async () => {
     title: PageTitle,
   });
   const app = new Vue(VueCfg);
-  Storager.set('pageData', filterRes);
   app.updateTable(filterRes);
 };
