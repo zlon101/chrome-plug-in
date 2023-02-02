@@ -1,10 +1,8 @@
 import { Log, ChromeStorage } from '../util/index.js';
-import { getParam, searchHouse } from '../render-page/house-dep/communicate.js';
+import { getFilterParam, searchHouse } from '../render-page/house-dep/communicate.js';
 import { invokSearch } from '../render-page/talent-net/send-msg.js';
 import Vue from '../vendor/vue.esm.brower.js';
-import {SearchFields, SearchFieldKeys, FilterParamKey} from './filter-cfg.js';
-
-Log('popup render');
+import {SearchFields, SearchFieldKeys, getSearchVla, cacheSearchVal} from './filter-cfg.js';
 
 const SearchTextKey = SearchFields.searchText.key;
 
@@ -23,7 +21,7 @@ const vueInstance = new Vue({
     if (this.hasFilter) {
       FieldKeys = [...FieldKeys, ...SearchFieldKeys.filter(k => k !== SearchTextKey)];
     }
-    const childs = FieldKeys.map(k => {
+    const fields = FieldKeys.map(k => {
       const field = SearchFields[k];
       return h('div', {
         class: 'field',
@@ -36,32 +34,35 @@ const vueInstance = new Vue({
             placeholder: field.place || field.label,
           },
           on: {
-            change(event) {
-              this.onChange(event.target);
-            },
+            change: e => this.onChange(e.target),
           },
         }),
       ])
     });
 
-    // 执行按钮
-    childs.push(h('button', {
+    // 按钮
+    const btnExe = h('button', {
       attrs: { id: 'startup' },
       on: {
-        click() {
-          this.onSubmit();
-        }
+        click: this.onSubmit
       }
-    }, '执行'));
+    }, '执行');
+
+    const btnClear = h('button', {
+      on: { click: ChromeStorage.clear },
+    }, 'clear');
+
+    const buttons = h('div', {
+      class: 'btn_wrap',
+    }, [btnExe, btnClear]);
 
     return h('div', {
       class: 'form',
       attrs: { id: 'vue_root' },
-    }, childs);
+    }, [...fields, buttons]);
   },
   methods: {
     setForm(k, val) {
-      Log(`setForm k: ${k} val:`, val);
       this.formVal[k] = val;
 
       const el = this.$el.querySelector(`input#${k}`);
@@ -73,37 +74,40 @@ const vueInstance = new Vue({
       const val = ele.type === 'checkbox' ? ele.checked : ele.value.trim();
       const key = ele.id;
       this.formVal[key] = val;
-      Log('change 事件,', val);
+      cacheSearchVal(this.formVal);
     },
     onSubmit() {
       ChromeStorage.set(this.formVal);
       sendReques(this.formVal);
     },
   },
-  beforeDestroy() {
-    ChromeStorage.set({ [FilterParamKey]: this.formVal });
-  },
 });
 
+window.onload = () => Log('onload');
 
 let sendReques = () => console.error('sendReques 未赋值');
 const currentTab = await getCurrentTab();
 const curPageTitle = currentTab?.title;
+
 if (curPageTitle.includes('住建蓉')) {
   sendReques = searchHouse;
-
   vueInstance.hasSearchText = false;
   vueInstance.hasFilter = true;
-  getParam().then(param => {
-    const keys = Object.keys(param);
-    keys.forEach(k => {
-      vueInstance.setForm(k, param[k]);
-      /***
-      const el = document.querySelector(`input#${k}`);
-      if (!el) return;
-      const attr = el.type === 'checkbox' ? 'checked' : 'value';
-      el[attr] = param[k];**/
-    });
+
+  const pageParam = await getFilterParam();
+  const cacheParam = await getSearchVla();
+  Object.keys(pageParam).forEach(k => {
+    !pageParam[k] && (pageParam[k] = cacheParam[k])
+  })
+
+  const keys = Object.keys(pageParam);
+  keys.forEach(k => {
+    vueInstance.setForm(k, pageParam[k]);
+    /***
+     const el = document.querySelector(`input#${k}`);
+     if (!el) return;
+     const attr = el.type === 'checkbox' ? 'checked' : 'value';
+     el[attr] = pageParam[k]; **/
   });
 } else if (curPageTitle.includes('住房和城乡建设')) {
   vueInstance.hasSearchText = true;

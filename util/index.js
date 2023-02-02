@@ -53,7 +53,10 @@ export const ChromeStorage = {
     });
   },
   remove(k) {
-    chrome.storage.local.remove(k);
+    return chrome.storage.local.remove(k);
+  },
+  clear() {
+    chrome.storage.local.clear().then(() => alert('清除成功')).catch(e => alert('清除失败'));
   },
 };
 

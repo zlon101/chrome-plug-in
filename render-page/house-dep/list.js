@@ -117,13 +117,12 @@ async function handleMsg(request, sender, sendResponse) {
         searchParam[k] = PageCfg[k].get();
       }
     });
-    const cacheSearchParam = await ChromeStorage.get('lastSearcParam') || {};
-    sendResponse({ ...cacheSearchParam, ...searchParam });
+    sendResponse(searchParam);
   } else if (reqType === MsgType.startParse) {
+
     // 来自popup的消息，执行搜索
     Log('来自popup的消息, 开始解析, ', request.data);
     ChromeStorage.set({ [Runing]: true });
-    ChromeStorage.set({ lastSearcParam: request.data });
     parseIndexPage(request.data).then(indexPageRes2 => {
       if (indexPageRes2) {
         addDetailInfo = indexPageRes2.updateDetailCol;
@@ -131,6 +130,7 @@ async function handleMsg(request, sender, sendResponse) {
     });
     sendResponse();
   } else if (reqType === MsgType.getFilterResult) {
+
     // 选项页打开，发送数据给选项页
     const indexPage = Storager.get(SearchResultKey);
     sendResponse(indexPage);

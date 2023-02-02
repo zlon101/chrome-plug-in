@@ -19,6 +19,7 @@ const Origin = window.location.origin;
   const { handleIndexPage } = await import('./list.js');
   const { parseDetailPage } = await import('./detail.js');
   const { Runing, MsgType } = await import('./communicate.js');
+  const { getSearchVla, SearchFields } = await import('../../popup/filter-cfg.js');
 
   // const { default: injectJs } = await import('../inject-script.js');
   // injectJs('render-page/house-dep/page-script.js');
@@ -33,7 +34,7 @@ const Origin = window.location.origin;
   if (!isActiveExtension) return;
 
   if (PathName === '/roompricezjw/index.html') {
-    const isParseDetail = await ChromeStorage.get('isParseDetail');
+    const isParseDetail = await getSearchVla(SearchFields.isParseDetail.key);
     if (!isParseDetail) return;
 
     setTimeout(async () => {

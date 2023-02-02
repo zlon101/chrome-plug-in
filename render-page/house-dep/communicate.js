@@ -16,7 +16,7 @@ const Prefix = 'house-dep-';
 export const Runing = Prefix+'执行中';
 
 // 获取页面筛选参数
-export const getParam = async () => {
+export const getFilterParam = async () => {
   return await sendToCtxJs({
     title: PageTitle,
     data: { type: MsgType.syncParam },

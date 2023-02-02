@@ -1,3 +1,5 @@
+import { Log, ChromeStorage } from '../util/index.js';
+
 export const SearchFields = {
   searchText: {
     key: 'searchText',
@@ -31,3 +33,15 @@ export const SearchFields = {
 export const SearchFieldKeys = Object.keys(SearchFields);
 
 export const FilterParamKey = 'popup 页面的筛选参数';
+
+export async function getSearchVla(k) {
+  const PopFilterVal = await ChromeStorage.get(FilterParamKey);
+  if (k) {
+    return PopFilterVal[k];
+  }
+  return PopFilterVal;
+}
+
+export function cacheSearchVal(formVal) {
+  ChromeStorage.set({ [FilterParamKey]: formVal });
+}
