@@ -1,7 +1,10 @@
 // 执行搜索
-import {Storager, sendToCtxJs, regMsgListener, ExtendId} from "../../util/index.js";
+import {Log, sendToCtxJs, regMsgListener, Storager, ExtendId} from "../../util/index.js";
 
 export const TalentListPage = '成都市住房和城乡建设局';
+
+const Prefix = 'TalentNet_';
+const NotRedirectKey = Prefix+'notRedirect';
 
 export const invokSearch = (param) => {
   return sendToCtxJs({
@@ -16,11 +19,10 @@ export const listenExtend = (handler) => {
 
     const reqType = request.type;
     if (reqType === 'StartParse') {
-      Storager.set('notRedirect', false);
-      const searchText = request.data.searchVal;
-      handler(searchText);
+      Storager.set(NotRedirectKey, false);
+      handler(request.data.searchVal);
     }
     sendResponse();
   });
-  console.debug(`执行 listenExtend 结束, `, new Date());
+  Log(`执行 listenExtend 成功`);
 }

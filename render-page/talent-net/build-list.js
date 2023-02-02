@@ -1,11 +1,18 @@
 console.clear();
+
+const Prefix = 'TalentNet_';
+const TotalSearchResultKey = Prefix + 'totalSearchResult',
+  NotRedirectKey = Prefix+'notRedirect',
+  ShouldRun = Prefix+'shouldRun',
+  SearchTextKey = Prefix+'searchText';
+
 (async function () {
   const {listenExtend, TalentListPage} = await import('./send-msg.js');
-  const { Storager } = await import('../../util/index.js');
+  const { Storager, log } = await import('../../util/index.js');
 
   if (TalentListPage === document.title) {
     listenExtend(callSearch);
-    Storager.get('couldRun') && callSearch();
+    Storager.get(ShouldRun) && callSearch();
   }
 
 
@@ -22,35 +29,40 @@ console.clear();
       }
     }
 
-    // 定位到首页
-    if (nowPage !== 1 && !Storager.get('notRedirect')) {
-      Storager.set('notRedirect', true)
-      Storager.set('bpw5t5', []);
-      $pagination.firstElementChild.click();
-      return;
-    }
+    Storager.set(ShouldRun, true);
+
     if (searchVal) {
-      Storager.set('xdsa', searchVal);
+      Storager.set(SearchTextKey, searchVal);
     } else {
-      searchVal = Storager.get('xdsa');
+      searchVal = Storager.get(SearchTextKey);
     }
     if (!searchVal) {
       console.error('searchVal 为空');
+      Storager.set(ShouldRun, false);
       return;
     }
-    Storager.set('couldRun', true);
+
+    // 定位到首页
+    if (nowPage !== 1 && !Storager.get(NotRedirectKey)) {
+      Storager.set(NotRedirectKey, true);
+      Storager.set(TotalSearchResultKey, []);
+      $pagination.firstElementChild.click();
+      return;
+    }
+
+
     const targetReg = new RegExp(searchVal);
-    const preVal = Storager.get('bpw5t5') || [];
+    const preVal = Storager.get(TotalSearchResultKey) || [];
     const totalVal = preVal.concat(parsePage(targetReg));
     if (nowPage !== totalPage) {
-      Storager.set('bpw5t5', totalVal);
+      Storager.set(TotalSearchResultKey, totalVal);
       $nextPage.click();
     } else {
       // 完成所有页面遍历
-      Storager.set('notRedirect', false);
-      Storager.set('couldRun', false);
-      Storager.set('bpw5t5', []);
-      console.debug(`
+      Storager.set(NotRedirectKey, false);
+      Storager.set(ShouldRun, false);
+      Storager.set(TotalSearchResultKey, []);
+      log(`
         搜索【${searchVal}】完成
         共 ${totalPage} 页，当前 ${nowPage} 页
         找到 ${totalVal.length} 条数据

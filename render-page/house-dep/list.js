@@ -114,7 +114,6 @@ async function handleMsg(request, sender, sendResponse) {
       }
     });
     const cacheSearchVal = await ChromeStorage.get('lastSearchVal') || {};
-    debugger;
     sendResponse({ ...searchVal, ...cacheSearchVal });
   } else if (reqType === 'StartParse') {
     // 来自popup的消息，执行搜索

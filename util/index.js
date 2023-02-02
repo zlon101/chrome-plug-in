@@ -77,4 +77,6 @@ export const getNow = () => {
 
 export const Log = (...args) => console.log('\n🔥', ...args);
 
+export const log = console.debug;
+
 export const ExtendId = 'dmpmcohcnfkhemdccjefninlcelpbpnl';

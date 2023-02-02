@@ -37,13 +37,13 @@ if (curPageTitle.includes('住建蓉')) {
   sendReques = searchHouse;
   document.querySelector('.filter_more').style.display = 'block';
 
-  getParam().then(searchVal => {
-    const keys = Object.keys(searchVal);
+  getParam().then(param => {
+    const keys = Object.keys(param);
     keys.forEach(k => {
       const el = document.querySelector(`input#${k}`);
       if (!el) return;
       const attr = el.type === 'checkbox' ? 'checked' : 'value';
-      el[attr] = searchVal[k];
+      el[attr] = param[k];
     });
   });
 } else if (curPageTitle.includes('住房和城乡建设')) {
@@ -53,7 +53,6 @@ if (curPageTitle.includes('住建蓉')) {
 
 async function getCurrentTab() {
   let queryOptions = { active: true, lastFocusedWindow: true };
-  // `tab` will either be a `tabs.Tab` instance or `undefined`.
   let [tab] = await chrome.tabs.query(queryOptions);
   return tab;
 }
