@@ -23,6 +23,10 @@ export const SearchFields = {
     key: 'proName',
     label: '项目名称',
   },
+  proId: {
+    key: 'proId',
+    label: '销售编号',
+  },
   isParseDetail: {
     key: 'isParseDetail',
     label: '解析详情页',
@@ -42,6 +46,8 @@ export async function getSearchVla(k) {
   return PopFilterVal;
 }
 
-export function cacheSearchVal(formVal) {
-  ChromeStorage.set({ [FilterParamKey]: formVal });
+// value | Object<k,val>
+export async function cacheSearchVal(formVal) {
+  const lastVal = await ChromeStorage.get(FilterParamKey) || {};
+  ChromeStorage.set({ [FilterParamKey]: { ...lastVal, ...formVal } });
 }

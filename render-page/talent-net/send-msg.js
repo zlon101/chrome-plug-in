@@ -1,5 +1,6 @@
 // 执行搜索
 import {Log, sendToCtxJs, regMsgListener, Storager, ExtendId} from "../../util/index.js";
+import { SearchFields } from '../../popup/filter-cfg.js';
 
 export const TalentListPage = '成都市住房和城乡建设局';
 
@@ -9,7 +10,7 @@ const NotRedirectKey = Prefix+'notRedirect';
 export const invokSearch = (param) => {
   return sendToCtxJs({
     title: TalentListPage,
-    data: { type: 'StartParse', data: param },
+    data: { type: 'StartParse', text: param[SearchFields.searchText.key] },
   });
 };
 
@@ -20,7 +21,7 @@ export const listenExtend = (handler) => {
     const reqType = request.type;
     if (reqType === 'StartParse') {
       Storager.set(NotRedirectKey, false);
-      handler(request.data.searchVal);
+      handler(request.text);
     }
     sendResponse();
   });

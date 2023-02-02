@@ -4,7 +4,6 @@
  * @return Array<可售数量 均价 面积>栋 单元
 */
 
-import { Log } from '../../util/index.js';
 import { parseTable } from './tool.js';
 
 export async function parseDetailPage() {
@@ -34,7 +33,7 @@ export async function parseDetailPage() {
     });
   };
 
-  Log('navList.length: ', navList.length);
+
   const url = window.location.href;
   const buildings = [];
   for (let i = 0; i < navList.length; i++) {

@@ -1,8 +1,8 @@
 import { Log, ChromeStorage } from '../util/index.js';
-import { getFilterParam, searchHouse } from '../render-page/house-dep/communicate.js';
-import { invokSearch } from '../render-page/talent-net/send-msg.js';
 import Vue from '../vendor/vue.esm.brower.js';
 import {SearchFields, SearchFieldKeys, getSearchVla, cacheSearchVal} from './filter-cfg.js';
+import { getFilterParam, searchHouse } from '../render-page/house-dep/communicate.js';
+import { invokSearch } from '../render-page/talent-net/send-msg.js';
 
 const SearchTextKey = SearchFields.searchText.key;
 
@@ -83,8 +83,8 @@ const vueInstance = new Vue({
   },
 });
 
-
 window.onload = () => Log('onload');
+
 
 let sendReques = () => console.error('sendReques 未赋值');
 const currentTab = await getCurrentTab();
@@ -93,13 +93,14 @@ if (!currentTab) {
   throw new Error('未找到当前活动的Tab页');
 }
 
+
+const cacheParam = await getSearchVla() || {};
 if (curPageTitle.includes('住建蓉')) {
   sendReques = searchHouse;
   vueInstance.hasSearchText = false;
   vueInstance.hasFilter = true;
 
   const pageParam = await getFilterParam(currentTab.id) || {};
-  const cacheParam = await getSearchVla() || {};
   const totalParam = { ...cacheParam, ...pageParam };
   Object.keys(totalParam).forEach(k => {
     !totalParam[k] && (totalParam[k] = pageParam[k] || cacheParam[k]);
@@ -124,6 +125,9 @@ if (curPageTitle.includes('住建蓉')) {
   vueInstance.hasSearchText = true;
   vueInstance.hasFilter = false;
   sendReques = invokSearch;
+
+  const searchText = cacheParam[SearchTextKey];
+  searchText && vueInstance.setForm(SearchTextKey, searchText);
 }
 
 

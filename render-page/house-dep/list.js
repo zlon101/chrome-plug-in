@@ -9,6 +9,7 @@ import {
   sendMsgToExtension,
 } from '../../util/index.js';
 import { MsgType, Runing, noticePage } from './communicate.js';
+import { SearchFields } from '../../popup/filter-cfg.js';
 
 const IsRendedKey = '是否已经重定向到首页',
   SearchResultKey = '筛选结果';
@@ -16,7 +17,7 @@ const IsRendedKey = '是否已经重定向到首页',
 // 页面筛选参数
 const PageCfg = {
   // 地区
-  area: {
+  [SearchFields.area.key]: {
     el: document.getElementById('ID_ucSCXXShowNew2_ddlRegion'),
     get() {
       return this.el.value;
@@ -26,7 +27,7 @@ const PageCfg = {
     },
   },
   // 2022-06-16
-  startDate: {
+  [SearchFields.startDate.key]: {
     el: document.getElementById('ID_ucSCXXShowNew2_txtTime1'),
     get() {
       return this.el.value;
@@ -35,7 +36,7 @@ const PageCfg = {
       this.el.value = val;
     },
   },
-  endDate: {
+  [SearchFields.endDate.key]: {
     el: document.getElementById('ID_ucSCXXShowNew2_txtTime2'),
     get() {
       return this.el.value;
@@ -44,7 +45,7 @@ const PageCfg = {
       this.el.value = val;
     },
   },
-  proName: {
+  [SearchFields.proName.key]: {
     el: document.getElementById('ID_ucSCXXShowNew2_txtpName'),
     get() {
       return this.el.value;
@@ -53,7 +54,7 @@ const PageCfg = {
       this.el.value = val;
     },
   },
-  proId: {
+  [SearchFields.proId.key]: {
     el: document.getElementById('ID_ucSCXXShowNew2_txtpId'),
     get() {
       return this.el.value;
@@ -148,18 +149,7 @@ async function handleMsg(request, sender, sendResponse) {
   }
 }
 
-/**
-插件配置
-extCfg: {
-  proId
-  proName
-  area: '双流区',
-  startDate: '2022-05-16',
-  endDate: '2022-08-16',
-  isParseDetail: true,
-};
-*/
-const SearchField = ['area', 'startDate', 'endDate', 'proName', 'proId'];
+const SearchField = [SearchFields.area, SearchFields.startDate, SearchFields.endDate, SearchFields.proName, SearchFields.proId].map(item => item.key);
 async function parseIndexPage(popupForm) {
   const isActiveExtension = await ChromeStorage.get(Runing);
   if (!isActiveExtension) return;
