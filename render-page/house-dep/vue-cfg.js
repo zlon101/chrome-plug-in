@@ -4,13 +4,11 @@ const ExCol = ['可售数量', '价格', '面积']; // 增加的列
 
 const cfg = {
   el: '#vue-app-house-dep',
-  data() {
-    return {
-      pageInfo: {},
-      hasDetail: false,
-      tHeader: [],
-      tRows: [],
-    };
+  data: {
+    pageInfo: {},
+    hasDetail: false,
+    tHeader: [],
+    tRows: [],
   },
   methods: {
     updateTable(pageData) {

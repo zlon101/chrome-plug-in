@@ -7,7 +7,6 @@ import {
   getNow,
   regMsgListener,
   sendMsgToExtension,
-  sendToCtxJs
 } from '../../util/index.js';
 import { MsgType } from './communicate.js';
 
@@ -99,9 +98,10 @@ export async function handleIndexPage() {
   });
 
   regMsgListener(handleMsg);
+  Log('list.js 执行 regMsgListener 完成');
 }
 
-function handleMsg(request, sender, sendResponse) {
+async function handleMsg(request, sender, sendResponse) {
   if (sender.id !== ExtendId) return;
 
   const reqType = request.type;
@@ -113,10 +113,13 @@ function handleMsg(request, sender, sendResponse) {
         searchVal[k] = PageCfg[k].get();
       }
     });
-    sendResponse(searchVal);
+    const cacheSearchVal = await ChromeStorage.get('lastSearchVal') || {};
+    debugger;
+    sendResponse({ ...searchVal, ...cacheSearchVal });
   } else if (reqType === 'StartParse') {
     // 来自popup的消息，执行搜索
-    Log('来自popup的消息, 开始解析');
+    Log('来自popup的消息, 开始解析, ', request.data);
+    ChromeStorage.set({ lastSearchVal: request.data });
     parseIndexPage(request.data).then(indexPageRes2 => {
       if (indexPageRes2) {
         addDetailInfo = indexPageRes2.updateDetailCol;

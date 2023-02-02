@@ -8,19 +8,20 @@
  * 当前页码
  * 总页数
  * 确定
- */
-
-/**
  * 搜索结果列表: https://zw.cdzjryb.com/SCXX/Default.aspx?action=ucSCXXShowNew2
-*/
+ */
 
 const PathName = window.location.pathname;
 const Origin = window.location.origin;
 
-const init = async () => {
+(async function (){
   const { Log, ChromeStorage } = await import('../../util/index.js');
   const { handleIndexPage } = await import('./list.js');
   const { parseDetailPage } = await import('./detail.js');
+
+  const { default: injectJs } = await import('../inject-script.js');
+  injectJs('render-page/house-dep/page-script.js');
+
 
   if (PathName === '/SCXX/Default.aspx') {
     return handleIndexPage();
@@ -29,6 +30,7 @@ const init = async () => {
   // 项目详情页
   const isActiveExtension = await ChromeStorage.get('isRun');
   if (!isActiveExtension) return;
+
   if (PathName === '/roompricezjw/index.html') {
     const isParseDetail = await ChromeStorage.get('isParseDetail');
     if (!isParseDetail) return;
@@ -46,6 +48,4 @@ const init = async () => {
       setTimeout(() => window.close());
     }, 200);
   }
-};
-
-init();
+})()

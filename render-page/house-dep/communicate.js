@@ -1,6 +1,6 @@
 // 通信
-import {sendToCtxJs} from "../../util/index.js";
-import Vue from "../../util/vue.esm.brower.js";
+import {sendToCtxJs, Storager} from "../../util/index.js";
+import Vue from "../../vendor/vue.esm.brower.js";
 import VueCfg from "./vue-cfg.js";
 
 export const PageTitle = '住建蓉e办';
@@ -12,7 +12,7 @@ export const MsgType = {
 
 // 获取页面筛选参数
 export const getParam = async () => {
-  return  await sendToCtxJs({
+  return await sendToCtxJs({
     title: PageTitle,
     data: { type: MsgType.syncParam },
   });
@@ -33,6 +33,6 @@ export const initOptionPage = async () => {
     title: PageTitle,
   });
   const app = new Vue(VueCfg);
-  // Storager.set('pageData', filterRes);
+  Storager.set('pageData', filterRes);
   app.updateTable(filterRes);
 };

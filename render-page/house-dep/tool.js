@@ -20,13 +20,6 @@ export const parseTable = tableSeletor => {
   return { header: rows[0], dataRow: rows.slice(1) };
 };
 
-export function insetScript(src) {
-  const tag = document.createElement('script');
-  tag.type = 'module';
-  tag.src = src;
-  document.body.appendChild(tag);
-}
-// insetScript('chrome-extension://dmpmcohcnfkhemdccjefninlcelpbpnl/render-page/house-dep/entry.js');
 
 export const dialog = contentHtml => {
   const sty = {

@@ -1,14 +1,7 @@
-import { Log, saveFile, Storager, regMsgListener } from '../util/index.js';
-import { initOptionPage } from '../render-page/house-dep/list.js';
+import { Log, saveFile } from '../util/index.js';
+import { initOptionPage } from '../render-page/house-dep/communicate.js';
 
-Log('rended');
-
-// regMsgListener((req, sender, sendResponse) => {
-//   Storager.set('pageData', req);
-//   app.updateTable(req);
-// });
-
-initOptionPage();
+await initOptionPage();
 
 document.getElementById('download').onclick = () => {
   const pageInfo = JSON.parse(document.querySelector('pre').textContent);

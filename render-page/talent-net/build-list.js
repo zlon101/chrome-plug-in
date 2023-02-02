@@ -3,15 +3,6 @@ console.clear();
   const {listenExtend, TalentListPage} = await import('./send-msg.js');
   const { Storager } = await import('../../util/index.js');
 
-  try {
-    const { default : Vue } = await import('../../util/vue.esm.brower.js');
-    rendDialog(Vue, []);
-    return;
-  } catch (e) {
-    console.error('rendDialog 失败，', e);
-  }
-
-
   if (TalentListPage === document.title) {
     listenExtend(callSearch);
     Storager.get('couldRun') && callSearch();
@@ -64,7 +55,6 @@ console.clear();
         共 ${totalPage} 页，当前 ${nowPage} 页
         找到 ${totalVal.length} 条数据
       `);
-
       rendDialog(totalVal);
     }
   }
@@ -88,12 +78,9 @@ function parsePage (reg) {
 }
 
 async function rendDialog(list) {
-  const { default: Vue } = await import('../../util/vue.esm.brower.js');
-  const root = document.createElement('div');
-  root.id = 'yukfnje';
-  document.body.appendChild(root);
+  await import('../../vendor/evalCore.min.js');
+  const { default: Vue } = await import('../../vendor/vue.esm.brower.js');
   const app = new Vue({
-    el: '#yukfnje',
     template: `<div class="dialog" :style="wrapSty">
       <button :style="closeSty" @click="onClose">关闭</button>
       <ol :style="ulSty"><li v-for="item in list" :key="item.url" :style="liSty"><a :href="item.url">{{item.txt}}</a></li></ol>
@@ -141,5 +128,5 @@ async function rendDialog(list) {
       };
     },
   });
-  // document.body.appendChild(app.$mount().$el);
+  document.body.appendChild(app.$mount().$el);
 }

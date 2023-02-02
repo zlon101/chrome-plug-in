@@ -6,6 +6,8 @@ Log('popup render');
 
 const inputEles = Array.from(document.querySelectorAll('input'));
 const btnSubmit = document.querySelector('#startup');
+let sendReques = () => console.error('sendReques 未赋值');
+
 btnSubmit.onclick = () => {
   const form = inputEles.reduce((acc, ele) => {
     const k = ele.id;
@@ -16,7 +18,7 @@ btnSubmit.onclick = () => {
 
   form.isRun = true;
   ChromeStorage.set(form);
-  onSubmit(form);
+  sendReques(form);
 };
 
 inputEles.forEach(el => {
@@ -31,26 +33,23 @@ inputEles.forEach(el => {
 
 const currentTab = await getCurrentTab();
 const curPageTitle = currentTab?.title;
-Log(`
- tab: ${currentTab?.title}
-`);
+if (curPageTitle.includes('住建蓉')) {
+  sendReques = searchHouse;
+  document.querySelector('.filter_more').style.display = 'block';
 
-function onSubmit(param) {
-  if (curPageTitle.includes('住建蓉')) {
-    document.querySelector('.filter_more').style.display = 'block';
-    getParam().then(searchVal => {
-      const keys = Object.keys(searchVal);
-      keys.forEach(k => {
-        const el = document.querySelector(`input#${k}`);
-        if (!el) return;
-        const attr = el.type === 'checkbox' ? 'checked' : 'value';
-        el[attr] = searchVal[k];
-      });
+  getParam().then(searchVal => {
+    const keys = Object.keys(searchVal);
+    keys.forEach(k => {
+      const el = document.querySelector(`input#${k}`);
+      if (!el) return;
+      const attr = el.type === 'checkbox' ? 'checked' : 'value';
+      el[attr] = searchVal[k];
     });
-  } else if (curPageTitle.includes('住房和城乡建设')) {
-    invokSearch(param);
-  }
+  });
+} else if (curPageTitle.includes('住房和城乡建设')) {
+  sendReques = invokSearch;
 }
+
 
 async function getCurrentTab() {
   let queryOptions = { active: true, lastFocusedWindow: true };

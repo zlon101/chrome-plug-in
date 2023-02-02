@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>选项页</title>
+    <title>搜索结果</title>
     <style>
       * {
         margin: 0;
@@ -69,7 +69,6 @@
         display: none;
       }
     </style>
-    <script src="../vendor/evalCore.min.js"></script>
   </head>
   <body>
     <h1>选项页</h1>
@@ -81,7 +80,7 @@
         <thead>
           <tr>
             <th v-for="(item, idx) in tHeader" :key="idx">
-              <span>{{ [item, idx].join('_') }}</span>
+              <span>{{`${item}_${idx}`}}</span>
               <div v-if="idx===tHeader.length-1 && hasDetail"
                 class="expand-all-btn btn"
                 @click="onToggleAll"
@@ -89,20 +88,19 @@
             </th>
           </tr>
         </thead>
-
         <tbody>
-          <template v-for="(row, rIdx) in tRows" :key="rIdx">
+          <template v-for="(row,rIdx) in tRows" :key="rIdx">
             <tr>
-              <td v-for="(col,cIdx) in row" :class="'col-'+cIdx" :key="cIdx">
-                <span v-if="cIdx !== row.length-1">{{ !cIdx ? ( '('+rIdx+') ' + col ) : col}}</span>
+              <td v-for="(col,cIdx) in row" :class="`col-${cIdx}`" :key="cIdx">
+                <span v-if="cIdx !== row.length-1">{{col}}</span>
                 <a v-else :href="typeof col !== 'string' ? col.url : col" target="_blank">详情</a>
                 <div v-if="hasDetail && cIdx===row.length-1" @click="onToggle" :rind="rIdx" class="expand-btn btn">展开</div>
               </td>
             </tr>
-
+            <!-- 详情 -->
             <tr v-if="hasDetail">
               <td colspan="20">
-                <table :class="'detail-table rind-'+rIdx">
+                <table :class="`detail-table rind-${rIdx}`">
                   <thead>
                     <tr>
                       <td>栋/单元</td>
@@ -113,10 +111,10 @@
                   </thead>
                   <tbody>
                     <tr v-for="(unit, rIdx2) in row[row.length-1].info" :key="rIdx2">
-                      <td class="nowrap">{{ unit.building+'栋'+unit.unit+'单元' }}</td>
+                      <td class="nowrap">{{ `${unit.building}栋${unit.unit}单元` }}</td>
                       <td class="nowrap">{{ unit.salesNum }}</td>
-                      <td class="nowrap">{{ unit.price[0]+' - '+unit.price[1] }}</td>
-                      <td class="nowrap">{{ unit.areaSize[0]+' - '+unit.areaSize[1] }}</td>
+                      <td class="nowrap">{{ `${unit.price[0]} - ${unit.price[1]}` }}</td>
+                      <td class="nowrap">{{ `${unit.areaSize[0]} - ${unit.areaSize[1]}` }}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -127,5 +125,5 @@
       </table>
     </section>
   </body>
-  <script src="./options.js" type="module"></script>
+  <script src="./index.js" type="module"></script>
 </html>
