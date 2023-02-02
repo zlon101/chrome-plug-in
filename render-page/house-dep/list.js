@@ -8,7 +8,7 @@ import {
   regMsgListener,
   sendMsgToExtension,
 } from '../../util/index.js';
-import { MsgType, Runing } from './communicate.js';
+import { MsgType, Runing, noticePage } from './communicate.js';
 
 const IsRendedKey = '是否已经重定向到首页',
   SearchResultKey = '筛选结果';
@@ -63,9 +63,15 @@ const PageCfg = {
     },
   },
   curPageNum: {
-    el: document.querySelector('#ID_ucSCXXShowNew2_UcPager1_page1 .current'),
+    // el: document.querySelector('#ID_ucSCXXShowNew2_UcPager1_page1 .current'),
+    el:document.querySelector('#ID_ucSCXXShowNew2_UcPager1_txtPage'),
     get() {
-      return +this.el.textContent.trim();
+      const val = Number(this.el.value.trim());
+      console.debug('当前页码', val);
+      if (Number.isNaN(val)) {
+        throw new Error('curPageNum.get() 为 NaN');
+      }
+      return val;
     },
     set(val) {
       this.el.value = val;
@@ -79,13 +85,10 @@ const PageCfg = {
   },
   getTableVal: () => parseTable('table#ID_ucSCXXShowNew2_gridView'),
   // 修改搜索参数后刷新页面
-  submitSearch: () => document.getElementById('ID_ucSCXXShowNew2_btnSccx').click(),
-  prePage: () => document.getElementById('ID_ucSCXXShowNew2_UcPager1_btnNewLast').click(),
-  nextPage: () => document.getElementById('ID_ucSCXXShowNew2_UcPager1_btnNewNext').click(),
-  toFirstPage: () => {
-    document.getElementById('ID_ucSCXXShowNew2_UcPager1_txtPage').value = 1;
-    document.getElementById('ID_ucSCXXShowNew2_UcPager1_btnPageSubmit').click();
-  },
+  submitSearch: noticePage.reload,
+  prePage: noticePage.prePage,
+  nextPage: noticePage.nextPage,
+  toFirstPage: noticePage.firstPage,
 };
 
 // 列表页
@@ -102,6 +105,13 @@ export async function handleIndexPage() {
 
   regMsgListener(handleMsg);
   Log('list.js 执行 regMsgListener 完成');
+
+  const runing = await ChromeStorage.get(Runing);
+  Log('runing: ', runing);
+  if (runing) {
+   const indexPageRes = await parseIndexPage();
+    indexPageRes && (addDetailInfo = indexPageRes.updateDetailCol);
+  }
 }
 
 
@@ -118,10 +128,10 @@ async function handleMsg(request, sender, sendResponse) {
       }
     });
     sendResponse(searchParam);
-  } else if (reqType === MsgType.startParse) {
 
-    // 来自popup的消息，执行搜索
+  } else if (reqType === MsgType.startParse) {
     Log('来自popup的消息, 开始解析, ', request.data);
+    Storager.set(IsRendedKey, false);
     ChromeStorage.set({ [Runing]: true });
     parseIndexPage(request.data).then(indexPageRes2 => {
       if (indexPageRes2) {
@@ -129,6 +139,7 @@ async function handleMsg(request, sender, sendResponse) {
       }
     });
     sendResponse();
+
   } else if (reqType === MsgType.getFilterResult) {
 
     // 选项页打开，发送数据给选项页
@@ -165,7 +176,7 @@ async function parseIndexPage(popupForm) {
 
   // 定位到第一页
   const isRended = Storager.get(IsRendedKey);
-  if (!isRended && (+pageInfo.curPageNum) !== 1) {
+  if (!isRended && pageInfo.curPageNum !== 1) {
     PageCfg.toFirstPage();
     return;
   }
@@ -212,7 +223,7 @@ async function parseIndexPage(popupForm) {
   // 当前table处理完成, 继续下一页
   const completeCb = () => {
     Storager.append('tableRow', tableInfo.dataRow);
-    if (pageInfo.curPageNum === pageInfo.totalPageNum) {
+    if (pageInfo.curPageNum >= pageInfo.totalPageNum) {
       // 重置 isRun
       ChromeStorage.set({ [Runing]: false });
       const data = { pageInfo, tableInfo };

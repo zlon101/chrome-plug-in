@@ -18,12 +18,10 @@ const Origin = window.location.origin;
   const { Log, ChromeStorage } = await import('../../util/index.js');
   const { handleIndexPage } = await import('./list.js');
   const { parseDetailPage } = await import('./detail.js');
-  const { Runing, MsgType } = await import('./communicate.js');
+  const { Runing, MsgType, inJectIntoPage } = await import('./communicate.js');
   const { getSearchVla, SearchFields } = await import('../../popup/filter-cfg.js');
 
-  // const { default: injectJs } = await import('../inject-script.js');
-  // injectJs('render-page/house-dep/page-script.js');
-
+  await inJectIntoPage();
 
   if (PathName === '/SCXX/Default.aspx') {
     return handleIndexPage();

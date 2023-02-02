@@ -89,23 +89,26 @@ window.onload = () => Log('onload');
 let sendReques = () => console.error('sendReques 未赋值');
 const currentTab = await getCurrentTab();
 const curPageTitle = currentTab?.title;
+if (!currentTab) {
+  throw new Error('未找到当前活动的Tab页');
+}
 
 if (curPageTitle.includes('住建蓉')) {
   sendReques = searchHouse;
   vueInstance.hasSearchText = false;
   vueInstance.hasFilter = true;
 
-  const pageParam = await getFilterParam() || {};
+  const pageParam = await getFilterParam(currentTab.id) || {};
   const cacheParam = await getSearchVla() || {};
   const totalParam = { ...cacheParam, ...pageParam };
   Object.keys(totalParam).forEach(k => {
     !totalParam[k] && (totalParam[k] = pageParam[k] || cacheParam[k]);
   })
-  console.debug(`
-    pageParam: %o
-    cacheParam: %o
-    total: %o
-  `, pageParam, cacheParam, totalParam);
+  // console.debug(`
+  //   pageParam: %o
+  //   cacheParam: %o
+  //   total: %o
+  // `, pageParam, cacheParam, totalParam);
 
   const keys = Object.keys(totalParam);
   keys.forEach(k => {
