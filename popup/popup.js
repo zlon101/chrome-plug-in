@@ -83,6 +83,7 @@ const vueInstance = new Vue({
   },
 });
 
+
 window.onload = () => Log('onload');
 
 let sendReques = () => console.error('sendReques 未赋值');
@@ -94,21 +95,28 @@ if (curPageTitle.includes('住建蓉')) {
   vueInstance.hasSearchText = false;
   vueInstance.hasFilter = true;
 
-  const pageParam = await getFilterParam();
-  const cacheParam = await getSearchVla();
-  Object.keys(pageParam).forEach(k => {
-    !pageParam[k] && (pageParam[k] = cacheParam[k])
+  const pageParam = await getFilterParam() || {};
+  const cacheParam = await getSearchVla() || {};
+  const totalParam = { ...cacheParam, ...pageParam };
+  Object.keys(totalParam).forEach(k => {
+    !totalParam[k] && (totalParam[k] = pageParam[k] || cacheParam[k]);
   })
+  console.debug(`
+    pageParam: %o
+    cacheParam: %o
+    total: %o
+  `, pageParam, cacheParam, totalParam);
 
-  const keys = Object.keys(pageParam);
+  const keys = Object.keys(totalParam);
   keys.forEach(k => {
-    vueInstance.setForm(k, pageParam[k]);
+    totalParam[k] && vueInstance.setForm(k, totalParam[k]);
     /***
      const el = document.querySelector(`input#${k}`);
      if (!el) return;
      const attr = el.type === 'checkbox' ? 'checked' : 'value';
-     el[attr] = pageParam[k]; **/
+     el[attr] = totalParam[k]; **/
   });
+
 } else if (curPageTitle.includes('住房和城乡建设')) {
   vueInstance.hasSearchText = true;
   vueInstance.hasFilter = false;

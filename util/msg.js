@@ -1,3 +1,8 @@
+import {ChromeStorage} from  './storage.js';
+
+const HasListenerOfContentJs = 'content-script中是否已经调用onMessage.addListener';
+const HasListenerOfExtendJs = 'extend中是否已经调用onMessage.addListener';
+
 // 发给消息给content script
 export const sendToCtxJs = async ({data, title, url, cb}) => {
   let tab = null;
@@ -10,38 +15,34 @@ export const sendToCtxJs = async ({data, title, url, cb}) => {
     throw new Error(`未找到对应的标签页, url:${url} title: ${title}`);
   }
 
-  const fn = async () => {
+  // chrome.runtime.lastError
+  try {
     const response = await chrome.tabs.sendMessage(tab.id, data);
     console.debug(`
       sendToCtxJs 执行成功
       目标页面: ${tab.title}
       response: %o
     `, response);
-    return response;
-  }
 
-  // chrome.runtime.lastError
-  try {
-    return await fn();
+    chrome.action.setBadgeText({text: ''});
+    chrome.action.setBadgeBackgroundColor({color: '#FFF'});
+    return response;
   } catch (e) {
-    console.error('发送消息给content-script失败: \n', e);
-    try {
-      // await chrome.tabs.reload(tab.id);
-      return await fn();
-    } catch (e) {
-      console.error('重试失败, ', e);
-    }
+    chrome.action.setBadgeText({text: '未监听'});
+    chrome.action.setBadgeBackgroundColor({color: 'red'});
+    // chrome.action.setBadgeTextColor({color: '#FF0000'});
   }
 };
 
 // onMessage 监听器
-export const regMsgListener = handler => {
+export const regMsgListener = (handler, context = HasListenerOfContentJs) => {
   try {
     chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       handler(request, sender, sendResponse);
       // 异步调用
       return true;
     });
+    ChromeStorage.set({ [context]: true });
   } catch (e) {
     console.error(`regMsgListener 执行失败`, e);
     throw e;
@@ -53,3 +54,7 @@ export const sendMsgToExtension = async (json, cb) => {
   // ExtendId
   return  await chrome.runtime.sendMessage(json, cb);
 };
+
+export async function hasListeners(context = HasListenerOfContentJs) {
+  return await ChromeStorage.get(context);
+}
