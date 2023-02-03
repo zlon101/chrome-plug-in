@@ -221,10 +221,10 @@ async function parseIndexPage(popupForm) {
       Storager.set(SearchResultKey, data);
       // sendMsgToExtension(data); // 发送给选项页
       Storager.remove('tableRow');
-      const href = 'chrome-extension://dmpmcohcnfkhemdccjefninlcelpbpnl/render-page/search-result/index.html';
+      const href = 'chrome-extension://dmpmcohcnfkhemdccjefninlcelpbpnl/render-page/house-dep/search-result/index.html';
       dialog(`
         <h2>总数据: ${tableInfo.dataRow.length}</h2>
-        <p><a href="${href}" target="_blank">搜索结果</a></p>
+        <p style="color:blue"><a href="${href}" target="_blank">搜索结果</a></p>
       `);
     } else {
       // 下一页

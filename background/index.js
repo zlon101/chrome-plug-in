@@ -1,28 +1,40 @@
-import {injectContentJs} from '../render-page/inject-script.js';
+// import {injectContentJs} from '../render-page/inject-script.js';
 
 const ContextMenus = {
-  delDom: {
-    id: 'del_element',
-    title: '删除',
-    type: 'page',
-  },
+  // delDom: {
+  //   id: 'del_element',
+  //   title: '删除',
+  //   type: 'all',
+  // },
   search: {
     id: 'searchHighLight',
     title: '搜索',
-    type: 'selection'
+    type: ['selection']
   }
 }
 
+// https://developer.chrome.com/docs/extensions/reference/contextMenus/#method-create
+chrome.runtime.onInstalled.addListener(async () => {
+  console.debug('chrome.runtime.onInstalled');
+  for (let [_, item] of Object.entries(ContextMenus)) {
+    chrome.contextMenus.create({
+      id: item.id,
+      title: item.title,
+      contexts: item.type,
+      documentUrlPatterns: ['http://*/*', 'https://*/*', 'file://*/*']
+    });
+  }
+});
 
-chrome.contextMenus.onClicked.addListener((item, tab, ...res) => {
+chrome.contextMenus.onClicked.addListener((item, tab) => {
+  console.debug(item);
   const tld = item.menuItemId;
   switch (tld) {
-    case ContextMenus.delDom.id:
-      injectContentJs(tab.id, () => {
-        console.debug('injectContentJs');
-      })
-      break;
     case ContextMenus.search.id:
+      const selectText = item.selectionText.trim();
+      if (selectText) {
+
+      }
       break;
   }
   // let url = new URL(`https://google.${tld}/search`)
@@ -30,25 +42,10 @@ chrome.contextMenus.onClicked.addListener((item, tab, ...res) => {
   // chrome.tabs.create({ url: url.href, index: tab.index + 1 });
 });
 
-chrome.runtime.onInstalled.addListener(async () => {
-  console.debug('chrome.runtime.onInstalled');
-  for (let [_, item] of Object.entries(ContextMenus)) {
-    chrome.contextMenus.create({
-      id: item.id,
-      title: item.title,
-      contexts: [item.type],
-      // contexts: ['page', 'selection', 'editable', 'link', 'image'],
-      documentUrlPatterns: ['http://*/*', 'https://*/*', 'file://*/*']
-    });
-  }
-});
-
-
-
-
-
 
 /****
+
+
 chrome.action.onClicked.addListener(tab => {
   console.debug('action.onClicked', tab);
   chrome.action.setPopup({popup: '../popup/popup.html'});
