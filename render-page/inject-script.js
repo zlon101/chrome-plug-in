@@ -9,18 +9,11 @@ export default function (jsPath) {
   });
 }
 
-
 // content-script 通知 extend，extend 注入脚本到 page 中
 // 运行在 extend 环境下
-function injectedFunction() {
-  console.debug('injectedFunction');
-  document.body.style.backgroundColor = 'red';
-  document.getElementById('ID_ucSCXXShowNew2_UcPager1_btnNewNext').click();
-}
-
-function injectJsTest(tabId) {
+export function injectContentJs(tabId, func) {
   chrome.scripting.executeScript({
     target : { tabId },
-    func : injectedFunction,
+    func,
   });
 }
