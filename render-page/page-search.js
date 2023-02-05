@@ -1,17 +1,19 @@
-document.addEventListener('PerformSearchHjq8', e => {
-  const searchText = e.detail;
-  console.log('page 中监听到 Req_HasCusPageScript', e.detail);
-  traverseDoc(searchText);
-})
-
-document.dispatchEvent(new CustomEvent('PageSearchScriptHasExit'));
-
-
-// ========= 遍历搜索 ==========================================
-
 const log = console.debug;
 
-function traverseDoc(searchText) {
+function listenPerfomSearch() {
+  document.addEventListener('PerformSearchHjq8', e => {
+    const searchText = e.detail;
+    traverseDoc(searchText);
+  })
+
+  document.dispatchEvent(new CustomEvent('PageSearchScriptHasExit'));
+}
+
+
+// ========= 遍历搜索 ===========================
+const HighLightElementId = 'zl_highlight_span';
+
+export function traverseDoc(searchText) {
   const treeWalker = document.createTreeWalker(document.body, NodeFilter.SHOW_ELEMENT);
   const reg = new RegExp(searchText, 'i');
   if (!reg.test(treeWalker.root.innerText)) {
@@ -24,8 +26,8 @@ function traverseDoc(searchText) {
   let matchEle = null;
   const result = [];
   // console.time();
+  // 查找目标element
   while (curNode && !currentIsRoot()) {
-    const innerText = curNode.innerText;
     if (isHideElement(curNode) || !reg.test(curNode.innerText)) {
       matchEle && result.push(matchEle);
       matchEle = null;
@@ -48,15 +50,14 @@ function traverseDoc(searchText) {
   const targetEles = [];
   let N = result.length;
   result.forEach((node, ind) => {
-    if (ind === N - 1 || !node.contains(result[ind + 1])) {
+    if (!node.id.includes(HighLightElementId) && (ind === N - 1 || !node.contains(result[ind + 1]))) {
       targetEles.push(node);
     }
   });
 
-  // log(`
-  // nodeList: %o
-  // targetEles: %o
-  // `, nodeList, targetEles);
+  log(`
+    targetEles: %o
+  `, targetEles);
 
   for (const ele of targetEles) {
     reg.lastIndex = 0;
@@ -70,20 +71,19 @@ function surroundContents(ele, matchText) {
     rangeEnd = null,
     curNode = null,
     fullText = '',
-    nodeStack = [],
-    regRes = null;
+    nodeStack = [];
 
   const NodeIterator = document.createNodeIterator(ele, NodeFilter.SHOW_TEXT);
 
   while (curNode = NodeIterator.nextNode()) {
     nodeStack.push(curNode);
-    fullText = nodeStack.map(node => node.wholeText.trim()).join('');
+    fullText = nodeStack.map(node => node.wholeText).join('');
     if (fullText.includes(matchText)) {
       rangeEnd = { node: curNode };
       let startNode;
       do {
         startNode = nodeStack.shift();
-        fullText = nodeStack.map(node => node.wholeText.trim()).join('');
+        fullText = nodeStack.map(node => node.wholeText).join('');
       } while (fullText.includes(matchText));
       rangeStart = { node: startNode };
       break;
@@ -131,7 +131,8 @@ function surroundContents(ele, matchText) {
     range.setEnd(rangeEnd.node, rangeEnd.offset);
 
     const span = document.createElement('span');
-    span.style.cssText = 'background-color:red;font-size:larger';
+    span.id = HighLightElementId;
+    span.style.cssText = 'background-color:red;'; // font-size:larger
 
     span.appendChild(range.extractContents());
     range.insertNode(span);
@@ -141,16 +142,54 @@ function surroundContents(ele, matchText) {
 }
 
 function isHideElement(element) {
-  if (!element.offsetHeight || !element.offsetWidth) {
+  if (element.offsetHeight < 2 || element.offsetWidth < 2) {
     return true;
   }
   const styleAttr = window.getComputedStyle(element);
-  if (styleAttr.display === 'none'
+  return styleAttr.display === 'none'
     || styleAttr.visibility === 'hidden'
-    || styleAttr.opacity === '0') {
-    return true;
-  }
-  return false;
+    || styleAttr.opacity === '0';
+
 }
 
-// ===================================================
+
+/**
+ * content-script环境下运行
+ * 向 page 中注入脚本，然后 content 派发自定义事件，通知 page 执行搜索功能
+ * **/
+function contentNoticePageToSearch (searchText) {
+  function noticePageSearch(searchText) {
+    console.debug('🔥 content 执行 noticePageSearch');
+    document.dispatchEvent(new CustomEvent('PerformSearchHjq8', {detail: searchText }));
+  }
+
+  if (window._PageSearchScriptHasExit) {
+    // 已经注入，通知 page
+    noticePageSearch(searchText);
+    return;
+  }
+
+  document.addEventListener('PageSearchScriptHasExit', () => {
+    window._PageSearchScriptHasExit = true;
+  });
+
+  const injectToPage = (jsPath) => {
+    const s = document.createElement('script');
+    s.src = chrome.runtime.getURL(jsPath);
+    s.type = 'module';
+    return new Promise((resolve, reject) => {
+      s.onload = () => resolve();
+      s.onerror = (e) => reject({ msg: '注入脚本失败', e });
+      (document.head || document.documentElement).appendChild(s);
+    });
+  }
+
+  try {
+    injectToPage('background/page-search.js').then(() => {
+      // console.debug('🔥 content 向 page 注入脚本成功');
+      noticePageSearch(searchText);
+    });
+  } catch (e) {
+    throw e;
+  }
+}
