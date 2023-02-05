@@ -11,6 +11,7 @@ export const parseTable = tableSeletor => {
       return item.querySelector('a').href.trim();
     });
   };
+
   const table = document.querySelector(tableSeletor);
   if (!table) {
     return { header: [], dataRow: [] };

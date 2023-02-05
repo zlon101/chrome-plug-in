@@ -12,7 +12,9 @@ import { MsgType, Runing, noticePage } from './communicate.js';
 import { SearchFields } from '../../popup/filter-cfg.js';
 
 const IsRendedKey = '是否已经重定向到首页',
-  SearchResultKey = '筛选结果';
+  SearchResultKey = '筛选结果',
+  SearchField = [SearchFields.area, SearchFields.startDate, SearchFields.endDate, SearchFields.proName, SearchFields.proId].map(item => item.key),
+  PopupParamKey = 'PopupParam';
 
 // 页面筛选参数
 const PageCfg = {
@@ -94,6 +96,7 @@ const PageCfg = {
 
 // 列表页
 let addDetailInfo = () => {};
+
 export async function handleIndexPage() {
   // 接收来自详情页的消息
   window.addEventListener('message', e => {
@@ -134,6 +137,8 @@ async function handleMsg(request, sender, sendResponse) {
     Log('来自popup的消息, 开始解析, ', request.data);
     Storager.set(IsRendedKey, false);
     ChromeStorage.set({ [Runing]: true });
+    Storager.set(PopupParamKey, request.data);
+    Storager.remove(SearchResultKey);
     parseIndexPage(request.data).then(indexPageRes2 => {
       if (indexPageRes2) {
         addDetailInfo = indexPageRes2.updateDetailCol;
@@ -149,7 +154,6 @@ async function handleMsg(request, sender, sendResponse) {
   }
 }
 
-const SearchField = [SearchFields.area, SearchFields.startDate, SearchFields.endDate, SearchFields.proName, SearchFields.proId].map(item => item.key);
 async function parseIndexPage(popupForm) {
   const isActiveExtension = await ChromeStorage.get(Runing);
   if (!isActiveExtension) return;
@@ -170,27 +174,20 @@ async function parseIndexPage(popupForm) {
     PageCfg.toFirstPage();
     return;
   }
-  // 确定预期的参数
-  const preExtCfg = await ChromeStorage.get(null);
-  let extCfg = { ...preExtCfg, ...popupForm };
-
-  if (!popupForm && isRended) {
-    SearchField.forEach(k => (extCfg[k] = pageInfo[k]));
-  }
-  ChromeStorage.set(extCfg);
   Storager.set(IsRendedKey, true);
 
-
   // 是否需要修改页面参数
-  const searchParam = {};
   let isTargetSearchVa = true;
-  SearchField.forEach(k => {
-    searchParam[k] = extCfg[k];
-    if (extCfg.hasOwnProperty(k) && extCfg[k] !== pageInfo[k]) {
-      PageCfg[k].set(searchParam[k]);
-      isTargetSearchVa = false;
-    }
-  });
+  if (popupForm) {
+    SearchField.forEach(k => {
+      if (popupForm.hasOwnProperty(k) && popupForm[k] !== pageInfo[k]) {
+        PageCfg[k].set(popupForm[k]);
+        isTargetSearchVa = false;
+      }
+    });
+  } else {
+    popupForm = Storager.get(PopupParamKey);
+  }
   if (!isTargetSearchVa) {
     // 刷新页面
     PageCfg.submitSearch();
@@ -201,7 +198,8 @@ async function parseIndexPage(popupForm) {
   const tableInfo = PageCfg.getTableVal(); // { header, dataRow: [[col], [col]] }
   const filterCb = row => row[4].includes('住宅');
   tableInfo.dataRow = tableInfo.dataRow.filter(row => filterCb(row));
-  Log(`数据行: ${tableInfo.dataRow.length}`);
+  const dataRowNum = tableInfo.dataRow.length;
+  Log(`数据行: ${dataRowNum}`);
 
   const detailUrlIdx = {};
   tableInfo.dataRow.forEach((row, rIdx) => {
@@ -211,6 +209,7 @@ async function parseIndexPage(popupForm) {
 
 
   // 当前table处理完成, 继续下一页
+  let count = 0;
   const completeCb = () => {
     Storager.append('tableRow', tableInfo.dataRow);
     if (pageInfo.curPageNum >= pageInfo.totalPageNum) {
@@ -219,7 +218,6 @@ async function parseIndexPage(popupForm) {
       const data = { pageInfo, tableInfo };
       tableInfo.dataRow = Storager.get('tableRow');
       Storager.set(SearchResultKey, data);
-      // sendMsgToExtension(data); // 发送给选项页
       Storager.remove('tableRow');
       const href = 'chrome-extension://dmpmcohcnfkhemdccjefninlcelpbpnl/render-page/house-dep/search-result/index.html';
       dialog(`
@@ -231,31 +229,37 @@ async function parseIndexPage(popupForm) {
       PageCfg.nextPage();
     }
   };
+
+  // 添加详情信息
+  const updateDetailCol = detail => {
+    ++count;
+    const rIdx = detailUrlIdx[detail.url];
+    const curRow = tableInfo.dataRow[rIdx];
+    curRow[curRow.length - 1] = detail;
+    if (count >= dataRowNum) {
+      completeCb();
+    }
+  };
+
   // 打开详情页
-  if (extCfg.isParseDetail) {
-    setTimeout(() => {
-      tableInfo.dataRow.forEach(row => {
-        const detailUrl = row[row.length - 1];
-        const targetW = window.open(detailUrl, '_blank');
+  if (popupForm[SearchFields.isParseDetail.key]) {
+    if (dataRowNum > 0) {
+      setTimeout(() => {
+        tableInfo.dataRow.forEach(row => {
+          const detailUrl = row[row.length - 1];
+          const targetW = window.open(detailUrl, '_blank');
+        });
       });
-    });
+    } else {
+      completeCb();
+    }
   } else {
     completeCb();
   }
 
-  // 添加详情信息
-  let count = 0;
   return {
     pageInfo,
     tableInfo,
-    updateDetailCol: detail => {
-      ++count;
-      const rIdx = detailUrlIdx[detail.url];
-      const curRow = tableInfo.dataRow[rIdx];
-      curRow[curRow.length - 1] = detail;
-      if (count === tableInfo.dataRow.length) {
-        completeCb();
-      }
-    },
+    updateDetailCol,
   };
 }

@@ -1,6 +1,6 @@
-import {saveFile} from "../../../util/index.js";
-import {renderSearchResult} from "../communicate.js";
-import Vue from "../../../vendor/vue.esm.brower.js";
+import {saveFile} from '../../../util/index.js';
+import {renderSearchResult} from '../communicate.js';
+import Vue from '../../../vendor/vue.esm.brower.js';
 
 const BList = [6, 8, 9, 10]; // 不显示的列
 const ExCol = ['可售数量', '价格', '面积']; // 增加的列
@@ -91,6 +91,7 @@ const cfg = {
 const app = new Vue(cfg);
 const filterRes = await renderSearchResult();
 app.updateTable(filterRes);
+console.debug('filterRes:', filterRes);
 
 
 /**
