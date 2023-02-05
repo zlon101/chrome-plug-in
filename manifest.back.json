@@ -2,7 +2,7 @@
   "name": "chrome-plugin-zl",
   "version": "1.0",
   "description": "custom chrome plugin",
-  "manifest_version": 3,
+  "manifest_version": 2,
   "action": {
     "default_popup": "popup/popup.html",
     "default_icon": "images/icon16.png"

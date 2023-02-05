@@ -1,15 +1,5 @@
 const log = console.debug;
 
-function listenPerfomSearch() {
-  document.addEventListener('PerformSearchHjq8', e => {
-    const searchText = e.detail;
-    traverseDoc(searchText);
-  })
-
-  document.dispatchEvent(new CustomEvent('PageSearchScriptHasExit'));
-}
-
-
 // ========= 遍历搜索 ===========================
 const HighLightElementId = 'zl_highlight_span';
 
@@ -55,9 +45,7 @@ export function traverseDoc(searchText) {
     }
   });
 
-  log(`
-    targetEles: %o
-  `, targetEles);
+  // log('$ targetEles', targetEles);
 
   for (const ele of targetEles) {
     reg.lastIndex = 0;
@@ -157,7 +145,7 @@ function isHideElement(element) {
  * content-script环境下运行
  * 向 page 中注入脚本，然后 content 派发自定义事件，通知 page 执行搜索功能
  * **/
-function contentNoticePageToSearch (searchText) {
+export function contentNoticePageToSearch (searchText) {
   function noticePageSearch(searchText) {
     console.debug('🔥 content 执行 noticePageSearch');
     document.dispatchEvent(new CustomEvent('PerformSearchHjq8', {detail: searchText }));
@@ -192,4 +180,13 @@ function contentNoticePageToSearch (searchText) {
   } catch (e) {
     throw e;
   }
+}
+
+function listenPerfomSearch() {
+  document.addEventListener('PerformSearchHjq8', e => {
+    const searchText = e.detail;
+    traverseDoc(searchText);
+  })
+
+  document.dispatchEvent(new CustomEvent('PageSearchScriptHasExit'));
 }

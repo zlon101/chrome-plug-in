@@ -1,4 +1,5 @@
 import {injectContentJs} from '../render-page/inject-script.js';
+import {contentNoticePageToSearch} from '../render-page/page-search.js';
 
 const ContextMenus = {
   // delDom: {
@@ -44,48 +45,8 @@ chrome.contextMenus.onClicked.addListener((item, tab) => {
 
 function handlePageSearch(searchText, tab) {
   console.debug('后台程序执行 handlePageSearch');
-  injectContentJs(tab.id, hasInjectPageJs, [searchText, tab])
+  injectContentJs(tab.id, contentNoticePageToSearch, [searchText, tab])
 }
-
-// content-script
-function hasInjectPageJs (searchText, _tab) {
-  function noticePageSearch(searchText) {
-    console.debug('🔥 content 执行 noticePageSearch');
-    document.dispatchEvent(new CustomEvent('PerformSearchHjq8', {detail: searchText }));
-  }
-
-  if (window._PageSearchScriptHasExit) {
-    // 已经注入，通知 page
-    noticePageSearch(searchText);
-    return;
-  }
-
-  document.addEventListener('PageSearchScriptHasExit', () => {
-    console.debug('🔥 content中监听到 PageSearchScriptHasExit: ');
-    window._PageSearchScriptHasExit = true;
-  });
-
-  const injectToPage = (jsPath) => {
-    const s = document.createElement('script');
-    s.src = chrome.runtime.getURL(jsPath);
-    s.type = 'module';
-    return new Promise((resolve, reject) => {
-      s.onload = () => resolve();
-      s.onerror = (e) => reject({ msg: '注入脚本失败', e });
-      (document.head || document.documentElement).appendChild(s);
-    });
-  }
-
-  try {
-    injectToPage('background/page-search.js').then(() => {
-      console.debug('🔥 content 向 page 注入脚本成功');
-      noticePageSearch(searchText);
-    });
-  } catch (e) {
-    throw e;
-  }
-}
-
 
 
 /****
