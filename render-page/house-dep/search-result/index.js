@@ -12,6 +12,34 @@ const cfg = {
     hasDetail: false,
     tHeader: [],
     tRows: [],
+    searchText: '',
+    sortVal: '',
+  },
+  computed: {
+    filterResult() {
+      let list = this.tRows;
+      if (this.searchText) {
+        list = list.filter(cols => cols.slice(0,-1).join('').includes(this.searchText));
+      }
+      const PriceIndex = this.tHeader.findIndex(item => item === '价格');
+      const SizeIndex = this.tHeader.findIndex(item => item === '面积');
+      switch (this.sortVal) {
+        case 'minPrice':
+          list.sort((a, b) => parseFloat(a[PriceIndex].split('-')[0]) - parseFloat(b[PriceIndex].split('-')[0]));
+          break;
+        case 'maxPrice':
+          list.sort((a, b) => parseFloat(a[PriceIndex].split('-')[1]) - parseFloat(b[PriceIndex].split('-')[1]));
+          break;
+        case 'minSize':
+          list.sort((a, b) => parseFloat(a[SizeIndex].split('-')[1]) - parseFloat(b[SizeIndex].split('-')[1]));
+          break;
+        case 'maxSize':
+          list.sort((a, b) => parseFloat(a[SizeIndex].split('-')[1]) - parseFloat(b[SizeIndex].split('-')[1]));
+          break;
+        default:
+      }
+      return list;
+    },
   },
   methods: {
     updateTable(pageData) {
@@ -72,7 +100,7 @@ const cfg = {
       saveFile(`${pageInfo.title}${pageInfo.parseTime}.html`, pageHtml);**/
     },
     saveJSON() {
-      saveFile('data-json.js', JSON.stringify(filterRes, null, 2));
+      saveFile('result.json', JSON.stringify(filterRes, null, 2));
     },
     onImport() {
       document.querySelector('#file').click();

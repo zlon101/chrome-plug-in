@@ -81,12 +81,20 @@
     <h1>搜索结果</h1>
     <section id="vue-app-house-dep">
       <pre>{{ JSON.stringify(pageInfo, null, 2) }}</pre>
-      <h2>总数据: {{tRows.length}}</h2>
+      <h2>总数据: {{filterResult.length}}</h2>
       <div class="btn_wrap">
         <button @click="savePDF">保存为PDF</button>
         <button @click="saveJSON">保存数据</button>
         <button @click="onImport">导入数据</button>
+        <input type="text" placeholder="搜索" v-model="searchText" />
+        <select v-model="sortVal">
+          <option value="minPrice">最低总价</option>
+          <option value="maxPrice">最高总价</option>
+          <option value="minSize">最小面积</option>
+          <option value="maxSize">最大面积</option>
+        </select>
       </div>
+
       <table>
         <thead>
           <tr>
@@ -99,12 +107,14 @@
             </th>
           </tr>
         </thead>
-
         <tbody>
-          <template v-for="(row, rIdx) in tRows" :key="rIdx">
+          <template v-for="(row, rIdx) in filterResult" :key="rIdx">
             <tr>
               <td v-for="(col,cIdx) in row" :class="'col-'+cIdx" :key="cIdx">
-                <span v-if="cIdx !== row.length-1">{{ !cIdx ? ( '('+rIdx+') ' + col ) : col}}</span>
+                <span v-if="cIdx !== row.length-1"
+                  :class="{nowrap: ['价格', '面积'].includes(tHeader[cIdx])}">
+                  {{ !cIdx ? ( '('+rIdx+') ' + col ) : col}}
+                </span>
                 <a v-else :href="typeof col !== 'string' ? col.url : col" target="_blank">详情</a>
                 <div v-if="hasDetail && cIdx===row.length-1" @click="onToggle" :rind="rIdx" class="expand-btn btn">展开</div>
               </td>
