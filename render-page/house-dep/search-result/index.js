@@ -5,6 +5,37 @@ import Vue from '../../../vendor/vue.esm.brower.js';
 const BList = [6, 8, 9, 10]; // 不显示的列
 const ExCol = ['可售数量', '价格', '面积']; // 增加的列
 
+const stringToNumb = v => v ? parseFloat(v) : 0;
+
+function rangeFilter(srcList, rangeStr, fieldKey) {
+  if (!rangeStr) return srcList;
+  const [min, max] = rangeStr.split('-').map(stringToNumb);
+  return srcList.filter(item => {
+    let itemVal = item[fieldKey];
+    itemVal = Array.isArray(itemVal) ? itemVal : itemVal.split('-');
+    const [itemMin, itemMax] = itemVal.map(stringToNumb);
+    let isPass = true;
+    if (min && itemMin < min) {
+      isPass = false;
+    }
+    if (max && itemMin > max) {
+      isPass = false;
+    }
+    return isPass;
+  });
+}
+
+function sortCb(item1, item2, fieldKey, minOrMax) {
+  const splitInd = minOrMax==='min' ? 0 : 1;
+  const [item1Val, item2Val] = [item1, item2].map(_item => {
+    if (typeof item1[fieldKey] === 'string') {
+      return parseFloat(_item[fieldKey].split('-')[splitInd]);
+    }
+    return parseFloat(_item[fieldKey][splitInd]);
+  });
+  return item1Val - item2Val;
+}
+
 const cfg = {
   el: '#vue-app-house-dep',
   data: {
@@ -13,31 +44,53 @@ const cfg = {
     tHeader: [],
     tRows: [],
     searchText: '',
-    sortVal: '',
+    sortVal: 'minPrice',
+
+    priceRange: '',
+    sizeRange: '',
   },
   computed: {
     filterResult() {
-      let list = this.tRows;
-      if (this.searchText) {
-        list = list.filter(cols => cols.slice(0,-1).join('').includes(this.searchText));
-      }
+      let list = JSON.parse(JSON.stringify(this.tRows));
       const PriceIndex = this.tHeader.findIndex(item => item === '价格');
       const SizeIndex = this.tHeader.findIndex(item => item === '面积');
-      switch (this.sortVal) {
-        case 'minPrice':
-          list.sort((a, b) => parseFloat(a[PriceIndex].split('-')[0]) - parseFloat(b[PriceIndex].split('-')[0]));
-          break;
-        case 'maxPrice':
-          list.sort((a, b) => parseFloat(a[PriceIndex].split('-')[1]) - parseFloat(b[PriceIndex].split('-')[1]));
-          break;
-        case 'minSize':
-          list.sort((a, b) => parseFloat(a[SizeIndex].split('-')[1]) - parseFloat(b[SizeIndex].split('-')[1]));
-          break;
-        case 'maxSize':
-          list.sort((a, b) => parseFloat(a[SizeIndex].split('-')[1]) - parseFloat(b[SizeIndex].split('-')[1]));
-          break;
-        default:
+
+      // 全局搜索
+      const _searchText = this.searchText.trim();
+      if (_searchText) {
+        list = list.filter(cols => cols.slice(0,-1).join('').includes(_searchText));
       }
+
+      if (this.hasDetail) {
+        // 价格范围
+        list.forEach(row => {
+          const oriList = row[row.length-1].info || [];
+          row[row.length-1].info = rangeFilter(oriList, this.priceRange, 'price');
+          row[row.length-1].info = rangeFilter(row[row.length-1].info, this.sizeRange, 'areaSize');
+        });
+        list = list.filter(cols => cols[cols.length-1].info.length > 0);
+        // 排序
+        switch (this.sortVal) {
+          case 'minPrice':
+            list.sort((a, b) => sortCb(a,b,PriceIndex,'min'));
+            list.forEach(row => row[row.length-1].info.sort((a, b)=>  sortCb(a,b,'price', 'min')));
+            break;
+          case 'maxPrice':
+            list.sort((a, b) => sortCb(a,b,PriceIndex,'max'));
+            list.forEach(row => row[row.length-1].info.sort((a, b)=>  sortCb(a,b,'price', 'max')));
+            break;
+          case 'minSize':
+            list.sort((a, b) => sortCb(a,b,SizeIndex,'min'));
+            list.forEach(row => row[row.length-1].info.sort((a, b)=>  sortCb(a,b,'areaSize', 'min')));
+            break;
+          case 'maxSize':
+            list.sort((a, b) => sortCb(a,b,SizeIndex,'max'));
+            list.forEach(row => row[row.length-1].info.sort((a, b)=>  sortCb(a,b,'areaSize', 'max')));
+            break;
+          default:
+        }
+      }
+
       return list;
     },
   },
@@ -100,7 +153,7 @@ const cfg = {
       saveFile(`${pageInfo.title}${pageInfo.parseTime}.html`, pageHtml);**/
     },
     saveJSON() {
-      saveFile('result.json', JSON.stringify(filterRes, null, 2));
+      saveFile('result.json', JSON.stringify(this.$data, null, 2));
     },
     onImport() {
       document.querySelector('#file').click();
@@ -109,7 +162,8 @@ const cfg = {
       const file = e.target.files[0];
       const reader = new FileReader()
       reader.onload = (evt) => {
-        this.updateTable(JSON.parse(evt.target.result));
+        const vueData = JSON.parse(evt.target.result);
+        Object.keys(vueData).forEach(k => (this.$data[k] = vueData[k]));
       };
       reader.readAsText(file);
     },

@@ -87,6 +87,15 @@
         <button @click="saveJSON">保存数据</button>
         <button @click="onImport">导入数据</button>
         <input type="text" placeholder="搜索" v-model="searchText" />
+
+        <label>
+          价格区间
+          <input type="text" v-model="priceRange" />
+        </label>
+        <label>
+          面积区间
+          <input type="text" v-model="sizeRange" />
+        </label>
         <select v-model="sortVal">
           <option value="minPrice">最低总价</option>
           <option value="maxPrice">最高总价</option>

@@ -38,8 +38,21 @@ export const dialog = contentHtml => {
     return acc;
   }, '');
 
-  const wrapHtml= `<div style="${styStr}">
+  const wrapHtml= `<div id="dialog_prvrmx" style="${styStr}">
+    <span class="close_tbx6"
+      style="
+        position: absolute;
+        right:8px;
+        top:8px;
+        cursor:pointer;
+        z-index:222;
+      "
+    >X</span>
     ${contentHtml}
   </div>`;
   document.body.insertAdjacentHTML('beforeend', wrapHtml);
+  setTimeout(()=>{
+    const closeBtn = document.querySelector('.close_tbx6');
+    closeBtn.addEventListener('click', () => document.querySelector('#dialog_prvrmx').remove());
+  }, 1000);
 };

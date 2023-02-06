@@ -1,0 +1,3467 @@
+{
+  "pageInfo": {
+    "title": "住建蓉e办",
+    "parseTime": "02月05-16时25分",
+    "area": "双流区",
+    "startDate": "2022-06-01",
+    "endDate": "2023-07-01",
+    "proName": "",
+    "proId": "",
+    "curPageNum": 4,
+    "totalPageNum": 4
+  },
+  "hasDetail": true,
+  "tHeader": [
+    "预/现售号",
+    "项目名称",
+    "行政区域",
+    "项目地址",
+    "房屋用途",
+    "开发商",
+    "预售日期",
+    "可售数量",
+    "价格",
+    "面积",
+    "一房一价"
+  ],
+  "tRows": [
+    [
+      "510116202366117",
+      "卓越南城",
+      "双流区",
+      "双流区空港一路一段189号",
+      "住宅，公寓，商业",
+      "四川合丰置业发展有限责任公司",
+      "2023-01-16",
+      437,
+      "97.65 - 255.7",
+      "45.03 - 108.6",
+      {
+        "type": "发送详情页数据",
+        "info": [
+          {
+            "salesNum": 107,
+            "price": [
+              "102.81",
+              "138.66"
+            ],
+            "areaSize": [
+              86.13,
+              108.58
+            ],
+            "building": "29",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=79136EE6510CF773081B83A7E4124EF2B8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          },
+          {
+            "salesNum": 107,
+            "price": [
+              "97.65",
+              "131.71"
+            ],
+            "areaSize": [
+              86.13,
+              108.58
+            ],
+            "building": "29",
+            "unit": "2",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=79136EE6510CF773081B83A7E4124EF2B8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          },
+          {
+            "salesNum": 9,
+            "price": [
+              "112.58",
+              "255.70"
+            ],
+            "areaSize": [
+              45.03,
+              102.28
+            ],
+            "building": "29",
+            "unit": "其他",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=79136EE6510CF773081B83A7E4124EF2B8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          },
+          {
+            "salesNum": 107,
+            "price": [
+              "100.46",
+              "131.73"
+            ],
+            "areaSize": [
+              86.14,
+              108.6
+            ],
+            "building": "30",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=79136EE6510CF773081B83A7E4124EF2B8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          },
+          {
+            "salesNum": 107,
+            "price": [
+              "99.15",
+              "138.68"
+            ],
+            "areaSize": [
+              86.14,
+              108.6
+            ],
+            "building": "30",
+            "unit": "2",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=79136EE6510CF773081B83A7E4124EF2B8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          }
+        ],
+        "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=79136EE6510CF773081B83A7E4124EF2B8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+      }
+    ],
+    [
+      "510116202365624",
+      "云璟铂樾苑",
+      "双流区",
+      "双流区港都街300号",
+      "住宅",
+      "成都翰云置业有限公司",
+      "2023-01-06",
+      123,
+      "197.12 - 299.45",
+      "113.89 - 143.91",
+      {
+        "type": "发送详情页数据",
+        "info": [
+          {
+            "salesNum": 26,
+            "price": [
+              "265.83",
+              "295.66"
+            ],
+            "areaSize": [
+              142.04,
+              142.09
+            ],
+            "building": "11",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=A9C1167524E366986FD7CF1B9B76A197B8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          },
+          {
+            "salesNum": 23,
+            "price": [
+              "273.55",
+              "299.45"
+            ],
+            "areaSize": [
+              143.86,
+              143.91
+            ],
+            "building": "11",
+            "unit": "2",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=A9C1167524E366986FD7CF1B9B76A197B8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          },
+          {
+            "salesNum": 38,
+            "price": [
+              "197.12",
+              "248.63"
+            ],
+            "areaSize": [
+              113.89,
+              123.77
+            ],
+            "building": "4",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=A9C1167524E366986FD7CF1B9B76A197B8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          },
+          {
+            "salesNum": 36,
+            "price": [
+              "203.62",
+              "249.62"
+            ],
+            "areaSize": [
+              114.34,
+              124.26
+            ],
+            "building": "4",
+            "unit": "2",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=A9C1167524E366986FD7CF1B9B76A197B8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          }
+        ],
+        "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=A9C1167524E366986FD7CF1B9B76A197B8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+      }
+    ],
+    [
+      "510116202265538",
+      "玺苑",
+      "双流区",
+      "双流区西航港新街888号",
+      "住宅",
+      "成都招商双兴房地产开发有限公司",
+      "2022-12-30",
+      106,
+      "450.39 - 787.68",
+      "187.81 - 279.71",
+      {
+        "type": "发送详情页数据",
+        "info": [
+          {
+            "salesNum": 6,
+            "price": [
+              "483.36",
+              "624.72"
+            ],
+            "areaSize": [
+              194.31,
+              276.14
+            ],
+            "building": "1",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=AE1F2F57F8A1E04C146175486511839AB8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          },
+          {
+            "salesNum": 6,
+            "price": [
+              "473.10",
+              "614.51"
+            ],
+            "areaSize": [
+              194.3,
+              276.8
+            ],
+            "building": "1",
+            "unit": "2",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=AE1F2F57F8A1E04C146175486511839AB8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          },
+          {
+            "salesNum": 4,
+            "price": [
+              "496.39",
+              "786.82"
+            ],
+            "areaSize": [
+              188.34,
+              270.55
+            ],
+            "building": "18",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=AE1F2F57F8A1E04C146175486511839AB8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          },
+          {
+            "salesNum": 4,
+            "price": [
+              "473.32",
+              "695.39"
+            ],
+            "areaSize": [
+              188.32,
+              271.15
+            ],
+            "building": "3",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=AE1F2F57F8A1E04C146175486511839AB8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          },
+          {
+            "salesNum": 4,
+            "price": [
+              "496.39",
+              "787.68"
+            ],
+            "areaSize": [
+              188.34,
+              270.55
+            ],
+            "building": "10",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=AE1F2F57F8A1E04C146175486511839AB8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          },
+          {
+            "salesNum": 4,
+            "price": [
+              "486.53",
+              "753.93"
+            ],
+            "areaSize": [
+              188.34,
+              270.2
+            ],
+            "building": "27",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=AE1F2F57F8A1E04C146175486511839AB8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          },
+          {
+            "salesNum": 6,
+            "price": [
+              "513.87",
+              "690.91"
+            ],
+            "areaSize": [
+              194.3,
+              276.35
+            ],
+            "building": "25",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=AE1F2F57F8A1E04C146175486511839AB8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          },
+          {
+            "salesNum": 6,
+            "price": [
+              "513.87",
+              "687.07"
+            ],
+            "areaSize": [
+              194.3,
+              276.35
+            ],
+            "building": "25",
+            "unit": "2",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=AE1F2F57F8A1E04C146175486511839AB8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          },
+          {
+            "salesNum": 6,
+            "price": [
+              "518.75",
+              "739.22"
+            ],
+            "areaSize": [
+              194.22,
+              279.71
+            ],
+            "building": "8",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=AE1F2F57F8A1E04C146175486511839AB8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          },
+          {
+            "salesNum": 6,
+            "price": [
+              "518.93",
+              "703.62"
+            ],
+            "areaSize": [
+              194.29,
+              276.33
+            ],
+            "building": "8",
+            "unit": "2",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=AE1F2F57F8A1E04C146175486511839AB8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          },
+          {
+            "salesNum": 4,
+            "price": [
+              "457.26",
+              "736.44"
+            ],
+            "areaSize": [
+              187.81,
+              269.88
+            ],
+            "building": "19",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=AE1F2F57F8A1E04C146175486511839AB8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          },
+          {
+            "salesNum": 4,
+            "price": [
+              "450.39",
+              "745.75"
+            ],
+            "areaSize": [
+              187.81,
+              269.47
+            ],
+            "building": "19",
+            "unit": "2",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=AE1F2F57F8A1E04C146175486511839AB8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          },
+          {
+            "salesNum": 6,
+            "price": [
+              "520.66",
+              "692.39"
+            ],
+            "areaSize": [
+              194.3,
+              276.35
+            ],
+            "building": "9",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=AE1F2F57F8A1E04C146175486511839AB8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          },
+          {
+            "salesNum": 6,
+            "price": [
+              "508.78",
+              "733.67"
+            ],
+            "areaSize": [
+              194.3,
+              276.35
+            ],
+            "building": "9",
+            "unit": "2",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=AE1F2F57F8A1E04C146175486511839AB8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          },
+          {
+            "salesNum": 4,
+            "price": [
+              "506.26",
+              "780.55"
+            ],
+            "areaSize": [
+              188.34,
+              270.55
+            ],
+            "building": "6",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=AE1F2F57F8A1E04C146175486511839AB8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          },
+          {
+            "salesNum": 6,
+            "price": [
+              "510.48",
+              "689.21"
+            ],
+            "areaSize": [
+              194.3,
+              276.35
+            ],
+            "building": "22",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=AE1F2F57F8A1E04C146175486511839AB8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          },
+          {
+            "salesNum": 6,
+            "price": [
+              "520.66",
+              "732.44"
+            ],
+            "areaSize": [
+              194.3,
+              276.35
+            ],
+            "building": "22",
+            "unit": "2",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=AE1F2F57F8A1E04C146175486511839AB8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          },
+          {
+            "salesNum": 6,
+            "price": [
+              "464.26",
+              "604.64"
+            ],
+            "areaSize": [
+              194.13,
+              275.68
+            ],
+            "building": "2",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=AE1F2F57F8A1E04C146175486511839AB8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          },
+          {
+            "salesNum": 6,
+            "price": [
+              "464.26",
+              "579.14"
+            ],
+            "areaSize": [
+              194.13,
+              275.54
+            ],
+            "building": "2",
+            "unit": "2",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=AE1F2F57F8A1E04C146175486511839AB8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          },
+          {
+            "salesNum": 6,
+            "price": [
+              "464.26",
+              "644.46"
+            ],
+            "areaSize": [
+              194.13,
+              275.68
+            ],
+            "building": "2",
+            "unit": "3",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=AE1F2F57F8A1E04C146175486511839AB8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          }
+        ],
+        "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=AE1F2F57F8A1E04C146175486511839AB8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+      }
+    ],
+    [
+      "510116202265378",
+      "楠樾府",
+      "双流区",
+      "双流区龙渡路三段99号",
+      "住宅",
+      "成都都樾置业有限公司",
+      "2022-12-30",
+      130,
+      "178.73 - 278.12",
+      "99.34 - 128.63",
+      {
+        "type": "发送详情页数据",
+        "info": [
+          {
+            "salesNum": 22,
+            "price": [
+              "179.03",
+              "232.22"
+            ],
+            "areaSize": [
+              99.34,
+              116.42
+            ],
+            "building": "23",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=F15B09FCA08131B9B3BD835BF4FA1A66B8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          },
+          {
+            "salesNum": 22,
+            "price": [
+              "178.73",
+              "231.40"
+            ],
+            "areaSize": [
+              99.34,
+              116.42
+            ],
+            "building": "23",
+            "unit": "2",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=F15B09FCA08131B9B3BD835BF4FA1A66B8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          },
+          {
+            "salesNum": 21,
+            "price": [
+              "192.15",
+              "211.95"
+            ],
+            "areaSize": [
+              105.7,
+              105.8
+            ],
+            "building": "28",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=F15B09FCA08131B9B3BD835BF4FA1A66B8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          },
+          {
+            "salesNum": 21,
+            "price": [
+              "192.79",
+              "211.95"
+            ],
+            "areaSize": [
+              105.7,
+              105.8
+            ],
+            "building": "28",
+            "unit": "2",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=F15B09FCA08131B9B3BD835BF4FA1A66B8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          },
+          {
+            "salesNum": 22,
+            "price": [
+              "230.27",
+              "278.12"
+            ],
+            "areaSize": [
+              116.05,
+              128.63
+            ],
+            "building": "7",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=F15B09FCA08131B9B3BD835BF4FA1A66B8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          },
+          {
+            "salesNum": 22,
+            "price": [
+              "229.10",
+              "278.12"
+            ],
+            "areaSize": [
+              116.05,
+              128.63
+            ],
+            "building": "7",
+            "unit": "2",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=F15B09FCA08131B9B3BD835BF4FA1A66B8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          }
+        ],
+        "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=F15B09FCA08131B9B3BD835BF4FA1A66B8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+      }
+    ],
+    [
+      "510116202265514",
+      "保利和颂花园",
+      "双流区",
+      "双流区双兴大道二段66号",
+      "住宅，公寓",
+      "成都保双置业有限公司",
+      "2022-12-26",
+      127,
+      "318.47 - 380.73",
+      "141.67 - 150.13",
+      {
+        "type": "发送详情页数据",
+        "info": [
+          {
+            "salesNum": 21,
+            "price": [
+              "349.95",
+              "380.73"
+            ],
+            "areaSize": [
+              150.13,
+              150.13
+            ],
+            "building": "9",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=E1D120BA3F587AC860E5B0064721EEB9B8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          },
+          {
+            "salesNum": 30,
+            "price": [
+              "355.96",
+              "376.23"
+            ],
+            "areaSize": [
+              150.13,
+              150.13
+            ],
+            "building": "9",
+            "unit": "2",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=E1D120BA3F587AC860E5B0064721EEB9B8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          },
+          {
+            "salesNum": 19,
+            "price": [
+              "340.86",
+              "358.57"
+            ],
+            "areaSize": [
+              141.67,
+              141.67
+            ],
+            "building": "19",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=E1D120BA3F587AC860E5B0064721EEB9B8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          },
+          {
+            "salesNum": 17,
+            "price": [
+              "330.52",
+              "345.39"
+            ],
+            "areaSize": [
+              141.67,
+              141.67
+            ],
+            "building": "19",
+            "unit": "2",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=E1D120BA3F587AC860E5B0064721EEB9B8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          },
+          {
+            "salesNum": 19,
+            "price": [
+              "318.47",
+              "330.52"
+            ],
+            "areaSize": [
+              141.67,
+              141.67
+            ],
+            "building": "11",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=E1D120BA3F587AC860E5B0064721EEB9B8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          },
+          {
+            "salesNum": 21,
+            "price": [
+              "330.52",
+              "343.27"
+            ],
+            "areaSize": [
+              141.67,
+              141.67
+            ],
+            "building": "11",
+            "unit": "2",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=E1D120BA3F587AC860E5B0064721EEB9B8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          }
+        ],
+        "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=E1D120BA3F587AC860E5B0064721EEB9B8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+      }
+    ],
+    [
+      "510116202265424",
+      "信港山河府",
+      "双流区",
+      "双流区虹津路39号",
+      "住宅",
+      "成都牧山信港置业有限公司",
+      "2022-12-22",
+      176,
+      "129.78 - 567.8",
+      "109.1 - 310.66",
+      {
+        "type": "发送详情页数据",
+        "info": [
+          {
+            "salesNum": 6,
+            "price": [
+              "274.12",
+              "419.81"
+            ],
+            "areaSize": [
+              168.92,
+              249.47
+            ],
+            "building": "3",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=AAE2ABB4EB391B41AD4862917393C01EB8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          },
+          {
+            "salesNum": 6,
+            "price": [
+              "292.72",
+              "432.94"
+            ],
+            "areaSize": [
+              168.93,
+              249.13
+            ],
+            "building": "3",
+            "unit": "2",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=AAE2ABB4EB391B41AD4862917393C01EB8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          },
+          {
+            "salesNum": 6,
+            "price": [
+              "294.41",
+              "435.43"
+            ],
+            "areaSize": [
+              168.93,
+              249.13
+            ],
+            "building": "3",
+            "unit": "3",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=AAE2ABB4EB391B41AD4862917393C01EB8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          },
+          {
+            "salesNum": 6,
+            "price": [
+              "299.62",
+              "448.10"
+            ],
+            "areaSize": [
+              169.01,
+              249.25
+            ],
+            "building": "3",
+            "unit": "4",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=AAE2ABB4EB391B41AD4862917393C01EB8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          },
+          {
+            "salesNum": 22,
+            "price": [
+              "172.66",
+              "203.83"
+            ],
+            "areaSize": [
+              126.42,
+              143.56
+            ],
+            "building": "25",
+            "unit": "其他",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=AAE2ABB4EB391B41AD4862917393C01EB8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          },
+          {
+            "salesNum": 19,
+            "price": [
+              "131.18",
+              "151.73"
+            ],
+            "areaSize": [
+              119.49,
+              119.49
+            ],
+            "building": "26",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=AAE2ABB4EB391B41AD4862917393C01EB8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          },
+          {
+            "salesNum": 22,
+            "price": [
+              "167.89",
+              "198.68"
+            ],
+            "areaSize": [
+              129.07,
+              141.43
+            ],
+            "building": "26",
+            "unit": "2",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=AAE2ABB4EB391B41AD4862917393C01EB8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          },
+          {
+            "salesNum": 4,
+            "price": [
+              "374.48",
+              "412.09"
+            ],
+            "areaSize": [
+              228.97,
+              239.2
+            ],
+            "building": "1",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=AAE2ABB4EB391B41AD4862917393C01EB8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          },
+          {
+            "salesNum": 4,
+            "price": [
+              "394.47",
+              "419.97"
+            ],
+            "areaSize": [
+              228.97,
+              238.92
+            ],
+            "building": "1",
+            "unit": "2",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=AAE2ABB4EB391B41AD4862917393C01EB8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          },
+          {
+            "salesNum": 4,
+            "price": [
+              "399.05",
+              "463.52"
+            ],
+            "areaSize": [
+              228.97,
+              239.2
+            ],
+            "building": "1",
+            "unit": "3",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=AAE2ABB4EB391B41AD4862917393C01EB8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          },
+          {
+            "salesNum": 4,
+            "price": [
+              "480.69",
+              "567.80"
+            ],
+            "areaSize": [
+              271.5,
+              310.19
+            ],
+            "building": "15",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=AAE2ABB4EB391B41AD4862917393C01EB8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          },
+          {
+            "salesNum": 4,
+            "price": [
+              "469.83",
+              "532.13"
+            ],
+            "areaSize": [
+              271.5,
+              310.19
+            ],
+            "building": "15",
+            "unit": "2",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=AAE2ABB4EB391B41AD4862917393C01EB8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          },
+          {
+            "salesNum": 4,
+            "price": [
+              "475.24",
+              "536.04"
+            ],
+            "areaSize": [
+              271.49,
+              310.66
+            ],
+            "building": "15",
+            "unit": "3",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=AAE2ABB4EB391B41AD4862917393C01EB8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          },
+          {
+            "salesNum": 6,
+            "price": [
+              "269.04",
+              "400.50"
+            ],
+            "areaSize": [
+              168.91,
+              249.46
+            ],
+            "building": "2",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=AAE2ABB4EB391B41AD4862917393C01EB8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          },
+          {
+            "salesNum": 6,
+            "price": [
+              "287.64",
+              "425.45"
+            ],
+            "areaSize": [
+              168.92,
+              249.12
+            ],
+            "building": "2",
+            "unit": "2",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=AAE2ABB4EB391B41AD4862917393C01EB8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          },
+          {
+            "salesNum": 6,
+            "price": [
+              "289.33",
+              "427.94"
+            ],
+            "areaSize": [
+              168.92,
+              249.12
+            ],
+            "building": "2",
+            "unit": "3",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=AAE2ABB4EB391B41AD4862917393C01EB8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          },
+          {
+            "salesNum": 6,
+            "price": [
+              "294.39",
+              "432.92"
+            ],
+            "areaSize": [
+              168.92,
+              249.12
+            ],
+            "building": "2",
+            "unit": "4",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=AAE2ABB4EB391B41AD4862917393C01EB8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          },
+          {
+            "salesNum": 19,
+            "price": [
+              "129.78",
+              "149.28"
+            ],
+            "areaSize": [
+              120.41,
+              120.47
+            ],
+            "building": "27",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=AAE2ABB4EB391B41AD4862917393C01EB8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          },
+          {
+            "salesNum": 22,
+            "price": [
+              "137.55",
+              "190.66"
+            ],
+            "areaSize": [
+              109.1,
+              140.76
+            ],
+            "building": "27",
+            "unit": "2",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=AAE2ABB4EB391B41AD4862917393C01EB8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          }
+        ],
+        "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=AAE2ABB4EB391B41AD4862917393C01EB8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+      }
+    ],
+    [
+      "510116202265212",
+      "玺悦台小区",
+      "双流区",
+      "双流区葛陌社区二组",
+      "住宅",
+      "成都市渝成房地产开发有限公司",
+      "2022-12-09",
+      178,
+      "198.81 - 311.34",
+      "102.49 - 224.34",
+      {
+        "type": "发送详情页数据",
+        "info": [
+          {
+            "salesNum": 41,
+            "price": [
+              "199.43",
+              "311.34"
+            ],
+            "areaSize": [
+              102.49,
+              224.34
+            ],
+            "building": "9",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=4919DADAD88B76301935D0EEEB0B89BDB8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          },
+          {
+            "salesNum": 45,
+            "price": [
+              "198.81",
+              "311.34"
+            ],
+            "areaSize": [
+              102.49,
+              224.34
+            ],
+            "building": "9",
+            "unit": "2",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=4919DADAD88B76301935D0EEEB0B89BDB8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          },
+          {
+            "salesNum": 47,
+            "price": [
+              "199.43",
+              "311.34"
+            ],
+            "areaSize": [
+              102.49,
+              224.34
+            ],
+            "building": "8",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=4919DADAD88B76301935D0EEEB0B89BDB8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          },
+          {
+            "salesNum": 45,
+            "price": [
+              "201.58",
+              "311.34"
+            ],
+            "areaSize": [
+              102.49,
+              224.34
+            ],
+            "building": "8",
+            "unit": "2",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=4919DADAD88B76301935D0EEEB0B89BDB8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          }
+        ],
+        "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=4919DADAD88B76301935D0EEEB0B89BDB8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+      }
+    ],
+    [
+      "510116202264970",
+      "越秀曦悦府",
+      "双流区",
+      "双流区双兴大道二段188号",
+      "住宅，公寓",
+      "成都隽燊房地产开发有限公司",
+      "2022-11-30",
+      110,
+      "240.15 - 370.52",
+      "107.09 - 133.49",
+      {
+        "type": "发送详情页数据",
+        "info": [
+          {
+            "salesNum": 12,
+            "price": [
+              "240.15",
+              "334.51"
+            ],
+            "areaSize": [
+              107.14,
+              132.2
+            ],
+            "building": "5",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=D051B8294D6E6281E94B0B6EA33F034DB8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          },
+          {
+            "salesNum": 16,
+            "price": [
+              "259.00",
+              "355.57"
+            ],
+            "areaSize": [
+              108.19,
+              133.49
+            ],
+            "building": "6",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=D051B8294D6E6281E94B0B6EA33F034DB8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          },
+          {
+            "salesNum": 20,
+            "price": [
+              "324.50",
+              "370.52"
+            ],
+            "areaSize": [
+              124.29,
+              131.13
+            ],
+            "building": "15",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=D051B8294D6E6281E94B0B6EA33F034DB8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          },
+          {
+            "salesNum": 22,
+            "price": [
+              "321.55",
+              "370.52"
+            ],
+            "areaSize": [
+              124.29,
+              131.13
+            ],
+            "building": "15",
+            "unit": "2",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=D051B8294D6E6281E94B0B6EA33F034DB8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          },
+          {
+            "salesNum": 20,
+            "price": [
+              "257.18",
+              "350.33"
+            ],
+            "areaSize": [
+              107.09,
+              132.14
+            ],
+            "building": "7",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=D051B8294D6E6281E94B0B6EA33F034DB8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          },
+          {
+            "salesNum": 20,
+            "price": [
+              "254.33",
+              "353.66"
+            ],
+            "areaSize": [
+              107.09,
+              132.14
+            ],
+            "building": "7",
+            "unit": "2",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=D051B8294D6E6281E94B0B6EA33F034DB8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+          }
+        ],
+        "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=D051B8294D6E6281E94B0B6EA33F034DB8E734DB74090BEBCD54AF05E67A40A81D405074CD2D2067A9B3D2134A78AF00"
+      }
+    ],
+    [
+      "510116202264957",
+      "楠樾府",
+      "双流区",
+      "双流区龙渡路三段99号",
+      "住宅",
+      "成都都樾置业有限公司",
+      "2022-11-29",
+      39,
+      "183.09 - 297.78",
+      "105.7 - 129.27",
+      {
+        "type": "发送详情页数据",
+        "info": [
+          {
+            "salesNum": 21,
+            "price": [
+              "230.00",
+              "297.78"
+            ],
+            "areaSize": [
+              116.72,
+              129.27
+            ],
+            "building": "6",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=48D303E780AF5A234C3C14572890207C77B9FAAA9DF35AB9E3B36804872C7642E07871AEA7EF5F0BC64A48969289A563"
+          },
+          {
+            "salesNum": 11,
+            "price": [
+              "183.09",
+              "198.77"
+            ],
+            "areaSize": [
+              105.7,
+              105.8
+            ],
+            "building": "9",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=48D303E780AF5A234C3C14572890207C77B9FAAA9DF35AB9E3B36804872C7642E07871AEA7EF5F0BC64A48969289A563"
+          },
+          {
+            "salesNum": 7,
+            "price": [
+              "188.38",
+              "201.94"
+            ],
+            "areaSize": [
+              105.7,
+              105.8
+            ],
+            "building": "9",
+            "unit": "2",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=48D303E780AF5A234C3C14572890207C77B9FAAA9DF35AB9E3B36804872C7642E07871AEA7EF5F0BC64A48969289A563"
+          }
+        ],
+        "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=48D303E780AF5A234C3C14572890207C77B9FAAA9DF35AB9E3B36804872C7642E07871AEA7EF5F0BC64A48969289A563"
+      }
+    ],
+    [
+      "510116202264503",
+      "保利和颂花园",
+      "双流区",
+      "双流区双兴大道二段66号",
+      "住宅",
+      "成都保双置业有限公司",
+      "2022-11-29",
+      43,
+      "268.16 - 340.98",
+      "117.09 - 144.47",
+      {
+        "type": "发送详情页数据",
+        "info": [
+          {
+            "salesNum": 43,
+            "price": [
+              "268.16",
+              "340.98"
+            ],
+            "areaSize": [
+              117.09,
+              144.47
+            ],
+            "building": "7",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=E8B430A4FC66B7AEAE0CA0F151D51AD577B9FAAA9DF35AB9E3B36804872C7642E07871AEA7EF5F0BC64A48969289A563"
+          }
+        ],
+        "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=E8B430A4FC66B7AEAE0CA0F151D51AD577B9FAAA9DF35AB9E3B36804872C7642E07871AEA7EF5F0BC64A48969289A563"
+      }
+    ],
+    [
+      "510116202264952",
+      "明信天壹名邸",
+      "双流区",
+      "双流区三江北一路33号",
+      "住宅",
+      "四川锦官绿化工程有限责任公司",
+      "2022-11-28",
+      30,
+      "177.44 - 218.79",
+      "104.1 - 124.14",
+      {
+        "type": "发送详情页数据",
+        "info": [
+          {
+            "salesNum": 21,
+            "price": [
+              "177.44",
+              "213.92"
+            ],
+            "areaSize": [
+              104.1,
+              123.78
+            ],
+            "building": "19",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=59549661E7C69E0DF372A7ADA3C008E877B9FAAA9DF35AB9E3B36804872C7642E07871AEA7EF5F0BC64A48969289A563"
+          },
+          {
+            "salesNum": 9,
+            "price": [
+              "177.96",
+              "218.79"
+            ],
+            "areaSize": [
+              122.95,
+              124.14
+            ],
+            "building": "19",
+            "unit": "2",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=59549661E7C69E0DF372A7ADA3C008E877B9FAAA9DF35AB9E3B36804872C7642E07871AEA7EF5F0BC64A48969289A563"
+          }
+        ],
+        "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=59549661E7C69E0DF372A7ADA3C008E877B9FAAA9DF35AB9E3B36804872C7642E07871AEA7EF5F0BC64A48969289A563"
+      }
+    ],
+    [
+      "510116202264494",
+      "宸光府",
+      "双流区",
+      "双流区东升街道一杆旗南一街28号",
+      "住宅",
+      "成都双流兴城置业有限公司",
+      "2022-11-25",
+      48,
+      "155.98 - 199.92",
+      "104.77 - 125.54",
+      {
+        "type": "发送详情页数据",
+        "info": [
+          {
+            "salesNum": 26,
+            "price": [
+              "155.98",
+              "199.92"
+            ],
+            "areaSize": [
+              104.77,
+              125.54
+            ],
+            "building": "1",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=518E7F80B58EEE1F0DC08662C876B33977B9FAAA9DF35AB9E3B36804872C7642E07871AEA7EF5F0BC64A48969289A563"
+          },
+          {
+            "salesNum": 22,
+            "price": [
+              "156.09",
+              "199.92"
+            ],
+            "areaSize": [
+              104.77,
+              125.54
+            ],
+            "building": "2",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=518E7F80B58EEE1F0DC08662C876B33977B9FAAA9DF35AB9E3B36804872C7642E07871AEA7EF5F0BC64A48969289A563"
+          }
+        ],
+        "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=518E7F80B58EEE1F0DC08662C876B33977B9FAAA9DF35AB9E3B36804872C7642E07871AEA7EF5F0BC64A48969289A563"
+      }
+    ],
+    [
+      "510116202264941",
+      "云璟铂樾苑",
+      "双流区",
+      "双流区港都街300号",
+      "住宅",
+      "成都翰云置业有限公司",
+      "2022-11-23",
+      16,
+      "209.28 - 273.83",
+      "113.89 - 142.25",
+      {
+        "type": "发送详情页数据",
+        "info": [
+          {
+            "salesNum": 3,
+            "price": [
+              "268.14",
+              "273.83"
+            ],
+            "areaSize": [
+              142.25,
+              142.25
+            ],
+            "building": "9",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=DFAE2EAE4E571377453098062A51B96977B9FAAA9DF35AB9E3B36804872C7642E07871AEA7EF5F0BC64A48969289A563"
+          },
+          {
+            "salesNum": 13,
+            "price": [
+              "209.28",
+              "247.23"
+            ],
+            "areaSize": [
+              113.89,
+              123.77
+            ],
+            "building": "5",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=DFAE2EAE4E571377453098062A51B96977B9FAAA9DF35AB9E3B36804872C7642E07871AEA7EF5F0BC64A48969289A563"
+          }
+        ],
+        "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=DFAE2EAE4E571377453098062A51B96977B9FAAA9DF35AB9E3B36804872C7642E07871AEA7EF5F0BC64A48969289A563"
+      }
+    ],
+    [
+      "510116202264931",
+      "保利和颂花园",
+      "双流区",
+      "双流区双兴大道二段66号",
+      "住宅",
+      "成都保双置业有限公司",
+      "2022-11-18",
+      46,
+      "271.76 - 324.95",
+      "117.09 - 144.36",
+      {
+        "type": "发送详情页数据",
+        "info": [
+          {
+            "salesNum": 39,
+            "price": [
+              "271.76",
+              "324.95"
+            ],
+            "areaSize": [
+              117.09,
+              144.36
+            ],
+            "building": "8",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=00663E54FA1443CBA256CB65E8AA6B1B77B9FAAA9DF35AB9E3B36804872C7642E07871AEA7EF5F0BC64A48969289A563"
+          },
+          {
+            "salesNum": 7,
+            "price": [
+              "303.30",
+              "308.33"
+            ],
+            "areaSize": [
+              125.8,
+              125.8
+            ],
+            "building": "10",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=00663E54FA1443CBA256CB65E8AA6B1B77B9FAAA9DF35AB9E3B36804872C7642E07871AEA7EF5F0BC64A48969289A563"
+          }
+        ],
+        "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=00663E54FA1443CBA256CB65E8AA6B1B77B9FAAA9DF35AB9E3B36804872C7642E07871AEA7EF5F0BC64A48969289A563"
+      }
+    ],
+    [
+      "510116202264921",
+      "龙湖九里璟颂名邸",
+      "双流区",
+      "双流区华府大道三段500号",
+      "住宅",
+      "成都旭府置业有限公司",
+      "2022-11-18",
+      75,
+      "295.13 - 443.31",
+      "111.14 - 143.86",
+      {
+        "type": "发送详情页数据",
+        "info": [
+          {
+            "salesNum": 6,
+            "price": [
+              "296.54",
+              "325.43"
+            ],
+            "areaSize": [
+              115.84,
+              115.84
+            ],
+            "building": "1",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=110A497BE3FC1D75C50DE87AAF51D4F977B9FAAA9DF35AB9E3B36804872C7642E07871AEA7EF5F0BC64A48969289A563"
+          },
+          {
+            "salesNum": 25,
+            "price": [
+              "402.21",
+              "432.98"
+            ],
+            "areaSize": [
+              140.83,
+              143.86
+            ],
+            "building": "14",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=110A497BE3FC1D75C50DE87AAF51D4F977B9FAAA9DF35AB9E3B36804872C7642E07871AEA7EF5F0BC64A48969289A563"
+          },
+          {
+            "salesNum": 9,
+            "price": [
+              "295.13",
+              "316.79"
+            ],
+            "areaSize": [
+              115.85,
+              115.85
+            ],
+            "building": "13",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=110A497BE3FC1D75C50DE87AAF51D4F977B9FAAA9DF35AB9E3B36804872C7642E07871AEA7EF5F0BC64A48969289A563"
+          },
+          {
+            "salesNum": 12,
+            "price": [
+              "339.24",
+              "379.08"
+            ],
+            "areaSize": [
+              126.93,
+              127.14
+            ],
+            "building": "3",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=110A497BE3FC1D75C50DE87AAF51D4F977B9FAAA9DF35AB9E3B36804872C7642E07871AEA7EF5F0BC64A48969289A563"
+          },
+          {
+            "salesNum": 9,
+            "price": [
+              "339.24",
+              "443.31"
+            ],
+            "areaSize": [
+              126.93,
+              143.74
+            ],
+            "building": "3",
+            "unit": "2",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=110A497BE3FC1D75C50DE87AAF51D4F977B9FAAA9DF35AB9E3B36804872C7642E07871AEA7EF5F0BC64A48969289A563"
+          },
+          {
+            "salesNum": 14,
+            "price": [
+              "311.61",
+              "358.16"
+            ],
+            "areaSize": [
+              111.14,
+              131.13
+            ],
+            "building": "2",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=110A497BE3FC1D75C50DE87AAF51D4F977B9FAAA9DF35AB9E3B36804872C7642E07871AEA7EF5F0BC64A48969289A563"
+          }
+        ],
+        "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=110A497BE3FC1D75C50DE87AAF51D4F977B9FAAA9DF35AB9E3B36804872C7642E07871AEA7EF5F0BC64A48969289A563"
+      }
+    ],
+    [
+      "510116202264457",
+      "锦利锦悦府",
+      "双流区",
+      "双流区红樱路22号",
+      "住宅、车位",
+      "成都市天皓房地产开发有限公司",
+      "2022-11-16",
+      302,
+      "8 - 423.33",
+      "30.58 - 199.9",
+      {
+        "type": "发送详情页数据",
+        "info": [
+          {
+            "salesNum": 12,
+            "price": [
+              "319.11",
+              "423.33"
+            ],
+            "areaSize": [
+              151.06,
+              199.9
+            ],
+            "building": "1",
+            "unit": "其他",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=CA4A4722F50F8951ADBD6A080E4AC67A77B9FAAA9DF35AB9E3B36804872C7642E07871AEA7EF5F0BC64A48969289A563"
+          },
+          {
+            "salesNum": 290,
+            "price": [
+              "8.00",
+              "20.00"
+            ],
+            "areaSize": [
+              30.58,
+              82.23
+            ],
+            "building": "地下室",
+            "unit": "其他",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=CA4A4722F50F8951ADBD6A080E4AC67A77B9FAAA9DF35AB9E3B36804872C7642E07871AEA7EF5F0BC64A48969289A563"
+          }
+        ],
+        "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=CA4A4722F50F8951ADBD6A080E4AC67A77B9FAAA9DF35AB9E3B36804872C7642E07871AEA7EF5F0BC64A48969289A563"
+      }
+    ],
+    [
+      "510116202264611",
+      "明信天壹名邸",
+      "双流区",
+      "双流区三江北一路33号",
+      "住宅",
+      "四川锦官绿化工程有限责任公司",
+      "2022-11-09",
+      54,
+      "233.87 - 917.18",
+      "133.3 - 288.31",
+      {
+        "type": "发送详情页数据",
+        "info": [
+          {
+            "salesNum": 6,
+            "price": [
+              "503.00",
+              "900.10"
+            ],
+            "areaSize": [
+              210.12,
+              271.01
+            ],
+            "building": "24",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=F6CE2417B0D43BB38061BA738771A2B377B9FAAA9DF35AB9E3B36804872C7642E07871AEA7EF5F0BC64A48969289A563"
+          },
+          {
+            "salesNum": 6,
+            "price": [
+              "503.00",
+              "787.84"
+            ],
+            "areaSize": [
+              210.12,
+              271.02
+            ],
+            "building": "24",
+            "unit": "2",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=F6CE2417B0D43BB38061BA738771A2B377B9FAAA9DF35AB9E3B36804872C7642E07871AEA7EF5F0BC64A48969289A563"
+          },
+          {
+            "salesNum": 6,
+            "price": [
+              "502.76",
+              "917.18"
+            ],
+            "areaSize": [
+              210,
+              288.31
+            ],
+            "building": "24",
+            "unit": "3",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=F6CE2417B0D43BB38061BA738771A2B377B9FAAA9DF35AB9E3B36804872C7642E07871AEA7EF5F0BC64A48969289A563"
+          },
+          {
+            "salesNum": 15,
+            "price": [
+              "238.48",
+              "265.95"
+            ],
+            "areaSize": [
+              137.09,
+              137.09
+            ],
+            "building": "32",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=F6CE2417B0D43BB38061BA738771A2B377B9FAAA9DF35AB9E3B36804872C7642E07871AEA7EF5F0BC64A48969289A563"
+          },
+          {
+            "salesNum": 15,
+            "price": [
+              "233.87",
+              "261.24"
+            ],
+            "areaSize": [
+              133.3,
+              137.09
+            ],
+            "building": "32",
+            "unit": "2",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=F6CE2417B0D43BB38061BA738771A2B377B9FAAA9DF35AB9E3B36804872C7642E07871AEA7EF5F0BC64A48969289A563"
+          },
+          {
+            "salesNum": 6,
+            "price": [
+              "445.63",
+              "599.14"
+            ],
+            "areaSize": [
+              173.5,
+              244.13
+            ],
+            "building": "25",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=F6CE2417B0D43BB38061BA738771A2B377B9FAAA9DF35AB9E3B36804872C7642E07871AEA7EF5F0BC64A48969289A563"
+          }
+        ],
+        "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=F6CE2417B0D43BB38061BA738771A2B377B9FAAA9DF35AB9E3B36804872C7642E07871AEA7EF5F0BC64A48969289A563"
+      }
+    ],
+    [
+      "510116202264165",
+      "北辰鹿鸣苑",
+      "双流区",
+      "双流区警校路二段490号",
+      "住宅、公寓",
+      "成都北辰天辰置业有限公司",
+      "现房",
+      310,
+      "153.4 - 251.24",
+      "89.56 - 136.95",
+      {
+        "type": "发送详情页数据",
+        "info": [
+          {
+            "salesNum": 25,
+            "price": [
+              "153.40",
+              "209.90"
+            ],
+            "areaSize": [
+              89.56,
+              110.89
+            ],
+            "building": "15",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=B534ADCEB0F48BB7B09D9819C69F6C8C14892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          },
+          {
+            "salesNum": 43,
+            "price": [
+              "153.40",
+              "209.90"
+            ],
+            "areaSize": [
+              89.56,
+              110.89
+            ],
+            "building": "15",
+            "unit": "2",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=B534ADCEB0F48BB7B09D9819C69F6C8C14892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          },
+          {
+            "salesNum": 49,
+            "price": [
+              "153.61",
+              "210.16"
+            ],
+            "areaSize": [
+              89.56,
+              110.89
+            ],
+            "building": "14",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=B534ADCEB0F48BB7B09D9819C69F6C8C14892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          },
+          {
+            "salesNum": 35,
+            "price": [
+              "184.82",
+              "210.16"
+            ],
+            "areaSize": [
+              98.66,
+              110.89
+            ],
+            "building": "14",
+            "unit": "2",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=B534ADCEB0F48BB7B09D9819C69F6C8C14892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          },
+          {
+            "salesNum": 17,
+            "price": [
+              "196.02",
+              "246.03"
+            ],
+            "areaSize": [
+              105.13,
+              136.37
+            ],
+            "building": "18",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=B534ADCEB0F48BB7B09D9819C69F6C8C14892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          },
+          {
+            "salesNum": 4,
+            "price": [
+              "199.42",
+              "239.05"
+            ],
+            "areaSize": [
+              105.74,
+              126.09
+            ],
+            "building": "9",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=B534ADCEB0F48BB7B09D9819C69F6C8C14892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          },
+          {
+            "salesNum": 7,
+            "price": [
+              "199.42",
+              "239.05"
+            ],
+            "areaSize": [
+              105.74,
+              126.09
+            ],
+            "building": "9",
+            "unit": "2",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=B534ADCEB0F48BB7B09D9819C69F6C8C14892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          },
+          {
+            "salesNum": 12,
+            "price": [
+              "196.06",
+              "245.69"
+            ],
+            "areaSize": [
+              105.15,
+              136.18
+            ],
+            "building": "19",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=B534ADCEB0F48BB7B09D9819C69F6C8C14892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          },
+          {
+            "salesNum": 3,
+            "price": [
+              "210.98",
+              "251.24"
+            ],
+            "areaSize": [
+              114.92,
+              136.94
+            ],
+            "building": "20",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=B534ADCEB0F48BB7B09D9819C69F6C8C14892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          },
+          {
+            "salesNum": 5,
+            "price": [
+              "200.47",
+              "251.09"
+            ],
+            "areaSize": [
+              105.74,
+              136.94
+            ],
+            "building": "21",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=B534ADCEB0F48BB7B09D9819C69F6C8C14892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          },
+          {
+            "salesNum": 9,
+            "price": [
+              "199.42",
+              "241.58"
+            ],
+            "areaSize": [
+              105.74,
+              126.09
+            ],
+            "building": "8",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=B534ADCEB0F48BB7B09D9819C69F6C8C14892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          },
+          {
+            "salesNum": 6,
+            "price": [
+              "199.42",
+              "250.06"
+            ],
+            "areaSize": [
+              105.74,
+              136.95
+            ],
+            "building": "8",
+            "unit": "2",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=B534ADCEB0F48BB7B09D9819C69F6C8C14892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          },
+          {
+            "salesNum": 12,
+            "price": [
+              "230.05",
+              "237.77"
+            ],
+            "areaSize": [
+              128.55,
+              128.55
+            ],
+            "building": "4",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=B534ADCEB0F48BB7B09D9819C69F6C8C14892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          },
+          {
+            "salesNum": 46,
+            "price": [
+              "183.50",
+              "203.82"
+            ],
+            "areaSize": [
+              98.66,
+              110.89
+            ],
+            "building": "17",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=B534ADCEB0F48BB7B09D9819C69F6C8C14892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          },
+          {
+            "salesNum": 37,
+            "price": [
+              "183.50",
+              "201.60"
+            ],
+            "areaSize": [
+              98.66,
+              110.89
+            ],
+            "building": "17",
+            "unit": "2",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=B534ADCEB0F48BB7B09D9819C69F6C8C14892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          }
+        ],
+        "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=B534ADCEB0F48BB7B09D9819C69F6C8C14892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+      }
+    ],
+    [
+      "510116202264020",
+      "万锦城",
+      "双流区",
+      "双流区和顺路一段369号",
+      "住宅，公寓，商业",
+      "成都信腾投资有限公司",
+      "2022-10-21",
+      132,
+      "162.7 - 836.85",
+      "51.47 - 167.37",
+      {
+        "type": "发送详情页数据",
+        "info": [
+          {
+            "salesNum": 37,
+            "price": [
+              "171.52",
+              "218.61"
+            ],
+            "areaSize": [
+              109.2,
+              143.74
+            ],
+            "building": "42",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=6CB78403F5D548FA148913155F31B93A14892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          },
+          {
+            "salesNum": 35,
+            "price": [
+              "171.52",
+              "216.52"
+            ],
+            "areaSize": [
+              109.2,
+              143.65
+            ],
+            "building": "42",
+            "unit": "2",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=6CB78403F5D548FA148913155F31B93A14892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          },
+          {
+            "salesNum": 14,
+            "price": [
+              "257.35",
+              "836.85"
+            ],
+            "areaSize": [
+              51.47,
+              167.37
+            ],
+            "building": "42",
+            "unit": "其他",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=6CB78403F5D548FA148913155F31B93A14892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          },
+          {
+            "salesNum": 46,
+            "price": [
+              "162.70",
+              "224.31"
+            ],
+            "areaSize": [
+              106.72,
+              141.09
+            ],
+            "building": "43",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=6CB78403F5D548FA148913155F31B93A14892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          }
+        ],
+        "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=6CB78403F5D548FA148913155F31B93A14892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+      }
+    ],
+    [
+      "510116202263718",
+      "未来映花园",
+      "双流区",
+      "双流区东升街道葛陌社区二、四组",
+      "住宅",
+      "成都名扬美川房地产开发有限公司",
+      "2022-10-13",
+      167,
+      "189.55 - 278.71",
+      "104.77 - 134.91",
+      {
+        "type": "发送详情页数据",
+        "info": [
+          {
+            "salesNum": 22,
+            "price": [
+              "254.43",
+              "278.71"
+            ],
+            "areaSize": [
+              134.91,
+              134.91
+            ],
+            "building": "12",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=87EF09E094C9801CC110BCF8B7C1D65B14892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          },
+          {
+            "salesNum": 21,
+            "price": [
+              "254.43",
+              "278.71"
+            ],
+            "areaSize": [
+              134.91,
+              134.91
+            ],
+            "building": "12",
+            "unit": "2",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=87EF09E094C9801CC110BCF8B7C1D65B14892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          },
+          {
+            "salesNum": 22,
+            "price": [
+              "221.48",
+              "242.17"
+            ],
+            "areaSize": [
+              118.24,
+              118.24
+            ],
+            "building": "7",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=87EF09E094C9801CC110BCF8B7C1D65B14892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          },
+          {
+            "salesNum": 22,
+            "price": [
+              "222.66",
+              "243.35"
+            ],
+            "areaSize": [
+              118.24,
+              118.24
+            ],
+            "building": "7",
+            "unit": "2",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=87EF09E094C9801CC110BCF8B7C1D65B14892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          },
+          {
+            "salesNum": 19,
+            "price": [
+              "222.66",
+              "244.53"
+            ],
+            "areaSize": [
+              118.24,
+              118.24
+            ],
+            "building": "7",
+            "unit": "3",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=87EF09E094C9801CC110BCF8B7C1D65B14892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          },
+          {
+            "salesNum": 25,
+            "price": [
+              "189.55",
+              "212.67"
+            ],
+            "areaSize": [
+              104.77,
+              106.38
+            ],
+            "building": "5",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=87EF09E094C9801CC110BCF8B7C1D65B14892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          },
+          {
+            "salesNum": 36,
+            "price": [
+              "189.55",
+              "212.67"
+            ],
+            "areaSize": [
+              104.77,
+              106.38
+            ],
+            "building": "5",
+            "unit": "2",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=87EF09E094C9801CC110BCF8B7C1D65B14892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          }
+        ],
+        "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=87EF09E094C9801CC110BCF8B7C1D65B14892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+      }
+    ],
+    [
+      "510116202263514",
+      "明信天壹名邸",
+      "双流区",
+      "双流区三江北一路33号",
+      "住宅",
+      "四川锦官绿化工程有限责任公司",
+      "2022-10-08",
+      24,
+      "163.99 - 269.5",
+      "104.1 - 138.58",
+      {
+        "type": "发送详情页数据",
+        "info": [
+          {
+            "salesNum": 2,
+            "price": [
+              "234.29",
+              "244.47"
+            ],
+            "areaSize": [
+              138.58,
+              138.58
+            ],
+            "building": "1",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=6BA1173FE39D6FD1B5C15D0B1DA0534214892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          },
+          {
+            "salesNum": 4,
+            "price": [
+              "249.86",
+              "268.13"
+            ],
+            "areaSize": [
+              137.09,
+              137.09
+            ],
+            "building": "33",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=6BA1173FE39D6FD1B5C15D0B1DA0534214892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          },
+          {
+            "salesNum": 13,
+            "price": [
+              "241.63",
+              "269.50"
+            ],
+            "areaSize": [
+              137.09,
+              137.09
+            ],
+            "building": "33",
+            "unit": "2",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=6BA1173FE39D6FD1B5C15D0B1DA0534214892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          },
+          {
+            "salesNum": 4,
+            "price": [
+              "163.99",
+              "201.65"
+            ],
+            "areaSize": [
+              104.1,
+              123.79
+            ],
+            "building": "20",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=6BA1173FE39D6FD1B5C15D0B1DA0534214892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          },
+          {
+            "salesNum": 1,
+            "price": [
+              "194.65",
+              "194.65"
+            ],
+            "areaSize": [
+              123.99,
+              123.99
+            ],
+            "building": "20",
+            "unit": "2",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=6BA1173FE39D6FD1B5C15D0B1DA0534214892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          }
+        ],
+        "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=6BA1173FE39D6FD1B5C15D0B1DA0534214892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+      }
+    ],
+    [
+      "510116202263242",
+      "卓越南城",
+      "双流区",
+      "双流区空港一路一段189号",
+      "住宅，公寓，商业",
+      "四川合丰置业发展有限责任公司",
+      "2022-09-30",
+      162,
+      "44.06 - 144.71",
+      "16.32 - 120.33",
+      {
+        "type": "发送详情页数据",
+        "info": [
+          {
+            "salesNum": 29,
+            "price": [
+              "113.70",
+              "137.97"
+            ],
+            "areaSize": [
+              88.97,
+              115.26
+            ],
+            "building": "28",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=DBE1A44DF091E96D07DF77D2283C879E14892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          },
+          {
+            "salesNum": 36,
+            "price": [
+              "112.99",
+              "139.12"
+            ],
+            "areaSize": [
+              88.97,
+              115.26
+            ],
+            "building": "28",
+            "unit": "2",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=DBE1A44DF091E96D07DF77D2283C879E14892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          },
+          {
+            "salesNum": 17,
+            "price": [
+              "59.51",
+              "95.68"
+            ],
+            "areaSize": [
+              22.89,
+              36.8
+            ],
+            "building": "28",
+            "unit": "其他",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=DBE1A44DF091E96D07DF77D2283C879E14892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          },
+          {
+            "salesNum": 29,
+            "price": [
+              "106.03",
+              "144.71"
+            ],
+            "areaSize": [
+              89.61,
+              119.5
+            ],
+            "building": "27",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=DBE1A44DF091E96D07DF77D2283C879E14892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          },
+          {
+            "salesNum": 28,
+            "price": [
+              "106.03",
+              "144.71"
+            ],
+            "areaSize": [
+              89.61,
+              120.33
+            ],
+            "building": "27",
+            "unit": "2",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=DBE1A44DF091E96D07DF77D2283C879E14892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          },
+          {
+            "salesNum": 23,
+            "price": [
+              "44.06",
+              "104.10"
+            ],
+            "areaSize": [
+              16.32,
+              40.04
+            ],
+            "building": "27",
+            "unit": "其他",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=DBE1A44DF091E96D07DF77D2283C879E14892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          }
+        ],
+        "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=DBE1A44DF091E96D07DF77D2283C879E14892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+      }
+    ],
+    [
+      "510116202263240",
+      "澜苑",
+      "双流区",
+      "双流区江回路388号",
+      "住宅",
+      "成都双流钟家湾轨道城市发展有限公司",
+      "2022-09-30",
+      112,
+      "213.31 - 275.42",
+      "125.22 - 147.41",
+      {
+        "type": "发送详情页数据",
+        "info": [
+          {
+            "salesNum": 21,
+            "price": [
+              "213.31",
+              "247.64"
+            ],
+            "areaSize": [
+              125.41,
+              136.75
+            ],
+            "building": "1",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=E418FB5919A1AE4140BBA793D93227FB14892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          },
+          {
+            "salesNum": 13,
+            "price": [
+              "230.52",
+              "272.47"
+            ],
+            "areaSize": [
+              134.54,
+              147.41
+            ],
+            "building": "21",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=E418FB5919A1AE4140BBA793D93227FB14892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          },
+          {
+            "salesNum": 28,
+            "price": [
+              "216.12",
+              "245.89"
+            ],
+            "areaSize": [
+              125.22,
+              136.54
+            ],
+            "building": "2",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=E418FB5919A1AE4140BBA793D93227FB14892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          },
+          {
+            "salesNum": 37,
+            "price": [
+              "218.73",
+              "245.33"
+            ],
+            "areaSize": [
+              125.64,
+              136.99
+            ],
+            "building": "3",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=E418FB5919A1AE4140BBA793D93227FB14892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          },
+          {
+            "salesNum": 7,
+            "price": [
+              "241.28",
+              "275.42"
+            ],
+            "areaSize": [
+              134.54,
+              147.41
+            ],
+            "building": "19",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=E418FB5919A1AE4140BBA793D93227FB14892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          },
+          {
+            "salesNum": 6,
+            "price": [
+              "231.87",
+              "275.42"
+            ],
+            "areaSize": [
+              134.54,
+              147.41
+            ],
+            "building": "20",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=E418FB5919A1AE4140BBA793D93227FB14892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          }
+        ],
+        "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=E418FB5919A1AE4140BBA793D93227FB14892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+      }
+    ],
+    [
+      "510116202263031",
+      "御湖境名邸",
+      "双流区",
+      "双流区华府大道四段520号",
+      "住宅",
+      "成都旭周置业有限公司",
+      "2022-09-23",
+      85,
+      "299.5 - 566.8",
+      "142.37 - 347.86",
+      {
+        "type": "发送详情页数据",
+        "info": [
+          {
+            "salesNum": 16,
+            "price": [
+              "415.71",
+              "566.80"
+            ],
+            "areaSize": [
+              173.15,
+              347.86
+            ],
+            "building": "7",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=8C802DCB51CFCE0DA8920065299EA99314892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          },
+          {
+            "salesNum": 27,
+            "price": [
+              "415.71",
+              "566.80"
+            ],
+            "areaSize": [
+              173.15,
+              347.86
+            ],
+            "building": "7",
+            "unit": "2",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=8C802DCB51CFCE0DA8920065299EA99314892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          },
+          {
+            "salesNum": 7,
+            "price": [
+              "299.50",
+              "447.51"
+            ],
+            "areaSize": [
+              142.7,
+              287.73
+            ],
+            "building": "1",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=8C802DCB51CFCE0DA8920065299EA99314892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          },
+          {
+            "salesNum": 16,
+            "price": [
+              "468.01",
+              "548.19"
+            ],
+            "areaSize": [
+              195.57,
+              195.57
+            ],
+            "building": "5",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=8C802DCB51CFCE0DA8920065299EA99314892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          },
+          {
+            "salesNum": 2,
+            "price": [
+              "324.97",
+              "420.53"
+            ],
+            "areaSize": [
+              142.91,
+              253.2
+            ],
+            "building": "6",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=8C802DCB51CFCE0DA8920065299EA99314892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          },
+          {
+            "salesNum": 3,
+            "price": [
+              "315.19",
+              "329.26"
+            ],
+            "areaSize": [
+              142.91,
+              143.01
+            ],
+            "building": "6",
+            "unit": "2",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=8C802DCB51CFCE0DA8920065299EA99314892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          },
+          {
+            "salesNum": 8,
+            "price": [
+              "307.87",
+              "455.53"
+            ],
+            "areaSize": [
+              142.37,
+              286.82
+            ],
+            "building": "2",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=8C802DCB51CFCE0DA8920065299EA99314892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          },
+          {
+            "salesNum": 6,
+            "price": [
+              "307.87",
+              "475.60"
+            ],
+            "areaSize": [
+              142.37,
+              286.82
+            ],
+            "building": "2",
+            "unit": "2",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=8C802DCB51CFCE0DA8920065299EA99314892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          }
+        ],
+        "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=8C802DCB51CFCE0DA8920065299EA99314892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+      }
+    ],
+    [
+      "510116202263030",
+      "世豪精舍",
+      "双流区",
+      "双流区锦华路一段2号",
+      "住宅",
+      "成都华瑞泰房地产开发有限公司",
+      "2022-09-23",
+      55,
+      "421.69 - 1618.49",
+      "156.14 - 501.59",
+      {
+        "type": "发送详情页数据",
+        "info": [
+          {
+            "salesNum": 4,
+            "price": [
+              "453.32",
+              "573.32"
+            ],
+            "areaSize": [
+              215.59,
+              240.2
+            ],
+            "building": "15",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=2E4A2EAC5EB16A1BA5D7FB5C215A610114892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          },
+          {
+            "salesNum": 5,
+            "price": [
+              "422.33",
+              "526.35"
+            ],
+            "areaSize": [
+              156.38,
+              240.2
+            ],
+            "building": "15",
+            "unit": "2",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=2E4A2EAC5EB16A1BA5D7FB5C215A610114892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          },
+          {
+            "salesNum": 5,
+            "price": [
+              "422.33",
+              "526.42"
+            ],
+            "areaSize": [
+              156.38,
+              240.2
+            ],
+            "building": "15",
+            "unit": "3",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=2E4A2EAC5EB16A1BA5D7FB5C215A610114892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          },
+          {
+            "salesNum": 5,
+            "price": [
+              "421.69",
+              "569.77"
+            ],
+            "areaSize": [
+              156.14,
+              240.2
+            ],
+            "building": "15",
+            "unit": "4",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=2E4A2EAC5EB16A1BA5D7FB5C215A610114892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          },
+          {
+            "salesNum": 6,
+            "price": [
+              "474.66",
+              "663.18"
+            ],
+            "areaSize": [
+              166.86,
+              240.17
+            ],
+            "building": "14",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=2E4A2EAC5EB16A1BA5D7FB5C215A610114892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          },
+          {
+            "salesNum": 6,
+            "price": [
+              "476.14",
+              "553.48"
+            ],
+            "areaSize": [
+              167.39,
+              238.91
+            ],
+            "building": "14",
+            "unit": "2",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=2E4A2EAC5EB16A1BA5D7FB5C215A610114892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          },
+          {
+            "salesNum": 6,
+            "price": [
+              "476.14",
+              "553.48"
+            ],
+            "areaSize": [
+              167.39,
+              238.91
+            ],
+            "building": "14",
+            "unit": "3",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=2E4A2EAC5EB16A1BA5D7FB5C215A610114892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          },
+          {
+            "salesNum": 6,
+            "price": [
+              "476.14",
+              "581.51"
+            ],
+            "areaSize": [
+              167.39,
+              238.95
+            ],
+            "building": "14",
+            "unit": "4",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=2E4A2EAC5EB16A1BA5D7FB5C215A610114892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          },
+          {
+            "salesNum": 4,
+            "price": [
+              "862.94",
+              "1618.49"
+            ],
+            "areaSize": [
+              374.52,
+              501.59
+            ],
+            "building": "8",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=2E4A2EAC5EB16A1BA5D7FB5C215A610114892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          },
+          {
+            "salesNum": 5,
+            "price": [
+              "760.07",
+              "1599.57"
+            ],
+            "areaSize": [
+              354.46,
+              483.4
+            ],
+            "building": "8",
+            "unit": "2",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=2E4A2EAC5EB16A1BA5D7FB5C215A610114892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          },
+          {
+            "salesNum": 3,
+            "price": [
+              "869.58",
+              "1323.40"
+            ],
+            "areaSize": [
+              381.43,
+              442.59
+            ],
+            "building": "8",
+            "unit": "3",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=2E4A2EAC5EB16A1BA5D7FB5C215A610114892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          }
+        ],
+        "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=2E4A2EAC5EB16A1BA5D7FB5C215A610114892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+      }
+    ],
+    [
+      "510116202262615",
+      "海棠阁",
+      "双流区",
+      "双流区黄水镇长沟社区集体、2组、3组",
+      "住宅",
+      "成都人居兴港置业有限公司",
+      "2022-08-31",
+      161,
+      "166.19 - 266.76",
+      "109.91 - 152.02",
+      {
+        "type": "发送详情页数据",
+        "info": [
+          {
+            "salesNum": 15,
+            "price": [
+              "187.20",
+              "245.06"
+            ],
+            "areaSize": [
+              123.46,
+              142.72
+            ],
+            "building": "12",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=4A863B85DE14209D68D36A1E80177F1714892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          },
+          {
+            "salesNum": 17,
+            "price": [
+              "225.95",
+              "266.76"
+            ],
+            "areaSize": [
+              140.73,
+              152.02
+            ],
+            "building": "12",
+            "unit": "2",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=4A863B85DE14209D68D36A1E80177F1714892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          },
+          {
+            "salesNum": 26,
+            "price": [
+              "186.65",
+              "239.17"
+            ],
+            "areaSize": [
+              123.52,
+              142.79
+            ],
+            "building": "11",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=4A863B85DE14209D68D36A1E80177F1714892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          },
+          {
+            "salesNum": 19,
+            "price": [
+              "177.87",
+              "263.03"
+            ],
+            "areaSize": [
+              121.91,
+              152.02
+            ],
+            "building": "11",
+            "unit": "2",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=4A863B85DE14209D68D36A1E80177F1714892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          },
+          {
+            "salesNum": 26,
+            "price": [
+              "166.70",
+              "210.13"
+            ],
+            "areaSize": [
+              109.91,
+              128
+            ],
+            "building": "1",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=4A863B85DE14209D68D36A1E80177F1714892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          },
+          {
+            "salesNum": 24,
+            "price": [
+              "166.19",
+              "209.85"
+            ],
+            "areaSize": [
+              109.91,
+              128
+            ],
+            "building": "1",
+            "unit": "2",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=4A863B85DE14209D68D36A1E80177F1714892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          },
+          {
+            "salesNum": 20,
+            "price": [
+              "173.27",
+              "216.96"
+            ],
+            "areaSize": [
+              109.91,
+              128
+            ],
+            "building": "2",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=4A863B85DE14209D68D36A1E80177F1714892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          },
+          {
+            "salesNum": 14,
+            "price": [
+              "173.61",
+              "215.82"
+            ],
+            "areaSize": [
+              109.91,
+              128
+            ],
+            "building": "2",
+            "unit": "2",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=4A863B85DE14209D68D36A1E80177F1714892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          }
+        ],
+        "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=4A863B85DE14209D68D36A1E80177F1714892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+      }
+    ],
+    [
+      "510116202262411",
+      "锦粼观邸",
+      "双流区",
+      "双流区华府大道四段466号",
+      "住宅",
+      "成都英基置业有限公司",
+      "2022-08-29",
+      225,
+      "313.12 - 502.14",
+      "140.5 - 367.15",
+      {
+        "type": "发送详情页数据",
+        "info": [
+          {
+            "salesNum": 33,
+            "price": [
+              "336.84",
+              "494.40"
+            ],
+            "areaSize": [
+              140.66,
+              366.92
+            ],
+            "building": "4",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=FEB57D568DE54D57786D4832A8E4D64314892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          },
+          {
+            "salesNum": 36,
+            "price": [
+              "336.84",
+              "495.20"
+            ],
+            "areaSize": [
+              140.66,
+              366.91
+            ],
+            "building": "4",
+            "unit": "2",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=FEB57D568DE54D57786D4832A8E4D64314892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          },
+          {
+            "salesNum": 32,
+            "price": [
+              "313.12",
+              "491.55"
+            ],
+            "areaSize": [
+              140.75,
+              367.15
+            ],
+            "building": "2",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=FEB57D568DE54D57786D4832A8E4D64314892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          },
+          {
+            "salesNum": 30,
+            "price": [
+              "321.90",
+              "501.82"
+            ],
+            "areaSize": [
+              140.75,
+              367.15
+            ],
+            "building": "1",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=FEB57D568DE54D57786D4832A8E4D64314892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          },
+          {
+            "salesNum": 33,
+            "price": [
+              "319.65",
+              "502.14"
+            ],
+            "areaSize": [
+              140.75,
+              367.14
+            ],
+            "building": "1",
+            "unit": "2",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=FEB57D568DE54D57786D4832A8E4D64314892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          },
+          {
+            "salesNum": 29,
+            "price": [
+              "350.64",
+              "501.44"
+            ],
+            "areaSize": [
+              140.5,
+              366.48
+            ],
+            "building": "3",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=FEB57D568DE54D57786D4832A8E4D64314892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          },
+          {
+            "salesNum": 32,
+            "price": [
+              "348.53",
+              "501.04"
+            ],
+            "areaSize": [
+              140.5,
+              366.48
+            ],
+            "building": "3",
+            "unit": "2",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=FEB57D568DE54D57786D4832A8E4D64314892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+          }
+        ],
+        "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=FEB57D568DE54D57786D4832A8E4D64314892D730FE57E219A69A862A9CBAA3DF26B074251750C30C1F4D3507183AE11"
+      }
+    ],
+    [
+      "510116202260714",
+      "楠樾府",
+      "双流区",
+      "双流区龙渡路三段99号",
+      "住宅",
+      "成都都樾置业有限公司",
+      "2022-07-22",
+      154,
+      "188.15 - 313.45",
+      "99.34 - 141.93",
+      {
+        "type": "发送详情页数据",
+        "info": [
+          {
+            "salesNum": 9,
+            "price": [
+              "191.79",
+              "198.39"
+            ],
+            "areaSize": [
+              105.7,
+              105.8
+            ],
+            "building": "19",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=FEB31CEEAB0F05720E91599D1CC499288D60BF31B667E59E67FE278967E42434E07871AEA7EF5F0BC64A48969289A563"
+          },
+          {
+            "salesNum": 9,
+            "price": [
+              "189.15",
+              "196.81"
+            ],
+            "areaSize": [
+              105.7,
+              105.8
+            ],
+            "building": "19",
+            "unit": "2",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=FEB31CEEAB0F05720E91599D1CC499288D60BF31B667E59E67FE278967E42434E07871AEA7EF5F0BC64A48969289A563"
+          },
+          {
+            "salesNum": 20,
+            "price": [
+              "226.02",
+              "278.56"
+            ],
+            "areaSize": [
+              116,
+              128.58
+            ],
+            "building": "17",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=FEB31CEEAB0F05720E91599D1CC499288D60BF31B667E59E67FE278967E42434E07871AEA7EF5F0BC64A48969289A563"
+          },
+          {
+            "salesNum": 4,
+            "price": [
+              "312.03",
+              "313.45"
+            ],
+            "areaSize": [
+              141.93,
+              141.93
+            ],
+            "building": "17",
+            "unit": "2",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=FEB31CEEAB0F05720E91599D1CC499288D60BF31B667E59E67FE278967E42434E07871AEA7EF5F0BC64A48969289A563"
+          },
+          {
+            "salesNum": 17,
+            "price": [
+              "226.02",
+              "278.18"
+            ],
+            "areaSize": [
+              116,
+              128.58
+            ],
+            "building": "17",
+            "unit": "3",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=FEB31CEEAB0F05720E91599D1CC499288D60BF31B667E59E67FE278967E42434E07871AEA7EF5F0BC64A48969289A563"
+          },
+          {
+            "salesNum": 22,
+            "price": [
+              "227.13",
+              "275.77"
+            ],
+            "areaSize": [
+              117.17,
+              129.87
+            ],
+            "building": "16",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=FEB31CEEAB0F05720E91599D1CC499288D60BF31B667E59E67FE278967E42434E07871AEA7EF5F0BC64A48969289A563"
+          },
+          {
+            "salesNum": 19,
+            "price": [
+              "261.42",
+              "272.65"
+            ],
+            "areaSize": [
+              128.4,
+              128.4
+            ],
+            "building": "16",
+            "unit": "2",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=FEB31CEEAB0F05720E91599D1CC499288D60BF31B667E59E67FE278967E42434E07871AEA7EF5F0BC64A48969289A563"
+          },
+          {
+            "salesNum": 13,
+            "price": [
+              "188.15",
+              "228.47"
+            ],
+            "areaSize": [
+              99.34,
+              116.42
+            ],
+            "building": "21",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=FEB31CEEAB0F05720E91599D1CC499288D60BF31B667E59E67FE278967E42434E07871AEA7EF5F0BC64A48969289A563"
+          },
+          {
+            "salesNum": 15,
+            "price": [
+              "188.15",
+              "227.89"
+            ],
+            "areaSize": [
+              99.34,
+              116.42
+            ],
+            "building": "21",
+            "unit": "2",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=FEB31CEEAB0F05720E91599D1CC499288D60BF31B667E59E67FE278967E42434E07871AEA7EF5F0BC64A48969289A563"
+          },
+          {
+            "salesNum": 7,
+            "price": [
+              "191.79",
+              "196.81"
+            ],
+            "areaSize": [
+              105.7,
+              105.8
+            ],
+            "building": "15",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=FEB31CEEAB0F05720E91599D1CC499288D60BF31B667E59E67FE278967E42434E07871AEA7EF5F0BC64A48969289A563"
+          },
+          {
+            "salesNum": 1,
+            "price": [
+              "196.47",
+              "196.47"
+            ],
+            "areaSize": [
+              105.8,
+              105.8
+            ],
+            "building": "15",
+            "unit": "2",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=FEB31CEEAB0F05720E91599D1CC499288D60BF31B667E59E67FE278967E42434E07871AEA7EF5F0BC64A48969289A563"
+          },
+          {
+            "salesNum": 9,
+            "price": [
+              "263.17",
+              "271.85"
+            ],
+            "areaSize": [
+              128.63,
+              128.63
+            ],
+            "building": "18",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=FEB31CEEAB0F05720E91599D1CC499288D60BF31B667E59E67FE278967E42434E07871AEA7EF5F0BC64A48969289A563"
+          },
+          {
+            "salesNum": 9,
+            "price": [
+              "263.17",
+              "273.14"
+            ],
+            "areaSize": [
+              128.63,
+              128.63
+            ],
+            "building": "18",
+            "unit": "2",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=FEB31CEEAB0F05720E91599D1CC499288D60BF31B667E59E67FE278967E42434E07871AEA7EF5F0BC64A48969289A563"
+          }
+        ],
+        "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=FEB31CEEAB0F05720E91599D1CC499288D60BF31B667E59E67FE278967E42434E07871AEA7EF5F0BC64A48969289A563"
+      }
+    ],
+    [
+      "510116202260811",
+      "天御合府",
+      "双流区",
+      "双流区牧山路一段61号",
+      "住宅",
+      "成都国泰君实房地产开发有限公司",
+      "2022-07-22",
+      0,
+      "Infinity - -Infinity",
+      "Infinity - -Infinity",
+      {
+        "type": "发送详情页数据",
+        "info": [],
+        "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=976F1604547F075ABC3B7D215E3C0F368D60BF31B667E59E67FE278967E42434E07871AEA7EF5F0BC64A48969289A563"
+      }
+    ],
+    [
+      "510116202260212",
+      "紫悦美庐悦府",
+      "双流区",
+      "双流区燕杨路99号（临）",
+      "住宅，车位",
+      "成都市双流兴吉实业有限责任公司",
+      "2022-07-11",
+      244,
+      "19 - 695.84",
+      "41.06 - 382.75",
+      {
+        "type": "发送详情页数据",
+        "info": [
+          {
+            "salesNum": 8,
+            "price": [
+              "395.31",
+              "422.62"
+            ],
+            "areaSize": [
+              234.38,
+              236.4
+            ],
+            "building": "16",
+            "unit": "其他",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=C12281387C08C0D1E1EEDB3858F880028D60BF31B667E59E67FE278967E42434E07871AEA7EF5F0BC64A48969289A563"
+          },
+          {
+            "salesNum": 9,
+            "price": [
+              "378.55",
+              "424.45"
+            ],
+            "areaSize": [
+              234.6,
+              236.77
+            ],
+            "building": "14",
+            "unit": "其他",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=C12281387C08C0D1E1EEDB3858F880028D60BF31B667E59E67FE278967E42434E07871AEA7EF5F0BC64A48969289A563"
+          },
+          {
+            "salesNum": 5,
+            "price": [
+              "403.88",
+              "421.17"
+            ],
+            "areaSize": [
+              234.61,
+              236.64
+            ],
+            "building": "13",
+            "unit": "其他",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=C12281387C08C0D1E1EEDB3858F880028D60BF31B667E59E67FE278967E42434E07871AEA7EF5F0BC64A48969289A563"
+          },
+          {
+            "salesNum": 4,
+            "price": [
+              "409.83",
+              "414.10"
+            ],
+            "areaSize": [
+              234.14,
+              236.16
+            ],
+            "building": "15",
+            "unit": "其他",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=C12281387C08C0D1E1EEDB3858F880028D60BF31B667E59E67FE278967E42434E07871AEA7EF5F0BC64A48969289A563"
+          },
+          {
+            "salesNum": 4,
+            "price": [
+              "409.83",
+              "414.10"
+            ],
+            "areaSize": [
+              234.14,
+              236.16
+            ],
+            "building": "17",
+            "unit": "其他",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=C12281387C08C0D1E1EEDB3858F880028D60BF31B667E59E67FE278967E42434E07871AEA7EF5F0BC64A48969289A563"
+          },
+          {
+            "salesNum": 4,
+            "price": [
+              "394.21",
+              "419.47"
+            ],
+            "areaSize": [
+              234.61,
+              236.64
+            ],
+            "building": "11",
+            "unit": "其他",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=C12281387C08C0D1E1EEDB3858F880028D60BF31B667E59E67FE278967E42434E07871AEA7EF5F0BC64A48969289A563"
+          },
+          {
+            "salesNum": 2,
+            "price": [
+              "692.32",
+              "695.84"
+            ],
+            "areaSize": [
+              382.59,
+              382.75
+            ],
+            "building": "19",
+            "unit": "其他",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=C12281387C08C0D1E1EEDB3858F880028D60BF31B667E59E67FE278967E42434E07871AEA7EF5F0BC64A48969289A563"
+          },
+          {
+            "salesNum": 5,
+            "price": [
+              "403.88",
+              "421.17"
+            ],
+            "areaSize": [
+              234.61,
+              236.64
+            ],
+            "building": "12",
+            "unit": "其他",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=C12281387C08C0D1E1EEDB3858F880028D60BF31B667E59E67FE278967E42434E07871AEA7EF5F0BC64A48969289A563"
+          },
+          {
+            "salesNum": 4,
+            "price": [
+              "409.67",
+              "422.71"
+            ],
+            "areaSize": [
+              234.14,
+              236.16
+            ],
+            "building": "18",
+            "unit": "其他",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=C12281387C08C0D1E1EEDB3858F880028D60BF31B667E59E67FE278967E42434E07871AEA7EF5F0BC64A48969289A563"
+          },
+          {
+            "salesNum": 199,
+            "price": [
+              "19.00",
+              "20.00"
+            ],
+            "areaSize": [
+              41.06,
+              44.79
+            ],
+            "building": "地下室",
+            "unit": "其他",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=C12281387C08C0D1E1EEDB3858F880028D60BF31B667E59E67FE278967E42434E07871AEA7EF5F0BC64A48969289A563"
+          }
+        ],
+        "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=C12281387C08C0D1E1EEDB3858F880028D60BF31B667E59E67FE278967E42434E07871AEA7EF5F0BC64A48969289A563"
+      }
+    ],
+    [
+      "510116202259721",
+      "万锦城",
+      "双流区",
+      "双流区和顺路一段369号",
+      "住宅，公寓，商业",
+      "成都信腾投资有限公司",
+      "2022-07-01",
+      44,
+      "160.23 - 824.05",
+      "50.69 - 164.81",
+      {
+        "type": "发送详情页数据",
+        "info": [
+          {
+            "salesNum": 6,
+            "price": [
+              "160.23",
+              "219.49"
+            ],
+            "areaSize": [
+              106.72,
+              138.93
+            ],
+            "building": "44",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=0ABDDA62AB30DBC0B390F3E3B0F8F7B28D60BF31B667E59E67FE278967E42434E07871AEA7EF5F0BC64A48969289A563"
+          },
+          {
+            "salesNum": 8,
+            "price": [
+              "171.41",
+              "177.97"
+            ],
+            "areaSize": [
+              109.19,
+              109.28
+            ],
+            "building": "45",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=0ABDDA62AB30DBC0B390F3E3B0F8F7B28D60BF31B667E59E67FE278967E42434E07871AEA7EF5F0BC64A48969289A563"
+          },
+          {
+            "salesNum": 15,
+            "price": [
+              "170.20",
+              "195.59"
+            ],
+            "areaSize": [
+              109.19,
+              128.81
+            ],
+            "building": "45",
+            "unit": "2",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=0ABDDA62AB30DBC0B390F3E3B0F8F7B28D60BF31B667E59E67FE278967E42434E07871AEA7EF5F0BC64A48969289A563"
+          },
+          {
+            "salesNum": 15,
+            "price": [
+              "253.45",
+              "824.05"
+            ],
+            "areaSize": [
+              50.69,
+              164.81
+            ],
+            "building": "45",
+            "unit": "其他",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=0ABDDA62AB30DBC0B390F3E3B0F8F7B28D60BF31B667E59E67FE278967E42434E07871AEA7EF5F0BC64A48969289A563"
+          }
+        ],
+        "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=0ABDDA62AB30DBC0B390F3E3B0F8F7B28D60BF31B667E59E67FE278967E42434E07871AEA7EF5F0BC64A48969289A563"
+      }
+    ],
+    [
+      "510116202259712",
+      "玺悦台小区",
+      "双流区",
+      "双流区葛陌社区二组",
+      "住宅",
+      "成都市渝成房地产开发有限公司",
+      "2022-06-30",
+      0,
+      "Infinity - -Infinity",
+      "Infinity - -Infinity",
+      {
+        "type": "发送详情页数据",
+        "info": [],
+        "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=4BBCDEA2FBD9239974E12B47C01E3D8D8D60BF31B667E59E67FE278967E42434E07871AEA7EF5F0BC64A48969289A563"
+      }
+    ],
+    [
+      "510116202258524",
+      "棠樾府",
+      "双流区",
+      "双流区花园南路1号",
+      "住宅",
+      "成都冠樾置业有限公司",
+      "2022-06-09",
+      5,
+      "218.98 - 312.56",
+      "114.97 - 192.69",
+      {
+        "type": "发送详情页数据",
+        "info": [
+          {
+            "salesNum": 2,
+            "price": [
+              "260.04",
+              "312.56"
+            ],
+            "areaSize": [
+              141.86,
+              192.69
+            ],
+            "building": "12",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=A0ED06DFCD674AC13A4E25C442192CDF8D60BF31B667E59E67FE278967E42434E07871AEA7EF5F0BC64A48969289A563"
+          },
+          {
+            "salesNum": 2,
+            "price": [
+              "308.33",
+              "312.56"
+            ],
+            "areaSize": [
+              192.44,
+              192.69
+            ],
+            "building": "10",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=A0ED06DFCD674AC13A4E25C442192CDF8D60BF31B667E59E67FE278967E42434E07871AEA7EF5F0BC64A48969289A563"
+          },
+          {
+            "salesNum": 1,
+            "price": [
+              "218.98",
+              "218.98"
+            ],
+            "areaSize": [
+              114.97,
+              114.97
+            ],
+            "building": "7",
+            "unit": "1",
+            "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=A0ED06DFCD674AC13A4E25C442192CDF8D60BF31B667E59E67FE278967E42434E07871AEA7EF5F0BC64A48969289A563"
+          }
+        ],
+        "url": "https://zw.cdzjryb.com/roompricezjw/index.html?param=A0ED06DFCD674AC13A4E25C442192CDF8D60BF31B667E59E67FE278967E42434E07871AEA7EF5F0BC64A48969289A563"
+      }
+    ]
+  ],
+  "searchText": "",
+  "sortVal": "minPrice",
+  "priceRange": "",
+  "sizeRange": ""
+}
