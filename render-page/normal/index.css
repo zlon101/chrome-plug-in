@@ -1,0 +1,64 @@
+#zl_search_warp {
+  padding: 8px;
+  position: fixed;
+  z-index: 9999999;
+  top: 50px;
+  right: 50px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 6px 16px 0 rgba(0,0,0,.08),0 3px 6px -4px rgba(0,0,0,.12),0 9px 28px 8px rgba(0,0,0,.05);
+  outline: 1px solid red;
+}
+
+#zl_search_warp .zl_search_text {
+  height: 40px;
+  width: 200px;
+  margin-top: 8px;
+  padding: 0 8px;
+  background-color: #f8fbfc;
+  border: 0.1rem solid #bbcbd0;
+  border-bottom-width: 0.3rem;
+  border-radius: 0.2rem;
+  outline: none;
+  color: #40444f;
+  font-size: 14px;
+  box-shadow: inset 0.1rem 0.4rem 0.8rem rgb(0 0 0 / 5%);
+}
+
+.zl_search_warp .zl_color_text {
+  width: 60px;
+  height: 24px;
+}
+
+#zl_search_warp .btns {
+
+}
+
+#zl_search_warp .zl_search_close {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 16px;
+  height: 16px;
+  line-height: 16px;
+  vertical-align: top;
+  text-align: center;
+  border: 1px solid #333;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+#zl_search_warp .btns label {
+  display: inline-flex;
+  align-items: center;
+  user-select: none;
+  margin-right: 8px;
+  font-size: 12px;
+}
+
+#zl_search_warp input[type="checkbox"] {
+  height: 16px;
+  width: 16px;
+  margin-left: 8px;
+  outline: none;
+}

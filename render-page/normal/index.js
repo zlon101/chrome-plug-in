@@ -12,32 +12,119 @@ document.addEventListener('keydown', e => {
   }
 });
 
-function renderSearchDialog() {
-  const container = document.createElement('div');
-  container.id = 'zl_search_warp';
-  container.innerHTML = `
-    <input type="text" />
-  `;
-  container.style.cssText = `
-    padding: 8px;
-    position: fixed;
-    z-index: 9999999;
-    top: 50px;
-    right: 50px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 6px 16px 0 rgba(0,0,0,.08),0 3px 6px -4px rgba(0,0,0,.12),0 9px 28px 8px rgba(0,0,0,.05);
-  `;
-  container.onkeydown = e => {
-    if (e.key === 'Enter' || e.keyCode === 13) {
-      onSearch(container.querySelector('input').value);
-    }
-  };
-  document.body.appendChild(container);
-  setTimeout(() => container.querySelector('input').focus());
+
+async function renderSearchDialog() {
+  loadStyle(chrome.runtime.getURL('render-page/normal/index.css'));
+
+  const { default: Vue } = await import('../../vendor/vue.esm.brower.js');
+  const BtnCfg = [{
+    id: 'isCase',
+    label: '大小写',
+  }, {
+    id: 'isAllMatch',
+    label: '全匹配',
+  }, {
+    id: 'color',
+    label: '颜色',
+    type: 'text',
+  }];
+
+  const setAttrs = (attr) => ({ attrs: attr });
+
+  const vueInstance = new Vue({
+    data: {
+      isCase: true,
+      isAllMatch: false,
+      searchText: '',
+      color: 'red',
+    },
+    render(h) {
+      const btnChilds = BtnCfg.map(item => h('label',
+        setAttrs({ id: item.id }),
+        [
+          h('span', item.label),
+          h('input', {
+            ...setAttrs({ type: item.type || 'checkbox', checked: this.$data[item.id] }),
+            on: {
+              change: e => {
+                this.$data[item.id] = item.type === 'text' ? e.target.value.trim() : e.target.checked;
+                this.onSearch();
+              }
+            }
+          })
+        ]
+        )
+      );
+
+      const inputText = h('input',
+        {
+          ...setAttrs({type: 'text'}),
+          domProps: {
+            value: this.searchText,
+          },
+          class: 'zl_search_text',
+          on: {
+            input: e => (this.searchText = e.target.value),
+            change: this.onSearch,
+            keydown: e => {
+              if (e.key === 'Enter' || e.keyCode === 13) {
+                this.onSearch();
+              }
+            },
+          }
+        }
+      );
+
+      const closeBtn = h('div', {
+        class: 'zl_search_close',
+        on: {
+          click: () => {
+            this.$destroy();
+            this.$el.remove();
+          }
+        }
+      }, 'X');
+
+      return h('div',
+        setAttrs({ id:'zl_search_warp' }),
+        [
+          h('div', {class: 'btns'}, btnChilds),
+          inputText,
+          closeBtn,
+        ]
+      );
+    },
+    methods: {
+      onSearch() {
+        performSearch(this.searchText, Object.keys(this.$data).reduce((acc, k) => {
+          acc[k] = this.$data[k];
+          return acc;
+        }, {}));
+      },
+    },
+    mounted() {
+      setTimeout(()=>this.$el.querySelector('input.zl_search_text').focus(), 500);
+    },
+  });
+
+  document.body.appendChild(vueInstance.$mount().$el);
 }
 
-async function onSearch(searchText) {
+async function performSearch(searchText, cfg) {
+  if (!searchText) {
+    return;
+  }
   const { traverseDoc } = await import('../page-search.js');
-  traverseDoc(searchText);
+  traverseDoc(searchText, cfg);
+}
+
+
+// 动态样式
+function loadStyle(url) {
+  const link = document.createElement('link');
+  link.type = 'text/css';
+  link.rel = 'stylesheet';
+  link.href = url;
+  const head = document.getElementsByTagName('head')[0];
+  head.appendChild(link);
 }

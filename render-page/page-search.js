@@ -1,11 +1,30 @@
 const log = console.debug;
 
 // ========= 遍历搜索 ===========================
-const HighLightElementId = 'zl_highlight_span';
+const HighLightElementClass = 'zl_highlight_span';
 
-export function traverseDoc(searchText) {
+/**
+ * Object<isAllMatch, isCase>
+ * **/
+const DefaultCfg = {
+  isCase: true,
+  isAllMatch: false,
+  color: 'red',
+};
+
+export function traverseDoc(searchText, param = DefaultCfg) {
   const treeWalker = document.createTreeWalker(document.body, NodeFilter.SHOW_ELEMENT);
-  const reg = new RegExp(searchText, 'i');
+  let reg = null;
+  if (/^\//.test(searchText)) {
+    log('正则模式');
+    reg = new RegExp(searchText);
+  } else {
+    if (param.isAllMatch) {
+      searchText = `\\b${searchText}\\b`;
+    }
+    reg = new RegExp(searchText, param.isCase ? 'gm' : 'gmi');
+  }
+  console.debug('reg', reg);
   if (!reg.test(treeWalker.root.innerText)) {
     return false;
   }
@@ -40,72 +59,118 @@ export function traverseDoc(searchText) {
   const targetEles = [];
   let N = result.length;
   result.forEach((node, ind) => {
-    if (!node.id.includes(HighLightElementId) && (ind === N - 1 || !node.contains(result[ind + 1]))) {
+    if (!node.classList.contains(HighLightElementClass) && (ind === N - 1 || !node.contains(result[ind + 1]))) {
       targetEles.push(node);
     }
   });
 
   // log('$ targetEles', targetEles);
 
+  // 清除上次搜索结果
+  for (const highEle of document.querySelectorAll(`.${HighLightElementClass}`)) {
+    const parent = highEle.parentElement;
+    highEle.outerHTML = highEle.innerText;
+    parent.normalize();
+  }
+
   for (const ele of targetEles) {
-    reg.lastIndex = 0;
-    surroundContents(ele, reg.exec(ele.innerText)[0].trim());
+    findElementAndOffset(ele, reg, param);
   }
   // console.timeEnd();
 }
 
-function surroundContents(ele, matchText) {
-  let rangeStart = null,
-    rangeEnd = null,
-    curNode = null,
+function findElementAndOffset(ele, reg, searchParam) {
+  reg.lastIndex = 0;
+  let curNode = null,
     fullText = '',
     nodeStack = [];
 
+  const MatchSubTexts = ele.innerText.match(reg),
+    matchNum = MatchSubTexts.length,
+    RangeStart = new Array(matchNum).fill(null),
+    RangeEnd = new Array(matchNum).fill(null);
+
+  const isMatch = _txt => {
+    reg.lastIndex = 0;
+    return reg.test(_txt);
+  };
+  const getMatchText = str => {
+    reg.lastIndex = 0;
+    return reg.exec(str)[0];
+  };
+  let count = 0;
+
+  log('MatchSubTexts: ', MatchSubTexts);
   const NodeIterator = document.createNodeIterator(ele, NodeFilter.SHOW_TEXT);
 
   while (curNode = NodeIterator.nextNode()) {
     nodeStack.push(curNode);
     fullText = nodeStack.map(node => node.wholeText).join('');
-    if (fullText.includes(matchText)) {
-      rangeEnd = { node: curNode };
+    if (isMatch(fullText)) {
+      RangeEnd[count] = {
+        node: curNode,
+        matchText: getMatchText((fullText)),
+      };
       let startNode;
       do {
         startNode = nodeStack.shift();
         fullText = nodeStack.map(node => node.wholeText).join('');
-      } while (fullText.includes(matchText));
-      rangeStart = { node: startNode };
-      break;
+      } while (isMatch(fullText));
+
+      RangeStart[count] = { node: startNode };
+      count++;
+      nodeStack = [];
+      if (count >= matchNum) {
+        nodeStack = null;
+        break;
+      }
     }
   }
-
-  let startInd = 0,
-    startText = rangeStart.node.wholeText,
-    endText = rangeEnd.node.wholeText,
-    endInd = endText.length - 1;
-
-  // 空格换行处理？
-  if (rangeStart.node && rangeStart.node === rangeEnd.node) {
-    startInd = startText.split(matchText)[0].length;
-    endInd = startInd + matchText.length - 1;
-  } else {
-    while (startInd < startText.length && !matchText.includes(startText.slice(startInd))) {
-      ++startInd;
-    }
-    while (endInd > 0 && !matchText.includes(endText.slice(0, endInd))) {
-      --endInd;
-    }
+  if (RangeEnd.some(v => !v)) {
+    debugger;
   }
-  rangeStart.offset = startInd;
-  rangeEnd.offset = endInd;
+  log('Range', RangeStart, RangeEnd);
+  if (RangeEnd.length !== RangeStart.length) {
+    throw new Error('RangeEnd.length !== RangeStart');
+  }
 
-  // log(`
-  //   startInd: ${rangeStart.offset}
-  //   ${startText.slice(startInd)}
-  //   endInd: ${rangeEnd.offset}
-  //   ${endText.slice(0, endInd)}
-  //   ${rangeStart.node === rangeEnd.node}
-  // `);
 
+  // 确定偏移
+  RangeStart.forEach((startItem, _index) => {
+    const endItem = RangeEnd[_index];
+    let startInd = 0,
+    startText = startItem.node.wholeText,
+    endText = endItem.node.wholeText,
+    endInd = endText.length - 1,
+    _matchText = endItem.matchText;
+
+    // 同一个文本节点
+    if (startItem.node && startItem.node === endItem.node) {
+      startInd = startText.split(_matchText)[0].length;
+      endInd = startInd + _matchText.length - 1;
+    } else {
+      while (startInd < startText.length && !_matchText.includes(startText.slice(startInd))) {
+        ++startInd;
+      }
+      while (endInd > 0 && !_matchText.includes(endText.slice(0, endInd))) {
+        --endInd;
+      }
+    }
+    startItem.offset = startInd;
+    endItem.offset = endInd;
+
+    // log(`
+    //   startInd: ${rangeStart.offset}
+    //   ${startText.slice(startInd)}
+    //   endInd: ${rangeEnd.offset}
+    //   ${endText.slice(0, endInd)}
+    //   ${rangeStart.node === rangeEnd.node}
+    // `);
+    surroundContents(startItem, endItem, searchParam);
+  });
+}
+
+function surroundContents(rangeStart, rangeEnd, searchParam) {
   if (rangeStart && rangeEnd) {
     // 必须是text类型的节点
     if ([rangeStart.node, rangeEnd.node].some(_node => _node.nodeType !== 3)) {
@@ -119,8 +184,8 @@ function surroundContents(ele, matchText) {
     range.setEnd(rangeEnd.node, rangeEnd.offset);
 
     const span = document.createElement('span');
-    span.id = HighLightElementId;
-    span.style.cssText = 'background-color:red;'; // font-size:larger
+    span.classList.add(HighLightElementClass);
+    span.style.cssText = `background-color:${searchParam.color};`;
 
     span.appendChild(range.extractContents());
     range.insertNode(span);
