@@ -13,6 +13,12 @@ document.addEventListener('keydown', e => {
 });
 
 
+let performSearch = () => {};
+(async () => {
+  const { traverseDoc } = await import('../page-search.js');
+  performSearch = (searchText, cfg) => traverseDoc(searchText, cfg);
+})();
+
 async function renderSearchDialog() {
   loadStyle(chrome.runtime.getURL('render-page/normal/index.css'));
 
@@ -65,7 +71,6 @@ async function renderSearchDialog() {
           class: 'zl_search_text',
           on: {
             input: e => (this.searchText = e.target.value),
-            change: this.onSearch,
             keydown: e => {
               if (e.key === 'Enter' || e.keyCode === 13) {
                 this.onSearch();
@@ -108,14 +113,6 @@ async function renderSearchDialog() {
   });
 
   document.body.appendChild(vueInstance.$mount().$el);
-}
-
-async function performSearch(searchText, cfg) {
-  if (!searchText) {
-    return;
-  }
-  const { traverseDoc } = await import('../page-search.js');
-  traverseDoc(searchText, cfg);
 }
 
 

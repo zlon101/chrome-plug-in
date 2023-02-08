@@ -11,8 +11,8 @@
 }
 
 #zl_search_warp .zl_search_text {
-  height: 40px;
-  width: 200px;
+  height: 40px !important;
+  width: 200px !important;
   margin-top: 8px;
   padding: 0 8px;
   background-color: #f8fbfc;
@@ -32,6 +32,11 @@
 
 #zl_search_warp .btns {
 
+}
+
+#zl_search_warp .btns input[type="text"] {
+  height: 25px !important;
+  width: 75px !important;
 }
 
 #zl_search_warp .zl_search_close {
