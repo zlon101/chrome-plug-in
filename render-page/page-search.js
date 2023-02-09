@@ -2,6 +2,7 @@ const log = console.debug;
 
 // ========= 遍历搜索 ===========================
 const HighLightElementClass = 'zl_highlight_span';
+export const MatchEleCls = 'zl_search_ele';
 
 const getInnerText = (() => {
   const p = document.createElement('p');
@@ -25,11 +26,11 @@ const DefaultCfg = {
 export function traverseDoc(searchText, searchParam = DefaultCfg) {
   // 清除上次搜索结果
   clearLastMark();
-  if (!searchText) return;
+  if (!searchText) return null;
 
   const [reg, isRegMode] = createRegExp(searchText, searchParam);
   if (!reg.test(document.body.innerText)) {
-    return false;
+    return null;
   }
   console.debug('reg', reg);
 
@@ -42,13 +43,10 @@ export function traverseDoc(searchText, searchParam = DefaultCfg) {
   };
 
   let curNode = null,
-    nexNode = null,
-    lastStackMatch = false,
     stackNodes = [],
     stackText = '',
     curNodeText = '';
   const allRanges = [];
-  const isIgnoreNode = _node => !/\S/.test(_node.wholeText) || isHideElement(_node.parentElement);
   reg.lastIndex = 0;
 
   while (curNode = treeWalker.nextNode()) {
@@ -77,9 +75,12 @@ export function traverseDoc(searchText, searchParam = DefaultCfg) {
     }
   }
 
+  const matchHtmls = new Array(allRanges.length);
+  let count = 0;
   for (const range of allRanges.reverse()) {
-    surroundContents(range, searchParam);
+    matchHtmls[count++] = surroundContents(range, searchParam);
   }
+  return matchHtmls.filter(Boolean);
 }
 
 function findOffset(stackNodes, reg) {
@@ -116,13 +117,13 @@ function findOffset(stackNodes, reg) {
   startOffset = dichotomy(startText.length, false, 0, _offset => {
     return isMatch(getInnerText(startText.slice(_offset)  + midNodeText + endText))
   });
-  debugger;
+  // debugger;
 
   startText = startText.slice(startOffset);
   endOffset = dichotomy(endText.length, true, endText.length - 1, _offset => {
     return isMatch(getInnerText(startText + midNodeText + endText.slice(0, _offset+1)))
   });
-  debugger;
+  // debugger;
   return [{ startNode, endNode, startOffset, endOffset  }];
 }
 
@@ -138,18 +139,18 @@ function dichotomy(N, toLeft, offsetInd, matchFn) {
   const isNextMatch = matchFn(nextInd);
   // 指针位于起始位置
   if (offsetInd === lastInd && !isNextMatch) {
-    debugger;
+    // debugger;
     return offsetInd;
   }
   // 指针到达终点
   if (offsetInd === nextInd) {
-    debugger;
+    // debugger;
     return offsetInd;
   }
 
   const isCurrentMatch = matchFn(offsetInd);
   if (isCurrentMatch && !isNextMatch) {
-    debugger;
+    // debugger;
     return offsetInd;
   }
 
@@ -162,15 +163,13 @@ function dichotomy(N, toLeft, offsetInd, matchFn) {
   return dichotomy(N, toLeft, midIndex, matchFn);
 }
 
+let uid = 1;
 function surroundContents(rangeCfg, searchParam) {
   let { startNode, startOffset, endNode, endOffset } = rangeCfg;
   if (startNode && endNode) {
     // 必须是text类型的节点
     if ([startNode, endNode].some(_node => _node.nodeType !== 3)) {
       throw new Error('rangeStart 或 rangeEnd 节点不是 text 类型');
-    }
-    if (startNode === endNode) {
-      endOffset++;
     }
     const range = document.createRange();
     range.setStart(startNode, startOffset);
@@ -182,9 +181,17 @@ function surroundContents(rangeCfg, searchParam) {
 
     span.appendChild(range.extractContents());
     range.insertNode(span);
-  } else {
-    console.debug('开始节点或结束节点为null');
+    const parentEle = range.commonAncestorContainer;
+
+    const splits = parentEle.innerHTML.split(/<span\s+class="zl_highlight_span".*<\/span>/).map(item => item.trim());
+    const firstLength = splits[0].length;
+    let innerHtml = splits[0].slice(Math.max(0, firstLength-30)) + span.outerHTML + splits[1].slice(0, 30);
+    const cls = `${MatchEleCls}_${uid++}`;
+    parentEle.classList.add(cls);
+    return { innerHtml, cls };
   }
+  console.debug('开始节点或结束节点为null');
+  return null;
 }
 
 function createRegExp(searchText, param) {

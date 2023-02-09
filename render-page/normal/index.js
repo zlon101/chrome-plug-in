@@ -11,6 +11,7 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Escape' || e.keyCode === 27) {
     const wrapDom = document.querySelector(`#${SearchWarpCls}`);
     wrapDom && wrapDom.querySelector('.zl_search_close').click();
+    performSearch('');
   }
 });
 
@@ -24,6 +25,7 @@ let Vue = null;
 (async () => {
   const { default: _Vue } = await import('../../vendor/vue.esm.brower.js');
   Vue = _Vue;
+  // renderSearchDialog();
 })();
 
 
@@ -56,6 +58,7 @@ function renderSearchDialog() {
       isAllMatch: false,
       searchText: '',
       color: 'red',
+      searchResult: [],
     },
     render(h) {
       const btnChilds = BtnCfg.map(item => h('label',
@@ -103,21 +106,48 @@ function renderSearchDialog() {
         }
       }, 'X');
 
+      const _searchResult = this.searchResult;
+      const details = _searchResult.length > 0 && h('details',
+        {
+          class: 'zl_search_detail',
+        },
+        [
+          h('summary', `搜索到 ${_searchResult.length} 项`),
+          h('div', _searchResult.map((item, ind) => {
+            return h('div', {
+              class: 'zl_search_result_item',
+              style: '',
+              domProps: { innerHTML: `${ind+1}. ${item.innerHtml}` },
+              on: {
+                click: () => {
+                  const targetDom = document.querySelector(`.${item.cls}`);
+                  if (targetDom) {
+                    targetDom.scrollIntoView({behavior: 'smooth', block: 'center'});
+                  }
+                }
+              }
+            });
+          })),
+        ]
+      );
+
       return h('div',
         setAttrs({ id: SearchWarpCls }),
         [
           h('div', {class: 'btns'}, btnChilds),
-          inputText,
           closeBtn,
+          inputText,
+          details,
         ]
       );
     },
     methods: {
       onSearch() {
-        performSearch(this.searchText, Object.keys(this.$data).reduce((acc, k) => {
+        const matchElements = performSearch(this.searchText, Object.keys(this.$data).reduce((acc, k) => {
           acc[k] = this.$data[k];
           return acc;
         }, {}));
+        this.searchResult = matchElements;
       },
     },
     mounted() {

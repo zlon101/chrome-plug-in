@@ -11,7 +11,7 @@
 }
 
 #zl_search_warp .zl_search_text {
-  height: 40px !important;
+  height: 30px !important;
   width: 200px !important;
   margin-top: 8px;
   padding: 0 8px;
@@ -66,4 +66,25 @@
   width: 16px;
   margin-left: 8px;
   outline: none;
+}
+
+#zl_search_warp .zl_search_result_item {
+  margin: 0 8px 8px;
+  max-width: 350px;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  display: -webkit-box;
+  overflow: hidden;
+  white-space: break-spaces;
+  word-break: break-all;
+  cursor: pointer;
+}
+
+.zl_search_detail summary {
+  cursor: pointer;
+}
+
+.zl_search_detail > div {
+  overflow: auto;
+  max-height: 500px;
 }
