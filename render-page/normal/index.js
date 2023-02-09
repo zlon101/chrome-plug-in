@@ -1,17 +1,18 @@
-console.clear();
-
 const log = console.debug;
 log('$ normal content-script');
 
-renderSearchDialog();
+loadStyle(chrome.runtime.getURL('render-page/normal/index.css'));
 
 document.addEventListener('keydown', e => {
   // cmd+shift+f
   if (e.shiftKey && e.metaKey && (e.key === 'f' || e.keyCode === 70)) {
-    renderSearchDialog();
+    return renderSearchDialog();
+  }
+  if (e.key === 'Escape' || e.keyCode === 27) {
+    const wrapDom = document.querySelector(`#${SearchWarpCls}`);
+    wrapDom && wrapDom.querySelector('.zl_search_close').click();
   }
 });
-
 
 let performSearch = () => {};
 (async () => {
@@ -19,10 +20,22 @@ let performSearch = () => {};
   performSearch = (searchText, cfg) => traverseDoc(searchText, cfg);
 })();
 
-async function renderSearchDialog() {
-  loadStyle(chrome.runtime.getURL('render-page/normal/index.css'));
+let Vue = null;
+(async () => {
+  const { default: _Vue } = await import('../../vendor/vue.esm.brower.js');
+  Vue = _Vue;
+})();
 
-  const { default: Vue } = await import('../../vendor/vue.esm.brower.js');
+
+const SearchWarpCls = 'zl_search_warp';
+const SearchInputCls = 'zl_search_text';
+
+function renderSearchDialog() {
+  const wrapDom = document.querySelector(`#${SearchWarpCls}`);
+  if (wrapDom) {
+    wrapDom.querySelector(`.${SearchInputCls}`).focus();
+    return;
+  }
   const BtnCfg = [{
     id: 'isCase',
     label: '大小写',
@@ -68,7 +81,7 @@ async function renderSearchDialog() {
           domProps: {
             value: this.searchText,
           },
-          class: 'zl_search_text',
+          class: SearchInputCls,
           on: {
             input: e => (this.searchText = e.target.value),
             keydown: e => {
@@ -91,7 +104,7 @@ async function renderSearchDialog() {
       }, 'X');
 
       return h('div',
-        setAttrs({ id:'zl_search_warp' }),
+        setAttrs({ id: SearchWarpCls }),
         [
           h('div', {class: 'btns'}, btnChilds),
           inputText,
@@ -108,13 +121,12 @@ async function renderSearchDialog() {
       },
     },
     mounted() {
-      setTimeout(()=>this.$el.querySelector('input.zl_search_text').focus(), 500);
+      setTimeout(()=>this.$el.querySelector(`input.${SearchInputCls}`).focus(), 500);
     },
   });
 
   document.body.appendChild(vueInstance.$mount().$el);
 }
-
 
 // 动态样式
 function loadStyle(url) {

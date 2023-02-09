@@ -25,9 +25,9 @@ const DefaultCfg = {
 export function traverseDoc(searchText, searchParam = DefaultCfg) {
   // 清除上次搜索结果
   clearLastMark();
-
   if (!searchText) return;
-  const reg = createRegExp(searchText, searchParam);
+
+  const [reg, isRegMode] = createRegExp(searchText, searchParam);
   if (!reg.test(document.body.innerText)) {
     return false;
   }
@@ -42,10 +42,13 @@ export function traverseDoc(searchText, searchParam = DefaultCfg) {
   };
 
   let curNode = null,
+    nexNode = null,
+    lastStackMatch = false,
     stackNodes = [],
     stackText = '',
     curNodeText = '';
   const allRanges = [];
+  const isIgnoreNode = _node => !/\S/.test(_node.wholeText) || isHideElement(_node.parentElement);
   reg.lastIndex = 0;
 
   while (curNode = treeWalker.nextNode()) {
@@ -73,6 +76,7 @@ export function traverseDoc(searchText, searchParam = DefaultCfg) {
       }
     }
   }
+
   for (const range of allRanges.reverse()) {
     surroundContents(range, searchParam);
   }
@@ -110,29 +114,52 @@ function findOffset(stackNodes, reg) {
 
   // 二分法搜索优化
   startOffset = dichotomy(startText.length, false, 0, _offset => {
-    // log(startText.slice(_offset));
     return isMatch(getInnerText(startText.slice(_offset)  + midNodeText + endText))
   });
-  // debugger;
+  debugger;
 
   startText = startText.slice(startOffset);
-  // log('startText: ', startText);
-
   endOffset = dichotomy(endText.length, true, endText.length - 1, _offset => {
-    // log(endText.slice(0, _offset));
-    return isMatch(getInnerText(startText + midNodeText + endText.slice(0,_offset)))
+    return isMatch(getInnerText(startText + midNodeText + endText.slice(0, _offset+1)))
   });
-  // log(endText.slice(endOffset - 3, endOffset));
+  debugger;
   return [{ startNode, endNode, startOffset, endOffset  }];
 }
 
-function dichotomy(N, forward, offsetInd, matchFn) {
-  // debugger;
-  if (!matchFn(offsetInd)) {
-    return forward ? offsetInd + 1 : offsetInd - 1;
+function dichotomy(N, toLeft, offsetInd, matchFn) {
+  if (N < 2) {
+    return offsetInd;
   }
-  const midIndex = forward ? Math.floor(offsetInd * 0.5) : Math.floor(offsetInd + 0.5 * (N - offsetInd));
-  return dichotomy(N, forward, midIndex, matchFn);
+  let nextInd = toLeft ? offsetInd - 1 : offsetInd + 1;
+  nextInd = Math.max( Math.min(nextInd, N - 1), 0);
+  let lastInd = toLeft ? offsetInd + 1 : offsetInd - 1;
+  lastInd = Math.max( Math.min(lastInd, N - 1), 0);
+
+  const isNextMatch = matchFn(nextInd);
+  // 指针位于起始位置
+  if (offsetInd === lastInd && !isNextMatch) {
+    debugger;
+    return offsetInd;
+  }
+  // 指针到达终点
+  if (offsetInd === nextInd) {
+    debugger;
+    return offsetInd;
+  }
+
+  const isCurrentMatch = matchFn(offsetInd);
+  if (isCurrentMatch && !isNextMatch) {
+    debugger;
+    return offsetInd;
+  }
+
+  let midIndex = 0;
+  if (isCurrentMatch) {
+    midIndex = toLeft ? Math.floor(offsetInd * 0.5) : Math.floor(offsetInd + 0.5 * (N - offsetInd));
+  } else {
+    midIndex = !toLeft ? Math.floor(offsetInd * 0.5) : Math.floor(offsetInd + 0.5 * (N - offsetInd));
+  }
+  return dichotomy(N, toLeft, midIndex, matchFn);
 }
 
 function surroundContents(rangeCfg, searchParam) {
@@ -147,7 +174,7 @@ function surroundContents(rangeCfg, searchParam) {
     }
     const range = document.createRange();
     range.setStart(startNode, startOffset);
-    range.setEnd(endNode, endOffset);
+    range.setEnd(endNode, endOffset + 1);
 
     const span = document.createElement('span');
     span.classList.add(HighLightElementClass);
@@ -162,17 +189,23 @@ function surroundContents(rangeCfg, searchParam) {
 
 function createRegExp(searchText, param) {
   if (!searchText) return null;
+  let isRegMode = false
   let reg = null;
   if (/^\//.test(searchText)) {
     log('正则模式');
-    reg = new RegExp(searchText);
+    isRegMode = true;
+    const regModifier = /\/(\w*)$/;
+    let modifier = regModifier.exec(searchText)[1];
+    !modifier.includes('g') && (modifier += 'g');
+    regModifier.lastIndex = 0;
+    reg = new RegExp(searchText.slice(1).replace(regModifier, ''), modifier);
   } else {
     if (param.isAllMatch) {
       searchText = `\\b${searchText}\\b`;
     }
     reg = new RegExp(searchText, param.isCase ? 'gm' : 'gmi');
   }
-  return reg;
+  return [reg, isRegMode];
 }
 
 function isHideElement(element) {
@@ -181,13 +214,10 @@ function isHideElement(element) {
   }
   let hide = false;
   if (typeof element.checkVisibility === 'function') {
-    hide = !element.checkVisibility({
+    return !element.checkVisibility({
       checkOpacity: true,      // Check CSS opacity property too
       checkVisibilityCSS: true // Check CSS visibility property too
     });
-  }
-  if (hide) {
-    return true;
   }
   const styleAttr = window.getComputedStyle(element);
   return styleAttr.display === 'none' || styleAttr.visibility === 'hidden' || styleAttr.opacity === '0';
