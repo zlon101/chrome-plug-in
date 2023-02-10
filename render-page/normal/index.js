@@ -3,6 +3,23 @@ log('$ normal content-script');
 
 loadStyle(chrome.runtime.getURL('render-page/normal/index.css'));
 
+let performSearch = () => {};
+let Vue;
+
+(() => {
+  import('../page-search.js').then(res => {
+    performSearch = (searchText, cfg) => res.traverseDoc(searchText, cfg);
+  });
+
+  import('../../vendor/vue.esm.brower.js').then(res => {
+    Vue = res.default;
+  })
+
+  import('./message.js').then(({ handleOpenSearchBox }) => {
+    handleOpenSearchBox(renderSearchDialog);
+  });
+})();
+
 document.addEventListener('keydown', e => {
   // cmd+shift+f
   if (e.shiftKey && e.metaKey && (e.key === 'f' || e.keyCode === 70)) {
@@ -14,19 +31,6 @@ document.addEventListener('keydown', e => {
     performSearch('');
   }
 });
-
-let performSearch = () => {};
-(async () => {
-  const { traverseDoc } = await import('../page-search.js');
-  performSearch = (searchText, cfg) => traverseDoc(searchText, cfg);
-})();
-
-let Vue = null;
-(async () => {
-  const { default: _Vue } = await import('../../vendor/vue.esm.brower.js');
-  Vue = _Vue;
-  // renderSearchDialog();
-})();
 
 
 const SearchWarpCls = 'zl_search_warp';
@@ -157,6 +161,7 @@ function renderSearchDialog() {
 
   document.body.appendChild(vueInstance.$mount().$el);
 }
+
 
 // 动态样式
 function loadStyle(url) {
