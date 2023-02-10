@@ -195,14 +195,61 @@ function renderSearchDialog() {
         }
       },
     },
+
     mounted() {
-      setTimeout(()=>this.$el.querySelector(`input.${SearchInputCls}`).focus(), 500);
+      setTimeout(()=>{
+        drag(this.$el, document.body);
+        this.$el.querySelector(`input.${SearchInputCls}`).focus();
+      }, 500);
     },
   });
 
   document.body.appendChild(vueInstance.$mount().$el);
 }
 
+function drag(dragEle, container) {
+  dragEle.setAttribute('draggable', 'true');
+  const { width: oriWidth, height: oriHeight, border: oriBorder } = window.getComputedStyle(dragEle);
+  dragEle.style.width = oriWidth;
+  dragEle.style.height = oriHeight;
+
+  const onDragstart = (ev) => {
+    ev.currentTarget.style.border = '2px dashed green';
+    ev.effectAllowed = "move";
+
+    const { top, left } = dragEle.getBoundingClientRect();
+    const { clientX, clientY } = ev;
+    ev.dataTransfer.setData('json', JSON.stringify({
+      top: top - clientY,
+      left: left - clientX,
+    }));
+  }
+  const onDragend = (ev) => {
+    ev.dataTransfer.clearData();
+  }
+
+  const onDragover = (ev) => {
+    ev.dataTransfer.dropEffect = "move";
+    ev.preventDefault();
+  }
+
+  const onDrop = (ev) => {
+    const { clientX, clientY } = ev;
+    const offset = JSON.parse(ev.dataTransfer.getData('json'));
+    const afterLeft = Math.round(clientX + offset.left) + 'px';
+    const afterTop = Math.round(clientY + offset.top) + 'px';
+
+    dragEle.style.border = oriBorder;
+    dragEle.style.top = afterTop;
+    dragEle.style.left = afterLeft;
+    ev.preventDefault();
+  }
+
+  dragEle.addEventListener('dragstart', onDragstart);
+  dragEle.addEventListener('dragend', onDragend);
+  container.addEventListener('dragover', onDragover);
+  container.addEventListener('drop', onDrop);
+}
 
 // 动态样式
 function loadStyle(url) {
