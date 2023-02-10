@@ -22,8 +22,9 @@ export const listenExtend = (handler) => {
     if (reqType === 'StartParse') {
       Storager.set(NotRedirectKey, false);
       handler(request.text);
+      sendResponse();
     }
-    sendResponse();
+    // sendResponse();
   });
   Log(`执行 listenExtend 成功`);
 }

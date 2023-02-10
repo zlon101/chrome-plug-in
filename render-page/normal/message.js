@@ -15,6 +15,7 @@ export function handleOpenSearchBox(cb) {
     if (reqType === 'OpenSearchBoxByPopup') {
       cb();
     }
-    sendResponse();
+    // 可能会导致其他监听器被忽略
+    // sendResponse();
   });
 }
