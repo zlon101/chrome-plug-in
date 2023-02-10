@@ -1,7 +1,7 @@
 const log = console.debug;
 
 // ========= 遍历搜索 ===========================
-const HighLightElementClass = 'zl_highlight_span';
+export const HighLightElementClass = 'zl_highlight_span';
 export const MatchEleCls = 'zl_search_ele';
 
 const getInnerText = (() => {
@@ -20,15 +20,16 @@ const getInnerText = (() => {
 const DefaultCfg = {
   isCase: true,
   isAllMatch: false,
-  color: 'red',
+  color: 'yellow',
 };
 
 export function traverseDoc(searchText, searchParam = DefaultCfg) {
+  let startTime = Date.now();
   // 清除上次搜索结果
   clearLastMark();
   if (!searchText) return null;
 
-  const [reg, isRegMode] = createRegExp(searchText, searchParam);
+  const [reg] = createRegExp(searchText, searchParam);
   if (!reg.test(document.body.innerText)) {
     return null;
   }
@@ -80,7 +81,8 @@ export function traverseDoc(searchText, searchParam = DefaultCfg) {
   for (const range of allRanges.reverse()) {
     matchHtmls[count++] = surroundContents(range, searchParam);
   }
-  return matchHtmls.filter(Boolean);
+  console.debug('traverseDoc耗时:', (Date.now() - startTime) / 1000);
+  return matchHtmls.filter(Boolean).reverse();
 }
 
 function findOffset(stackNodes, reg) {
@@ -243,11 +245,13 @@ function isHideNode(node) {
 }
 
 function clearLastMark() {
+  const startTime = Date.now();
   for (const highEle of document.querySelectorAll(`.${HighLightElementClass}`)) {
     const parent = highEle.parentElement;
     highEle.outerHTML = highEle.innerText;
     parent.normalize();
   }
+  console.debug('clearLastMark 耗时:', (Date.now()-startTime)/1000);
 }
 
 

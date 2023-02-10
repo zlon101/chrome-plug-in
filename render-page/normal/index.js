@@ -3,11 +3,12 @@ log('$ normal content-script');
 
 loadStyle(chrome.runtime.getURL('render-page/normal/index.css'));
 
-let performSearch = () => {};
+let performSearch = () => {}, HighLightElementCls;
 let Vue;
 
 (() => {
   import('../page-search.js').then(res => {
+    HighLightElementCls = res.HighLightElementClass;
     performSearch = (searchText, cfg) => res.traverseDoc(searchText, cfg);
   });
 
@@ -35,6 +36,8 @@ document.addEventListener('keydown', e => {
 
 const SearchWarpCls = 'zl_search_warp';
 const SearchInputCls = 'zl_search_text';
+const CurrentSelectCls = 'zl_search_selected'
+//#de7100
 
 function renderSearchDialog() {
   const wrapDom = document.querySelector(`#${SearchWarpCls}`);
@@ -61,9 +64,10 @@ function renderSearchDialog() {
       isCase: true,
       isAllMatch: false,
       searchText: '',
-      color: 'red',
+      color: '#87c48e',
       searchResult: [],
     },
+
     render(h) {
       const btnChilds = BtnCfg.map(item => h('label',
         setAttrs({ id: item.id }),
@@ -74,7 +78,7 @@ function renderSearchDialog() {
             on: {
               change: e => {
                 this.$data[item.id] = item.type === 'text' ? e.target.value.trim() : e.target.checked;
-                this.onSearch();
+                setTimeout(this.onSearch);
               }
             }
           })
@@ -92,8 +96,15 @@ function renderSearchDialog() {
           on: {
             input: e => (this.searchText = e.target.value),
             keydown: e => {
-              if (e.key === 'Enter' || e.keyCode === 13) {
+              const { key, keyCode } = e;
+              if (key === 'Enter' || keyCode === 13) {
                 this.onSearch();
+              } else if (key === 'ArrowUp' || keyCode === '38') {
+                this.onSelectResult('up');
+                e.preventDefault();
+              } else if (key === 'ArrowDown' || keyCode === '40') {
+                this.onSelectResult('down');
+                e.preventDefault();
               }
             },
           }
@@ -106,6 +117,7 @@ function renderSearchDialog() {
           click: () => {
             this.$destroy();
             this.$el.remove();
+            performSearch('');
           }
         }
       }, 'X');
@@ -120,15 +132,9 @@ function renderSearchDialog() {
           h('div', _searchResult.map((item, ind) => {
             return h('div', {
               class: 'zl_search_result_item',
-              style: '',
               domProps: { innerHTML: `${ind+1}. ${item.innerHtml}` },
               on: {
-                click: () => {
-                  const targetDom = document.querySelector(`.${item.cls}`);
-                  if (targetDom) {
-                    targetDom.scrollIntoView({behavior: 'smooth', block: 'center'});
-                  }
-                }
+                click: () => this.onSelectResult('', ind)
               }
             });
           })),
@@ -145,13 +151,48 @@ function renderSearchDialog() {
         ]
       );
     },
+
     methods: {
       onSearch() {
-        const matchElements = performSearch(this.searchText, Object.keys(this.$data).reduce((acc, k) => {
+        this.searchResult = performSearch(this.searchText, Object.keys(this.$data).reduce((acc, k) => {
           acc[k] = this.$data[k];
           return acc;
         }, {}));
-        this.searchResult = matchElements;
+      },
+      // 聚焦到上/下一个搜索项
+      onSelectResult(upOrDown, index) {
+        const N = this.searchResult.length;
+        if(!N) return;
+
+        // 清除已有的元素样式
+        for (const _ele of document.querySelectorAll(`.${CurrentSelectCls}`)) {
+          _ele.classList.remove(CurrentSelectCls);
+        }
+
+        let nextSelectIndex = 0;
+        const lastIndex = this.selectedItemIndex
+        if (typeof index === 'number') {
+          nextSelectIndex = index;
+        } else {
+          const isUp = upOrDown === 'up';
+          if (lastIndex === 0 && isUp) {
+            nextSelectIndex = N -1;
+          } else if (lastIndex === N - 1 && !isUp) {
+            nextSelectIndex = 0;
+          } else {
+            nextSelectIndex = typeof lastIndex === 'number' ? (lastIndex + (isUp ? -1 : 1)) : 0;
+            nextSelectIndex = Math.max(Math.min(nextSelectIndex, N - 1), 0);
+          }
+        }
+        this.selectedItemIndex = nextSelectIndex;
+
+        const selectDom = document.querySelector('.'+this.searchResult[nextSelectIndex].cls);
+        if (selectDom) {
+          selectDom.scrollIntoView({behavior: 'smooth', block: 'center'});
+          selectDom.querySelector(`.${HighLightElementCls}`).classList.add(CurrentSelectCls);
+        } else {
+          console.error('onSelectResult 未找到对应元素');
+        }
       },
     },
     mounted() {

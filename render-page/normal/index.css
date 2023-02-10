@@ -88,3 +88,8 @@
   overflow: auto;
   max-height: 500px;
 }
+
+.zl_search_selected {
+  background-color: #de7100 !important;
+  text-decoration: red wavy underline;;
+}
