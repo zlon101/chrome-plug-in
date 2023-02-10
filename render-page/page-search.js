@@ -36,6 +36,9 @@ export function traverseDoc(searchText, searchParam = DefaultCfg) {
   console.debug('reg', reg);
 
   // 遍历所有 Text 节点  🔥
+  const IgnoreDiv = [...document.querySelectorAll('p'), ...document.querySelectorAll('div')].filter(dom => !reg.test(dom.innerText));
+  const inIgnoreDiv = _node => IgnoreDiv.some(_parent => _parent.contains(_node));
+
   const treeWalker = document.createNodeIterator(document.body, NodeFilter.SHOW_TEXT); // createTreeWalker
   const getStacksText = nodes => getInnerText(nodes.reduce((acc, cur) => acc + cur.wholeText, ''));
   const isMatch = _txt => {
@@ -52,7 +55,7 @@ export function traverseDoc(searchText, searchParam = DefaultCfg) {
 
   while (curNode = treeWalker.nextNode()) {
     curNodeText = curNode.wholeText;
-    if (!/\S/.test(curNodeText) || isHideElement(curNode.parentElement)) {
+    if (!/\S/.test(curNodeText) || inIgnoreDiv(curNode) || isHideElement(curNode.parentElement)) {
       continue;
     }
     // 拼接字符串
@@ -78,10 +81,11 @@ export function traverseDoc(searchText, searchParam = DefaultCfg) {
 
   const matchHtmls = new Array(allRanges.length);
   let count = 0;
+  console.debug('traverseDoc 1耗时:', (Date.now() - startTime) / 1000);
   for (const range of allRanges.reverse()) {
     matchHtmls[count++] = surroundContents(range, searchParam);
   }
-  console.debug('traverseDoc耗时:', (Date.now() - startTime) / 1000);
+  console.debug('traverseDoc 2耗时:', (Date.now() - startTime) / 1000);
   return matchHtmls.filter(Boolean).reverse();
 }
 

@@ -65,7 +65,7 @@ function renderSearchDialog() {
       isAllMatch: false,
       searchText: '',
       color: '#87c48e',
-      searchResult: [],
+      searchResult: null,
     },
 
     render(h) {
@@ -123,7 +123,7 @@ function renderSearchDialog() {
       }, 'X');
 
       const _searchResult = this.searchResult;
-      const details = _searchResult.length > 0 && h('details',
+      const details = _searchResult && h('details',
         {
           class: 'zl_search_detail',
         },
@@ -211,7 +211,7 @@ function drag(dragEle, container) {
   dragEle.setAttribute('draggable', 'true');
   const { width: oriWidth, height: oriHeight, border: oriBorder } = window.getComputedStyle(dragEle);
   dragEle.style.width = oriWidth;
-  dragEle.style.height = oriHeight;
+  // dragEle.style.height = oriHeight;
 
   const onDragstart = (ev) => {
     ev.currentTarget.style.border = '2px dashed green';
