@@ -210,7 +210,7 @@ function renderSearchDialog() {
 function drag(dragEle, container) {
   dragEle.setAttribute('draggable', 'true');
   const { width: oriWidth, height: oriHeight, border: oriBorder } = window.getComputedStyle(dragEle);
-  dragEle.style.width = oriWidth;
+  // dragEle.style.width = oriWidth;
   // dragEle.style.height = oriHeight;
 
   const onDragstart = (ev) => {
@@ -236,12 +236,13 @@ function drag(dragEle, container) {
   const onDrop = (ev) => {
     const { clientX, clientY } = ev;
     const offset = JSON.parse(ev.dataTransfer.getData('json'));
-    const afterLeft = Math.round(clientX + offset.left) + 'px';
-    const afterTop = Math.round(clientY + offset.top) + 'px';
+    const afterLeft = clientX + offset.left;
+    const afterRight = Math.round(document.body.clientWidth - afterLeft - dragEle.offsetWidth);
+    const afterTop = Math.round(clientY + offset.top);
 
     dragEle.style.border = oriBorder;
-    dragEle.style.top = afterTop;
-    dragEle.style.left = afterLeft;
+    dragEle.style.top = afterTop + 'px';
+    dragEle.style.right = afterRight + 'px';
     ev.preventDefault();
   }
 

@@ -10,6 +10,7 @@ export async function parseDetailPage() {
   const navList = Array.from(document.querySelectorAll('.room-price-nav .rp-subnav-item'));
   const getTable = () => {
     const PriceInd = 4;
+    const SizeInd = 2;
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         const resutl = { salesNum: 0, price: [0, 0], areaSize: [0, 0] };
@@ -20,16 +21,22 @@ export async function parseDetailPage() {
           const _price = parseFloat(cols[PriceInd]);
           return !Number.isNaN(_price) && _price > 70 * 10000;
         });
+        rowList = rowList.filter(cols => {
+          // 面积大于70
+          const _size = parseFloat(cols[SizeInd]);
+          return !Number.isNaN(_size) && _size > 70;
+        });
+
         if (!rowList.length) {
           resolve(resutl);
           return;
         }
-        const areaSizes = rowList.map(row => row[2]);
+        const areaSizes = rowList.map(row => parseFloat(row[SizeInd]));
         const [minSz, maxSz] = [Math.min(...areaSizes), Math.max(...areaSizes)];
-        const prices = rowList.map(row => row[PriceInd]);
+        const prices = rowList.map(row => parseFloat(row[PriceInd]));
         let [minPrice, maxPrice] = [Math.min(...prices), Math.max(...prices)];
-        minPrice = parseFloat((minPrice / 10000).toFixed(2));
-        maxPrice = parseFloat((maxPrice / 10000).toFixed(2));
+        minPrice = +(parseFloat((minPrice / 10000).toFixed(2)));
+        maxPrice = +(parseFloat((maxPrice / 10000).toFixed(2)));
         // table.dataRow = rowList;
         resutl.salesNum = rowList.length;
         resutl.price = [minPrice, maxPrice];
