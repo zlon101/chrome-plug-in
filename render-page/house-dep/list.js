@@ -196,7 +196,8 @@ async function parseIndexPage(popupForm) {
 
   // 解析表格
   const tableInfo = PageCfg.getTableVal(); // { header, dataRow: [[col], [col]] }
-  const filterCb = row => row[4].includes('住宅');
+  // 过滤不是住宅和没有详情页的行
+  const filterCb = row => row[4].includes('住宅') && !!row[row.length-1];
   tableInfo.dataRow = tableInfo.dataRow.filter(row => filterCb(row));
   const dataRowNum = tableInfo.dataRow.length;
   Log(`数据行: ${dataRowNum}`);
@@ -208,10 +209,19 @@ async function parseIndexPage(popupForm) {
   });
 
 
+  const isParseDetainPage = popupForm[SearchFields.isParseDetail.key];
   // 当前table处理完成, 继续下一页
   let count = 0;
   const completeCb = () => {
+    if (isParseDetainPage) {
+      tableInfo.dataRow.forEach(row => {
+        row[row.length-1].info = row[row.length-1].info.filter(_building => _building.salesNum > 0);
+      })
+      tableInfo.dataRow = tableInfo.dataRow.filter(_row => _row[_row.length-1].info.length > 0);
+    }
+
     Storager.append('tableRow', tableInfo.dataRow);
+    debugger;
     if (pageInfo.curPageNum >= pageInfo.totalPageNum) {
       // 重置 isRun
       ChromeStorage.set({ [Runing]: false });
@@ -242,7 +252,7 @@ async function parseIndexPage(popupForm) {
   };
 
   // 打开详情页
-  if (popupForm[SearchFields.isParseDetail.key]) {
+  if (isParseDetainPage) {
     if (dataRowNum > 0) {
       setTimeout(() => {
         tableInfo.dataRow.forEach(row => {

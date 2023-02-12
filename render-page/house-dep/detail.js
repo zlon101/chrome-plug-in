@@ -19,7 +19,7 @@ export async function parseDetailPage() {
         rowList = rowList.filter(cols => {
           // 价格大于70万
           const _price = parseFloat(cols[PriceInd]);
-          return !Number.isNaN(_price) && _price > 70 * 10000;
+          return !Number.isNaN(_price) && _price > 70 * 10000 && _price < 250 * 10000;
         });
         rowList = rowList.filter(cols => {
           // 面积大于70
