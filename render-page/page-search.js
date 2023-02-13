@@ -36,7 +36,9 @@ export function traverseDoc(searchText, searchParam = DefaultCfg) {
   console.debug('reg', reg);
 
   // 遍历所有 Text 节点  🔥
-  const IgnoreDiv = [...document.querySelectorAll('p'), ...document.querySelectorAll('div')].filter(dom => !reg.test(dom.innerText));
+  let IgnoreDiv = [...document.querySelectorAll('p'), ...document.querySelectorAll('div')].filter(dom => !reg.test(dom.innerText));
+  IgnoreDiv = IgnoreDiv.filter(el => window.getComputedStyle(el).display === 'block');
+  log('IgnoreDiv数量', IgnoreDiv.length);
   const inIgnoreDiv = _node => IgnoreDiv.some(_parent => _parent.contains(_node));
 
   const treeWalker = document.createNodeIterator(document.body, NodeFilter.SHOW_TEXT); // createTreeWalker

@@ -1,5 +1,4 @@
 const log = console.debug;
-log('$ normal content-script');
 
 loadStyle(chrome.runtime.getURL('render-page/normal/index.css'));
 
