@@ -34,19 +34,20 @@ export function traverseDoc(searchText, searchParam = DefaultCfg) {
     return null;
   }
   console.debug('reg', reg);
+  const isMatch = _txt => {
+    reg.lastIndex = 0;
+    return reg.test(_txt);
+  };
 
   // 遍历所有 Text 节点  🔥
-  let IgnoreDiv = [...document.querySelectorAll('p'), ...document.querySelectorAll('div')].filter(dom => !reg.test(dom.innerText));
+  let IgnoreDiv = [...document.querySelectorAll('p'), ...document.querySelectorAll('div')].filter(dom => !isMatch(dom.innerText));
   IgnoreDiv = IgnoreDiv.filter(el => window.getComputedStyle(el).display === 'block');
+  IgnoreDiv.push(...document.querySelectorAll('#zl_search_warp'));
   log('IgnoreDiv数量', IgnoreDiv.length);
   const inIgnoreDiv = _node => IgnoreDiv.some(_parent => _parent.contains(_node));
 
   const treeWalker = document.createNodeIterator(document.body, NodeFilter.SHOW_TEXT); // createTreeWalker
   const getStacksText = nodes => getInnerText(nodes.reduce((acc, cur) => acc + cur.wholeText, ''));
-  const isMatch = _txt => {
-    reg.lastIndex = 0;
-    return reg.test(_txt);
-  };
 
   let curNode = null,
     stackNodes = [],
@@ -215,6 +216,7 @@ function createRegExp(searchText, param) {
     regModifier.lastIndex = 0;
     reg = new RegExp(searchText.slice(1).replace(regModifier, ''), modifier);
   } else {
+    searchText = searchText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     if (param.isAllMatch) {
       searchText = `\\b${searchText}\\b`;
     }
