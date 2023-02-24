@@ -31,9 +31,9 @@ export function traverseDoc(searchText, searchParam = DefaultCfg) {
 
   const [reg] = createRegExp(searchText, searchParam);
   if (!reg.test(document.body.innerText)) {
-    return null;
+    return [];
   }
-  console.debug('reg', reg);
+  log('reg', reg);
   const isMatch = _txt => {
     reg.lastIndex = 0;
     return reg.test(_txt);
