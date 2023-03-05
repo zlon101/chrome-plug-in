@@ -153,10 +153,13 @@ function renderSearchDialog() {
 
     methods: {
       onSearch() {
-        this.searchResult = performSearch(this.searchText, Object.keys(this.$data).reduce((acc, k) => {
-          acc[k] = this.$data[k];
-          return acc;
-        }, {}));
+        this.searchResult = [];
+        setTimeout(() => {
+          this.searchResult = performSearch(this.searchText, Object.keys(this.$data).reduce((acc, k) => {
+            acc[k] = this.$data[k];
+            return acc;
+          }, {}));
+        });
       },
       // 聚焦到上/下一个搜索项
       onSelectResult(upOrDown, index) {
