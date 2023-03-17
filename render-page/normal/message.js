@@ -10,7 +10,8 @@ export function openSearchBox () {
 export function handleOpenSearchBox(cb) {
   regMsgListener((request, sender, sendResponse) => {
     console.log('handleOpenSearchBox');
-    if (sender.id !== ExtendId) return;
+    // windows 中 sender.id 不等与 ExtendId
+    // if (sender.id !== ExtendId) return;
     const reqType = request.type;
     if (reqType === 'OpenSearchBoxByPopup') {
       cb();
