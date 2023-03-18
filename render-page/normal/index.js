@@ -22,7 +22,7 @@ let Vue;
 
 document.addEventListener('keydown', e => {
   // cmd+shift+f
-  if (e.shiftKey && e.metaKey && (e.key === 'f' || e.keyCode === 70)) {
+  if (e.shiftKey && (e.metaKey || e.ctrlKey) && (e.key === 'f' || e.keyCode === 70)) {
     return renderSearchDialog();
   }
   if (e.key === 'Escape' || e.keyCode === 27) {
