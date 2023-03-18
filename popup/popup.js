@@ -47,7 +47,7 @@ const vueInstance = new Vue({
     const btnExe = h('button', {
       attrs: { id: 'startup' },
       on: {
-        click: this.onSubmit
+        click: this.onSubmit,
       }
     }, '执行');
 
