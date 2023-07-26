@@ -221,7 +221,6 @@ async function parseIndexPage(popupForm) {
     }
 
     Storager.append('tableRow', tableInfo.dataRow);
-    debugger;
     if (pageInfo.curPageNum >= pageInfo.totalPageNum) {
       // 重置 isRun
       ChromeStorage.set({ [Runing]: false });
@@ -229,7 +228,7 @@ async function parseIndexPage(popupForm) {
       tableInfo.dataRow = Storager.get('tableRow');
       Storager.set(SearchResultKey, data);
       Storager.remove('tableRow');
-      const href = 'chrome-extension://dmpmcohcnfkhemdccjefninlcelpbpnl/render-page/house-dep/search-result/index.html';
+      const href = 'chrome-extension://mcajdhhcpeejbbjhlblfbikekadhnaig/render-page/house-dep/search-result/index.html';
       dialog(`
         <h2>总数据: ${tableInfo.dataRow.length}</h2>
         <p style="color:blue"><a href="${href}" target="_blank">搜索结果</a></p>
