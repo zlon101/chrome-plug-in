@@ -3,8 +3,12 @@ import Vue from '../vendor/vue.esm.brower.js';
 import {SearchFields, SearchFieldKeys, getSearchVla, cacheSearchVal} from './filter-cfg.js';
 import { getFilterParam, searchHouse } from '../render-page/house-dep/communicate.js';
 import { invokSearch } from '../render-page/talent-net/send-msg.js';
-import { openSearchBox } from '../render-page/normal/message.js';
+import { openSearchBox, onParseCatalog } from '../render-page/normal/message.js';
 
+// 解析目录
+document.querySelector('.parse_catalog').onclick = onParseCatalog;
+
+// 搜索
 document.querySelector('.open_search').onclick = openSearchBox;
 
 const SearchTextKey = SearchFields.searchText.key;

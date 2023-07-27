@@ -1,0 +1,83 @@
+{
+  "name": "chrome-plugin-zl",
+  "version": "2.0",
+  "description": "custom chrome plugin",
+  "manifest_version": 3,
+  "action": {
+     "default_popup": "popup/popup.html",
+    "default_icon": "images/icon16.png"
+  },
+  "options_page": "options/options.html",
+  "content_scripts": [
+    {
+      "matches": ["https://zw.cdzjryb.com/*"],
+      "js": ["render-page/house-dep/index.js"]
+    },
+    {
+      "matches": ["http://cdzj.chengdu.gov.cn/*"],
+      "js": ["render-page/talent-net/RCAJ.js"]
+    },
+    {
+      "matches": ["http://cdzj.chengdu.gov.cn/*"],
+      "js": ["render-page/talent-net/build-list.js"]
+    },
+    {
+      "matches": ["https://music.youtube.com/*"],
+      "js": ["render-page/youtube-music/index.js"]
+    },
+    {
+      "matches": [
+        "http://*/*",
+        "https://*/*",
+        "file://*/*"
+      ],
+      "js": ["render-page/normal/index.js"],
+      "run_at": "document_end",
+      "all_frames": false
+    }
+  ],
+  "web_accessible_resources": [{
+    "resources": [
+      "util/index.js",
+      "util/msg.js",
+      "util/tool.js",
+      "util/storage.js",
+      "vendor/vue.esm.brower.js",
+      "vendor/evalCore.min.js",
+
+      "popup/filter-cfg.js",
+
+      "render-page/normal/index.js",
+      "render-page/normal/message.js",
+      "render-page/normal/search.js",
+      "render-page/normal/parse-catalog.js",
+      "render-page/normal/index.css",
+      "render-page/page-search.js",
+      "render-page/inject-script.js",
+
+      "render-page/house-dep/index.js",
+      "render-page/house-dep/list.js",
+      "render-page/house-dep/detail.js",
+      "render-page/house-dep/tool.js",
+      "render-page/house-dep/vue-cfg.js",
+      "render-page/house-dep/communicate.js",
+      "render-page/house-dep/page-script.js",
+
+      "render-page/talent-net/build-list.js",
+      "render-page/talent-net/send-msg.js",
+      "render-page/talent-net/RCAJ.js",
+
+      "render-page/youtube-music/index.js"
+    ],
+    "matches": ["*://*/*"]
+  }],
+  "permissions": ["activeTab", "scripting", "storage", "tabs", "contextMenus"],
+  "content_security_policy": {
+    "extension_pages": "style-src 'self' 'unsafe-inline'; script-src 'self'; object-src 'self'; media-src 'self' filesystem:"
+  },
+  "icons": {
+    "16": "images/icon16.png",
+    "48": "images/icon48.png",
+    "128": "images/icon128.png"
+  }
+}
