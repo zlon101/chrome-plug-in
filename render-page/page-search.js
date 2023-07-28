@@ -4,15 +4,16 @@ const log = console.debug;
 export const HighLightElementClass = 'zl_highlight_span';
 export const MatchEleCls = 'zl_search_ele';
 
-const getInnerText = (() => {
-  const p = document.createElement('p');
-  p.style.cssText = 'position:fixed;z-index:-99999;opacity:0;';
-  document.body.appendChild(p);
-  return str => {
-    p.textContent = str;
-    return p.innerText;
-  };
-})();
+// const getInnerText = (() => {
+//   const p = document.createElement('p');
+//   p.style.cssText = 'position:fixed;z-index:-99999;opacity:0;';
+//   document.body.appendChild(p);
+//   return str => {
+//     p.textContent = str;
+//     return p.innerText;
+//   };
+// })();
+const getInnerText = str => (str || '').trim();
 
 /**
  * Object<isAllMatch, isCase>
@@ -33,7 +34,7 @@ export function traverseDoc(searchText, searchParam = DefaultCfg) {
   if (!reg.test(document.body.innerText)) {
     return [];
   }
-  log('reg', reg);
+  // log('reg', reg);
   const isMatch = _txt => {
     reg.lastIndex = 0;
     return reg.test(_txt);

@@ -4,8 +4,8 @@ import { HighLightElementClass, traverseDoc } from '../page-search.js';
 const log = console.debug;
 const performSearch = (searchText, cfg) => {
   const a = Date.now();
-  traverseDoc(searchText, cfg);
   log(`\n\n=== 搜索结束，耗时: ${(Date.now() - a) / 1000} ===`);
+  return traverseDoc(searchText, cfg);
 };
 
 const SearchWarpCls = 'zl_search_warp';
