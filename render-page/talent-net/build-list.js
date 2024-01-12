@@ -62,11 +62,11 @@ const TotalSearchResultKey = Prefix + 'totalSearchResult',
       Storager.set(NotRedirectKey, false);
       Storager.set(ShouldRun, false);
       Storager.set(TotalSearchResultKey, []);
-      log(`
-        搜索【${searchVal}】完成
-        共 ${totalPage} 页，当前 ${nowPage} 页
-        找到 ${totalVal.length} 条数据
-      `);
+      log('搜索完成', {
+        searchVal,
+        totalPage,
+        nowPage
+      });
       rendDialog(totalVal);
     }
   }

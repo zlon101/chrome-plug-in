@@ -1,4 +1,4 @@
-import {sendToCtxJs, regMsgListener, ExtendId} from "../../util/index.js";
+import {sendToCtxJs, regMsgListener, ExtendId, log} from "../../util/index.js";
 
 export const MsgType = {
   OpenSearchBoxByPopup: '通知content-js打开搜索框',

@@ -21,6 +21,15 @@ export const getNow = () => {
 
 export const Log = (...args) => console.log('\n🔥', ...args);
 
-export const log = console.debug;
+export const log = (label, data, type = 'debug') => {
+  const Color = {
+    info: 'color: #fff',
+    debug: 'color: #0af4f4',
+    warn: 'color: #f4f40a',
+    error: 'color: red'
+  }
+  const msg = ['undefined', 'object'].includes(typeof data) ? JSON.stringify(data, null ,2) : data;
+  console.debug(`\n%c${label}:\n  ${msg}`, Color[type]);
+};
 
-export const ExtendId = 'mcajdhhcpeejbbjhlblfbikekadhnaig';
+export const ExtendId = 'dlffeaknnekioecfnhnhdnhfglglokop';
