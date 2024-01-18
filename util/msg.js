@@ -1,4 +1,5 @@
 import {ChromeStorage} from  './storage.js';
+import {log} from './tool.js';
 
 const HasListenerOfContentJs = 'content-script中是否已经调用onMessage.addListener';
 const HasListenerOfExtendJs = 'extend中是否已经调用onMessage.addListener';
@@ -18,12 +19,6 @@ export const sendToCtxJs = async ({data, title, url, cb}) => {
   // chrome.runtime.lastError
   try {
     const response = await chrome.tabs.sendMessage(tab.id, data);
-    console.debug(`
-      sendToCtxJs 执行成功
-      目标页面: ${tab.title}
-      response: %o
-    `, response);
-
     chrome.action.setBadgeText({text: ''});
     chrome.action.setBadgeBackgroundColor({color: '#FFF'});
     return response;
