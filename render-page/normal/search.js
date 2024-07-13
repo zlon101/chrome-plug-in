@@ -144,10 +144,12 @@ export function renderSearchDialog() {
       onSearch() {
         this.searchResult = [];
         setTimeout(() => {
-          this.searchResult = performSearch(this.searchText, Object.keys(this.$data).reduce((acc, k) => {
+          const conf = Object.keys(this.$data).reduce((acc, k) => {
             acc[k] = this.$data[k];
             return acc;
-          }, {}));
+          }, {});
+          conf.style = `font-size:larger; background-color:${this.color}`;
+          this.searchResult = performSearch(this.searchText, conf);
         });
       },
       // 聚焦到上/下一个搜索项

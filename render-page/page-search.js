@@ -187,7 +187,7 @@ function surroundContents(rangeCfg, searchParam) {
 
     const span = document.createElement('span');
     span.classList.add(HighLightElementClass);
-    span.style.cssText = `background-color:${searchParam.color};`;
+    span.style.cssText = searchParam.style || `background-color:${searchParam.color};`;
 
     span.appendChild(range.extractContents());
     range.insertNode(span);
