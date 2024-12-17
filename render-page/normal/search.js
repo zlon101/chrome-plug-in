@@ -191,8 +191,9 @@ export function renderSearchDialog() {
 
     mounted() {
       setTimeout(()=>{
-        drag(this.$el, document.body);
-        this.$el.querySelector(`input.${SearchInputCls}`).focus();
+        const el = vueInstance.$el;
+        drag(el, document.body);
+        el.querySelector(`input.${SearchInputCls}`).focus();
       }, 500);
     },
   });

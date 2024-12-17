@@ -16,6 +16,7 @@ export function drag(dragEle, container) {
   // dragEle.style.height = oriHeight;
 
   const onDragstart = (ev) => {
+    dragEle.dataset.droping = 'true'
     ev.currentTarget.style.border = '2px dashed green';
     ev.effectAllowed = "move";
 
@@ -28,6 +29,7 @@ export function drag(dragEle, container) {
   }
   const onDragend = (ev) => {
     ev.dataTransfer.clearData();
+    dragEle.dataset.droping = ''
   }
 
   const onDragover = (ev) => {
@@ -36,6 +38,9 @@ export function drag(dragEle, container) {
   }
 
   const onDrop = (ev) => {
+    if (!dragEle.dataset.droping) {
+      return;
+    }
     const { clientX, clientY } = ev;
     const offset = JSON.parse(ev.dataTransfer.getData('json'));
     const afterLeft = clientX + offset.left;

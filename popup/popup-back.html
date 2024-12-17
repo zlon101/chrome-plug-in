@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>popup</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      outline: none;
+    }
+    body {
+      padding: 8px;
+      border-radius: 8px;
+    }
+    input {
+      margin: 8px 0;
+    }
+    input[type='text'] {
+      height: 30px;
+      width: 200px;
+    }
+    input[type='checkbox'] {
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+    }
+    button {
+      cursor: pointer;
+    }
+    .field {
+      display: flex;
+      align-items: center;
+    }
+    .field > :first-child {
+      margin-right: 4px;
+      width: 70px;
+    }
+    .btn_wrap {
+      display: flex;
+      align-items: stretch;
+      flex-wrap: wrap;
+    }
+    .btn_wrap > * {
+      margin-right: 8px;
+      padding: 0 4px;
+    }
+    .open_search,
+    .parse_catalog {
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <a href="http://cdzj.chengdu.gov.cn/cdzj/rcaj/RCAJ.shtml" target="_blank">人才网</a>
+  <a href="https://zw.cdzjryb.com/SCXX/Default.aspx?action=ucSCXXShowNew2" target="_blank">住建蓉e办</a>
+  <a href="chrome-extension://mcajdhhcpeejbbjhlblfbikekadhnaig/render-page/house-dep/search-result/index.html" target="_blank">筛选结果</a>
+  <span class="open_search">搜索</span>
+  <span class="parse_catalog">目录</span>
+  <div class="form" id="vue_root"></div>
+</body>
+<script src="./popup.js" type="module"></script>
+</html>

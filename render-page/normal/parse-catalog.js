@@ -72,7 +72,8 @@ export function mounttainer(searchResult) {
 
     mounted() {
       setTimeout(()=>{
-        drag(this.$el, document.body);
+        const el = vueInstance.$el;
+        drag(el, document.body);
       }, 500);
     },
   });
