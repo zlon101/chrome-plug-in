@@ -53,10 +53,21 @@
       .parse_catalog {
         white-space: nowrap;
       }
+      .popup-wrap {
+        display: flex;
+        gap: 12px
+      }
+      .popup-wrap > span {
+        white-space: nowrap;
+        cursor: pointer;
+      }
     </style>
   </head>
   <body>
-    <span class="parse_catalog">目录</span>
+    <div class="popup-wrap">
+      <span class="parse_catalog">目录</span>
+      <span class="popup_search">搜索</span>
+    </div>
   </body>
   <script type="module" src="./popup.js"></script>
 </html>
