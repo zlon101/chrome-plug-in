@@ -22,10 +22,6 @@
       "js": ["render-page/talent-net/build-list.js"]
     },
     {
-      "matches": ["https://music.youtube.com/*"],
-      "js": ["render-page/youtube-music/index.js"]
-    },
-    {
       "matches": [
         "http://*/*",
         "https://*/*",
@@ -65,9 +61,7 @@
 
       "render-page/talent-net/build-list.js",
       "render-page/talent-net/send-msg.js",
-      "render-page/talent-net/RCAJ.js",
-
-      "render-page/youtube-music/index.js"
+      "render-page/talent-net/RCAJ.js"
     ],
     "matches": ["*://*/*"]
   }],
