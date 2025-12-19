@@ -44,7 +44,7 @@
 
 #zl_search_warp .zl_search_close,
 #zl_parse_catalog_warp .zl_parse_close {
-  position: absolute;
+  position: sticky;
   top: 2px;
   right: 2px;
   width: 16px;
