@@ -47,6 +47,8 @@
       "render-page/normal/message.js",
       "render-page/normal/search.js",
       "render-page/normal/parse-catalog.js",
+      "render-page/normal/pick-element.js",
+      "render-page/normal/devtools-picker.js",
       "render-page/normal/index.css",
       "render-page/page-search.js",
       "render-page/inject-script.js",

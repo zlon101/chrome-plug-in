@@ -3,6 +3,7 @@ import {sendToCtxJs, regMsgListener, ExtendId, log} from "../../util/index.js";
 export const MsgType = {
   OpenSearchBoxByPopup: '通知content-js打开搜索框',
   ParseCatalog: '通知content-js解析目录',
+  PickElement: '通知content-js开始选择元素',
 };
 
 export function addListenerFromPopup(cbMap) {
@@ -32,5 +33,12 @@ export function openSearchBox () {
 export function onParseCatalog () {
   sendToCtxJs({
     data: { type: MsgType.ParseCatalog },
+  })
+}
+
+// 通过popup通知content-js开始选择元素
+export function startPickElement () {
+  sendToCtxJs({
+    data: { type: MsgType.PickElement },
   })
 }
