@@ -13,7 +13,7 @@ export function addListenerFromPopup(cbMap) {
     const reqType = request.type;
     const cb = cbMap[reqType];
     if (cb) {
-      cb();
+      cb(request);
     } else {
       console.error(`未匹配到相应的 request.type: ${reqType}`);
     }

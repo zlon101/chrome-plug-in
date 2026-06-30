@@ -8,6 +8,10 @@
     "default_icon": "images/icon16.png"
   },
   "options_page": "options/options.html",
+  "background": {
+    "service_worker": "background/index.js",
+    "type": "module"
+  },
   "content_scripts": [
     {
       "matches": ["https://zw.cdzjryb.com/*"],
@@ -48,6 +52,7 @@
       "render-page/normal/search.js",
       "render-page/normal/parse-catalog.js",
       "render-page/normal/pick-element.js",
+      "render-page/normal/delete-element.js",
       "render-page/normal/devtools-picker.js",
       "render-page/normal/index.css",
       "render-page/page-search.js",

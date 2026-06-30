@@ -1,18 +1,32 @@
-import { addListenerFromPopup, MsgType } from './message.js';
+import { safeRemove, canHighlight } from './delete-element.js';
 
-const HighlightCls = 'zl_picker_highlight';
-const OverlayCls = 'zl_picker_overlay';
+export const HighlightCls = 'zl_picker_highlight';
+export const OverlayCls = 'zl_picker_overlay';
 
-let isActive = false;
-let hoveredEl = null;
+const HIGHLIGHT_COLOR = '#409eff';
+const STYLE_ID = 'zl-picker-style';
 
-function generateSelector(el) {
+function escapeCssIdent(value) {
+  if (typeof CSS !== 'undefined' && CSS.escape) {
+    return CSS.escape(value);
+  }
+  return String(value).replace(/([!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~])/g, '\\$1');
+}
+
+function querySelectorCount(selector) {
+  try {
+    return document.querySelectorAll(selector).length;
+  } catch (_) {
+    return 0;
+  }
+}
+
+export function generateSelector(el) {
   if (!el || el.nodeType !== Node.ELEMENT_NODE) return null;
 
-  // 尝试 id（最快且唯一）
   if (el.id) {
-    const selector = `#${el.id}`;
-    if (document.querySelectorAll(selector).length === 1) return selector;
+    const selector = `#${escapeCssIdent(el.id)}`;
+    if (querySelectorCount(selector) === 1) return selector;
   }
 
   const parts = [];
@@ -21,25 +35,24 @@ function generateSelector(el) {
   while (current && current.nodeType === Node.ELEMENT_NODE) {
     let selector = current.tagName.toLowerCase();
 
-    // 尝试添加 class 提高特异性
     if (current.className && typeof current.className === 'string') {
-      const classes = current.className.trim().split(/\s+/).filter(c => c && !/[^a-zA-Z0-9_-]/.test(c));
+      const classes = current.className.trim().split(/\s+/).filter(c => c && c !== HighlightCls && !/[^a-zA-Z0-9_-]/.test(c));
       if (classes.length > 0) {
-        const classSelector = selector + '.' + classes.join('.');
-        const candidates = current.parentElement
-          ? Array.from(current.parentElement.querySelectorAll(classSelector))
-          : [];
-        // 如果加 class 后只剩一个匹配，就用 class
+        const classSelector = selector + '.' + classes.map(escapeCssIdent).join('.');
+        let candidates = [];
+        try {
+          candidates = current.parentElement
+            ? Array.from(current.parentElement.querySelectorAll(classSelector))
+            : [];
+        } catch (_) {}
         if (candidates.length === 1 && candidates[0] === current) {
           selector = classSelector;
           parts.unshift(selector);
           break;
         }
-        // 否则用 nth-of-type
       }
     }
 
-    // 使用 nth-of-type 确保唯一性
     if (current.parentElement) {
       const siblings = Array.from(current.parentElement.children).filter(
         c => c.tagName === current.tagName
@@ -56,7 +69,6 @@ function generateSelector(el) {
 
   const fullSelector = parts.join(' > ');
 
-  // 最终验证
   try {
     const matched = document.querySelectorAll(fullSelector);
     if (matched.length === 1 && matched[0] === el) {
@@ -64,7 +76,6 @@ function generateSelector(el) {
     }
   } catch (_) {}
 
-  // fallback: 使用完整路径
   return buildFullPath(el);
 }
 
@@ -74,7 +85,7 @@ function buildFullPath(el) {
   while (current && current.nodeType === Node.ELEMENT_NODE) {
     let selector = current.tagName.toLowerCase();
     if (current.id) {
-      selector += `#${current.id}`;
+      selector += `#${escapeCssIdent(current.id)}`;
       parts.unshift(selector);
       break;
     }
@@ -93,125 +104,203 @@ function buildFullPath(el) {
   return parts.join(' > ');
 }
 
-function showOverlay(selector, element) {
-  removeOverlay();
-
-  const overlay = document.createElement('div');
-  overlay.className = OverlayCls;
-  overlay.style.cssText = `
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(0, 0, 0, 0.85);
-    color: #fff;
-    padding: 10px 20px;
-    border-radius: 6px;
-    font-size: 13px;
-    font-family: monospace;
-    z-index: 2147483647;
-    max-width: 80vw;
-    word-break: break-all;
-    user-select: all;
-    cursor: pointer;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.3);
-  `;
-
+export function getElementLabel(element) {
   const tag = element.tagName.toLowerCase();
-  const label = element.id ? `#${element.id}` : (element.className && typeof element.className === 'string' ? `.${element.className.trim().split(/\s+/).slice(0, 2).join('.')}` : tag);
+  if (element.id) return `#${element.id}`;
+  if (element.className && typeof element.className === 'string') {
+    const cls = element.className.trim().split(/\s+/).slice(0, 2).join('.');
+    if (cls) return `.${cls}`;
+  }
+  return tag;
+}
 
-  overlay.innerHTML = `<div style="margin-bottom:4px;color:#aaa;font-size:11px;">${label} <span style="color:#666">(${element.tagName.toLowerCase()})</span></div><div style="color:#7ec699;">${selector}</div><div style="margin-top:6px;color:#888;font-size:11px;">点击复制选择器，按 ESC 退出</div>`;
+function hexToRgb(hex) {
+  const n = parseInt(hex.replace('#', ''), 16);
+  return { r: (n >> 16) & 255, g: (n >> 8) & 255, b: n & 255 };
+}
 
-  overlay.addEventListener('click', () => {
+function buildOverlayHtml(element) {
+  let selector = '';
+  try {
+    selector = generateSelector(element) || '';
+  } catch (_) {}
+  const label = getElementLabel(element);
+  return `
+    <div style="margin-bottom:4px;color:#aaa;font-size:11px;">${label} <span style="color:#666">(${element.tagName.toLowerCase()})</span></div>
+    <div class="zl_picker_selector" style="color:#7ec699;">${selector || ''}</div>
+    <div style="margin-top:6px;color:#888;font-size:11px;">CapsLock+C 复制 / CapsLock+D 删除 / ESC 退出</div>
+  `;
+}
+
+let picker = null;
+
+function createUnifiedPicker() {
+  let isActive = false;
+  let hoveredEl = null;
+
+  function removeOverlay() {
+    document.querySelector(`.${OverlayCls}`)?.remove();
+  }
+
+  function showFlashHint(text, color = '#ffd700') {
+    const overlay = document.querySelector(`.${OverlayCls}`);
+    if (!overlay) return;
+    overlay.querySelector('.zl_picker_flash')?.remove();
+    const hint = document.createElement('div');
+    hint.className = 'zl_picker_flash';
+    hint.textContent = text;
+    hint.style.cssText = `color:${color};font-size:12px;margin-top:4px;`;
+    overlay.appendChild(hint);
+    setTimeout(() => hint.remove(), 1500);
+  }
+
+  function showOverlay(element) {
+    removeOverlay();
+
+    const overlay = document.createElement('div');
+    overlay.className = OverlayCls;
+    overlay.style.cssText = `
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.85);
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-family: monospace;
+      z-index: 2147483647;
+      max-width: 80vw;
+      word-break: break-all;
+      user-select: all;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+    `;
+    overlay.innerHTML = buildOverlayHtml(element);
+    document.body.appendChild(overlay);
+  }
+
+  function clearHighlight() {
+    document.querySelectorAll(`.${HighlightCls}`).forEach(el => el.classList.remove(HighlightCls));
+    removeOverlay();
+    hoveredEl = null;
+  }
+
+  function highlightElement(el) {
+    if (hoveredEl && hoveredEl !== el) {
+      hoveredEl.classList.remove(HighlightCls);
+    }
+    removeOverlay();
+    hoveredEl = null;
+
+    if (!canHighlight(el)) return;
+    hoveredEl = el;
+    el.classList.add(HighlightCls);
+    showOverlay(el);
+  }
+
+  function onMouseMove(e) {
+    const target = e.target;
+    if (target.closest(`.${OverlayCls}`)) return;
+    if (target === hoveredEl) return;
+    highlightElement(target);
+  }
+
+  function onClick(e) {
+    e.preventDefault();
+    e.stopPropagation();
+  }
+
+  function copySelector(el) {
+    const selector = generateSelector(el);
+    if (!selector) return;
     navigator.clipboard.writeText(selector).then(() => {
-      const copiedHint = document.createElement('div');
-      copiedHint.textContent = '已复制到剪贴板!';
-      copiedHint.style.cssText = 'color:#ffd700;font-size:12px;margin-top:4px;';
-      overlay.appendChild(copiedHint);
-      setTimeout(() => copiedHint.remove(), 1500);
+      showFlashHint('已复制到剪贴板!');
     });
-  });
+  }
 
-  document.body.appendChild(overlay);
-}
+  function onKeyDown(e) {
+    if (e.key === 'Escape' || e.keyCode === 27) {
+      stop();
+      return;
+    }
 
-function removeOverlay() {
-  document.querySelector(`.${OverlayCls}`)?.remove();
-}
+    if (!e.getModifierState('CapsLock') || !hoveredEl) return;
 
-function highlightElement(el) {
-  clearHighlight();
-  if (!el || el === document.body || el === document.documentElement) return;
-  hoveredEl = el;
-  el.classList.add(HighlightCls);
-  const selector = generateSelector(el);
-  if (selector) showOverlay(selector, el);
-}
+    if (e.key === 'c' || e.key === 'C') {
+      e.preventDefault();
+      copySelector(hoveredEl);
+      return;
+    }
 
-function clearHighlight() {
-  document.querySelectorAll(`.${HighlightCls}`).forEach(el => el.classList.remove(HighlightCls));
-  removeOverlay();
-  hoveredEl = null;
-}
+    if (e.key === 'd' || e.key === 'D') {
+      e.preventDefault();
+      const removed = safeRemove(hoveredEl);
+      if (removed) {
+        hoveredEl = null;
+        removeOverlay();
+        const toast = document.createElement('div');
+        toast.className = OverlayCls;
+        toast.style.cssText = `
+          position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+          background: rgba(0,0,0,0.85); color: #f56c6c; padding: 8px 16px;
+          border-radius: 6px; font-size: 13px; z-index: 2147483647;
+        `;
+        toast.textContent = '已删除';
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 1000);
+      }
+    }
+  }
 
-function startPicker() {
-  if (isActive) return;
-  isActive = true;
+  function injectStyle() {
+    if (document.getElementById(STYLE_ID)) return;
 
-  // 注入高亮样式
-  let styleEl = document.getElementById('zl-picker-style');
-  if (!styleEl) {
-    styleEl = document.createElement('style');
-    styleEl.id = 'zl-picker-style';
+    const rgb = hexToRgb(HIGHLIGHT_COLOR);
+    const styleEl = document.createElement('style');
+    styleEl.id = STYLE_ID;
     styleEl.textContent = `
       .${HighlightCls} {
-        outline: 2px dashed #409eff !important;
-        outline-offset: 1px;
-        background: rgba(64, 158, 255, 0.08) !important;
+        outline: 2px solid ${HIGHLIGHT_COLOR} !important;
+        outline-offset: 2px !important;
+        box-shadow: 0 0 0 2px ${HIGHLIGHT_COLOR} !important;
+        background: rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.06) !important;
         cursor: crosshair !important;
+        position: relative;
+        z-index: 2147483646;
       }
     `;
     document.head.appendChild(styleEl);
   }
 
-  document.addEventListener('mousemove', onMouseMove, true);
-  document.addEventListener('click', onClick, true);
-  document.addEventListener('keydown', onKeyDown, true);
-}
-
-function stopPicker() {
-  isActive = false;
-  document.removeEventListener('mousemove', onMouseMove, true);
-  document.removeEventListener('click', onClick, true);
-  document.removeEventListener('keydown', onKeyDown, true);
-  clearHighlight();
-}
-
-function onMouseMove(e) {
-  const target = e.target;
-  if (target.closest(`.${OverlayCls}`)) return;
-  if (target === hoveredEl) return;
-  highlightElement(target);
-}
-
-function onClick(e) {
-  e.preventDefault();
-  e.stopPropagation();
-  if (hoveredEl) {
-    const selector = generateSelector(hoveredEl);
-    if (selector) {
-      navigator.clipboard.writeText(selector);
+  function start(initialTarget) {
+    if (isActive) return;
+    isActive = true;
+    injectStyle();
+    document.addEventListener('mousemove', onMouseMove, true);
+    document.addEventListener('click', onClick, true);
+    document.addEventListener('keydown', onKeyDown, true);
+    if (initialTarget && canHighlight(initialTarget)) {
+      highlightElement(initialTarget);
     }
   }
-  stopPicker();
-}
 
-function onKeyDown(e) {
-  if (e.key === 'Escape' || e.keyCode === 27) {
-    stopPicker();
+  function stop() {
+    if (!isActive) return;
+    isActive = false;
+    document.removeEventListener('mousemove', onMouseMove, true);
+    document.removeEventListener('click', onClick, true);
+    document.removeEventListener('keydown', onKeyDown, true);
+    clearHighlight();
   }
+
+  return { start, stop, get isActive() { return isActive; } };
 }
 
-export function execPickElement() {
-  startPicker();
+export function execPickElement(initialTarget) {
+  if (!picker) {
+    picker = createUnifiedPicker();
+  }
+  if (picker.isActive) return;
+  picker.start(initialTarget);
 }
